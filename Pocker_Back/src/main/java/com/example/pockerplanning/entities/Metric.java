@@ -4,17 +4,15 @@ import jakarta.persistence.*;
 import lombok.*;
 
 import java.io.Serializable;
-import java.util.List;
 
 @Entity
 @Getter
 @Setter
-@EqualsAndHashCode
-@AllArgsConstructor
 @NoArgsConstructor
+@AllArgsConstructor
 @ToString
-@Table(name = "Chat")
-public class Chat implements Serializable {
+@Table(name = "Metric")
+public class Metric implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -24,13 +22,10 @@ public class Chat implements Serializable {
     @Column(name = "name")
     private String name;
 
-    @Column(name = "isActive")
-    private Boolean isActive;
-
-    @ManyToOne
-    private Session session;
+    @Column(name = "value")
+    private Double value;
 /*
-    @OneToMany(cascade = CascadeType.ALL, mappedBy="chat")
-    private List<Message> messages;
+    @ManyToOne
+    private Message message;
 */
 }
