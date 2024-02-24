@@ -4,6 +4,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0">
     <title>Spring Boot WebSocket Chat Application</title>
     <link rel="stylesheet" href="/css/main.css" />
+    <link href="/css/style.min.css" rel="stylesheet">
+
 </head>
 <body>
 <noscript>
@@ -26,20 +28,49 @@
 
 <div id="chat-page" class="hidden">
     <div class="chat-container">
-        <div class="chat-header">
-            <h2>Spring WebSocket Chat </h2>
-        </div>
-        <div class="connecting">
-            Connecting...
-        </div>
         <ul id="messageArea">
-
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="card">
+                            <div class="row g-0">
+                                <div class="col-lg-9  col-xl-12">
+                                    <div class="chat-box scrollable position-relative" style="height: calc(100vh - 111px);">
+                                        <ul class="chat-list list-style-none px-3 pt-3">
+                                            <!--chat Row -->
+                                            <li class="chat-item list-style-none mt-3">
+                                                <div class="chat-img d-inline-block" getAvatarColor(message.sender)>
+                                                </div>
+                                                <div class="chat-content d-inline-block ps-3">
+                                                    <h6 class="font-weight-medium" message.sender></h6>
+                                                    <div class="msg p-2 d-inline-block mb-1" message.content>
+                                                    </div>
+                                                </div>
+                                                <div class="chat-time d-block font-10 mt-1 mr-0 mb-3" message.datetime>
+                                                </div>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </ul>
         <form id="messageForm" name="messageForm">
-            <div class="form-group">
-                <div class="input-group clearfix">
-                    <input type="text" id="message" placeholder="Type a message..." autocomplete="off" class="form-control"/>
-                    <button type="submit" class="primary">Send</button>
+            <div class="card-body border-top">
+                <div class="row">
+                    <div class="col-9">
+                        <div class="input-field mt-0 mb-0">
+                            <input id="message" placeholder="Type and enter" autocomplete="off" class="form-control border-0" type="text">
+                        </div>
+                    </div>
+                    <div class="col-3">
+                        <button type="submit" class="btn-circle bg-cyan float-end text-white d-flex align-items-center justify-content-center">
+                            <i class="fas fa-paper-plane"></i>
+                        </button>
+                    </div>
                 </div>
             </div>
         </form>
@@ -49,5 +80,9 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/sockjs-client/1.1.4/sockjs.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/stomp.js/2.3.3/stomp.min.js"></script>
 <script src="/js/main.js"></script>
+<script>
+    // Event listener to submit the message form
+    messageForm.addEventListener('submit', sendMessage, true);
+</script>
 </body>
 </html>

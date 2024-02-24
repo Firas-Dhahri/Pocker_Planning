@@ -8,11 +8,14 @@ import { NavbarComponent } from './components/navbar/navbar.component';
 import { AfficherTicketrComponent } from './components/afficher-ticket/afficher-ticketr.component';
 import { HttpClient, HttpClientModule } from '@angular/common/http';
 import { AjouterticketComponent } from './components/ajouterticket/ajouterticket.component';
-import { ReactiveFormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { UpdateticketComponent } from './components/updateticket/updateticket.component';
 import { ToastrModule } from 'ngx-toastr';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { NgxSpinnerModule } from 'ngx-spinner';
+import { ChatComponent } from './components/chat/chat.component';
+import { MessageComponent } from './components/message/message.component';
+import { MetricComponent } from './components/metric/metric.component';
 
 
 @NgModule({
@@ -22,6 +25,9 @@ import { NgxSpinnerModule } from 'ngx-spinner';
     AfficherTicketrComponent,
     AjouterticketComponent,
     UpdateticketComponent,
+    ChatComponent,
+    MessageComponent,
+    MetricComponent
   ],
   imports: [
     BrowserModule,
@@ -30,8 +36,8 @@ import { NgxSpinnerModule } from 'ngx-spinner';
     ReactiveFormsModule,
     ToastrModule.forRoot(),
     BrowserAnimationsModule,
-    NgxSpinnerModule 
-    
+    NgxSpinnerModule,
+    FormsModule
   ],
   providers: [DatePipe],
   bootstrap: [AppComponent]

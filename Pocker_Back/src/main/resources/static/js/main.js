@@ -16,6 +16,7 @@ var colors = [
     '#ffc107', '#ff85af', '#FF9800', '#39bbb0'
 ];
 
+// Function to connect to the WebSocket server
 function connect(event) {
     username = document.querySelector('#name').value.trim();
 
@@ -31,16 +32,19 @@ function connect(event) {
     event.preventDefault();
 }
 
+// Function to handle successful connection
 function onConnected() {
     stompClient.subscribe('/topic/public', onMessageReceived);
     connectingElement.classList.add('hidden');
 }
 
+// Function to handle errors in connection
 function onError(error) {
     connectingElement.textContent = 'Could not connect to WebSocket server. Please refresh this page to try again!';
     connectingElement.style.color = 'red';
 }
 
+// Function to send a message
 function sendMessage(event) {
     var messageContent = messageInput.value.trim();
     if (messageContent && stompClient) {
@@ -54,7 +58,7 @@ function sendMessage(event) {
     event.preventDefault();
 }
 
-
+// Function to edit a message
 // Fonction pour envoyer une demande de modification de message au serveur WebSocket
 function editMessage(messageId, originalContent) {
     var newContent = prompt('Entrez le nouveau contenu du message :', originalContent);
@@ -68,6 +72,7 @@ function editMessage(messageId, originalContent) {
 }
 
 
+// Function to create a message element
 // Define the createMessageElement function
 function createMessageElement(message) {
     var messageElement = document.createElement('li');
@@ -105,7 +110,7 @@ function createMessageElement(message) {
     return messageElement;
 }
 
-
+// Function to handle received messages
 function onMessageReceived(payload) {
     var message = JSON.parse(payload.body);
     var messageElements = document.querySelectorAll('.message[data-message-id="' + message.id + '"]');
