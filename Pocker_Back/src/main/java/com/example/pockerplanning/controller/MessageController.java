@@ -17,19 +17,20 @@ import java.util.Date;
 public class MessageController {
 
     private final MessageRepository messageRepository;
-    private final SimpMessagingTemplate messagingTemplate;
 
     @Autowired
-    public MessageController(MessageRepository messageRepository, SimpMessagingTemplate messagingTemplate) {
+    SimpMessagingTemplate simpMessagingTemplate;
+    @Autowired
+    public MessageController(MessageRepository messageRepository, SimpMessagingTemplate simpMessagingTemplate) {
         this.messageRepository = messageRepository;
-        this.messagingTemplate = messagingTemplate;
+        this.simpMessagingTemplate = simpMessagingTemplate;
     }
 
     @MessageMapping("/chat.sendMessage")
     public void sendMessage(@Payload Message message) {
         message.setDateTime(new Date());
         messageRepository.save(message);
-        messagingTemplate.convertAndSend("/topic/public", message);
+        simpMessagingTemplate.convertAndSend("/topic/public", message);
     }
 
     @MessageMapping("/chat.updateMessage")
