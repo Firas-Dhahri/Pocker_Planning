@@ -9,7 +9,7 @@ import { MessageService } from 'src/app/services/message.service';
   styleUrls: ['./message.component.css']
 })
 
-export class MessageComponent {
+export class MessageComponent implements OnInit {
 
   messages: Message[] = [];
   newMessage: Message = { id: 0, content: '', sender: '', dateTime: new Date() };

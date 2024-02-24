@@ -129,42 +129,43 @@
         <!-- End Container fluid  -->
         <!-- ============================================================== -->
 
-
-        <div id="username-page">
-            <div class="username-page-container">
-                <h1 class="title">Type your username to enter the Chatroom</h1>
-                <form id="usernameForm" name="usernameForm">
-                    <div class="form-group">
-                        <input type="text" id="name" placeholder="Username" autocomplete="off" class="form-control" />
-                    </div>
-                    <div class="form-group">
-                        <button type="submit" class="accent username-submit">Start Chatting</button>
-                    </div>
-                </form>
+<div id="username-page">
+    <div class="username-page-container">
+        <h1 class="title">Type your username</h1>
+        <form id="usernameForm" name="usernameForm">
+            <div class="form-group">
+                <input type="text" id="name" placeholder="Username" autocomplete="off" class="form-control" />
             </div>
-        </div>
-        <div id="chat-page" class="hidden">
-            <div class="chat-container">
-                <div class="chat-header">
-                    <h2>Spring WebSocket Chat </h2>
-                </div>
-                <div class="connecting">
-                    Connecting...
-                </div>
-                <ul id="messageArea">
-        
-                </ul>
-                <form id="messageForm" name="messageForm">
-                    <div class="form-group">
-                        <div class="input-group clearfix">
-                            <input type="text" id="message" placeholder="Type a message..." autocomplete="off" class="form-control"/>
-                            <button type="submit" class="primary">Send</button>
+            <div class="form-group">
+                <button type="submit" class="accent username-submit">Start</button>
+            </div>
+        </form>
+    </div>
+</div>
+
+<div id="chat-page" class="hidden">
+    <div class="chat-container">
+        <ul id="messageArea">
+        </ul>
+        <form id="messageForm" name="messageForm">
+            <div class="card-body border-top">
+                <div class="row">
+                    <div class="col-9">
+                        <div class="input-field mt-0 mb-0">
+                            <input id="message" placeholder="Type and enter" autocomplete="off" class="form-control border-0" type="text">
                         </div>
                     </div>
-                </form>
+                    <div class="col-3">
+                        <button type="submit" class="btn-circle bg-cyan float-end text-white d-flex align-items-center justify-content-center">
+                            <i class="fas fa-paper-plane"></i>
+                        </button>
+                    </div>
+                </div>
             </div>
-        </div>
-          
+        </form>
+    </div>
+</div>
+
         <!-- ============================================================== -->
         <!-- footer -->
         <!-- ============================================================== -->
