@@ -24,7 +24,8 @@ public class Equipe {
     private DISPONIBILITE disponibilites;
     @OneToMany(cascade = CascadeType.ALL, mappedBy="equipe")
     private List<Projet> Projets;
-
     @ManyToMany(mappedBy = "equipes", cascade = {CascadeType.ALL})
     private Set<User> users;
+
+
 }

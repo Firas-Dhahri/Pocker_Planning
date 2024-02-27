@@ -1,19 +1,21 @@
 import { NgModule, Component } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { NavbarComponent } from './components/navbar/navbar.component';
-import { AfficherTicketrComponent } from './components/afficher-ticket/afficher-ticketr.component';
-import { AjouterticketComponent } from './components/ajouterticket/ajouterticket.component';
-import { UpdateticketComponent } from './components/updateticket/updateticket.component';
+import { PokerPlanningComponent } from './components/poker-planning/poker-planning.component';
+import { AddSessionComponent } from './components/add-session/add-session.component';
+import { ChronometerComponent } from './components/chronometer/chronometer.component';
+import { VoteChartComponent } from './components/vote-chart/vote-chart.component';
+import {MessageComponent} from "./components/message/message.component";
 
 const routes: Routes = [
   {path:'' , component:NavbarComponent , children:[
-  { path: 'affichertickets', component: AfficherTicketrComponent },
-  { path: 'ajouterticket', component: AjouterticketComponent }, 
-  { path: 'updateticket/:issueKey', component: UpdateticketComponent }, 
+    {path:'addsession' , component:AddSessionComponent} ,
+    {path:'poker' , component:PokerPlanningComponent} ,
+    {path:'chronomoetre' , component:ChronometerComponent} ,
+    {path:'votechart' , component:VoteChartComponent} ,
+      {path:'message' , component:MessageComponent}
+  ]},
 
-    
-
-  ]}
 ];
 
 @NgModule({

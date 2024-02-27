@@ -1,6 +1,5 @@
 package com.example.pockerplanning.entities;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
@@ -23,12 +22,12 @@ public class Analyse implements Serializable {
     private int id;
     private String Description;
     private Date date_analyse;
-@JsonIgnore
     @OneToOne
-    private Ticket ticket   ;
-@JsonIgnore
+    private Sprint sprint;
     @OneToOne
     private Projet projet;
+    @OneToOne
+    private Session session;
 
 
     // Ticket ticket;

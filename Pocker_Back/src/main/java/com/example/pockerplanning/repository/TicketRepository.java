@@ -2,14 +2,15 @@ package com.example.pockerplanning.repository;
 
 import com.example.pockerplanning.entities.Ticket;
 import org.springframework.data.jpa.repository.JpaRepository;
-import org.springframework.stereotype.Repository;
+import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
 
-@Repository
-public interface TicketRepository extends JpaRepository<Ticket,Long> {
-    boolean existsByKey(String key);
+import java.util.List;
 
-    /*@Query("SELECT t FROM Ticket t JOIN t.sprints s WHERE s.name = :sprintName")
-    List<Ticket> findTicketsBySprintName(@Param("sprintName") String sprintName);*/
+public interface TicketRepository extends JpaRepository<Ticket, Long> {
+
+
+    List<Ticket> findTicketsBySession_Id(Long sessionId);
 
 
 }
