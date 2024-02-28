@@ -21,10 +21,15 @@ public class Equipe {
     private int satisfactionSM;
     private int satisfactionPO;
     private String chat;
+    @Enumerated(EnumType.STRING)
     private DISPONIBILITE disponibilites;
     @OneToMany(cascade = CascadeType.ALL, mappedBy="equipe")
     private List<Projet> Projets;
 
     @ManyToMany(mappedBy = "equipes", cascade = {CascadeType.ALL})
     private Set<User> users;
+    public void removeUser(User user) {
+        this.users.remove(user);
+        user.getEquipes().remove(this);
+    }
 }

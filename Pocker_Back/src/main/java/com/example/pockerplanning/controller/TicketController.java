@@ -16,15 +16,15 @@ import java.util.List;
 
 @RestController
 public class TicketController {
-    @Autowired
+    /*@Autowired
     TicketService ticketService;
 
-    /*@PostMapping("/ajouterticekt")
+    *//*@PostMapping("/ajouterticekt")
     public Ticket ajouterticket(@RequestBody Ticket ticket) {
         Ticket tick = ticketService.ajouterticket(ticket);
         return tick;
 
-    }*/
+    }*//*
     @GetMapping("/afficherlestickets")
     public List<Ticket> afficherTicket() {
         return ticketService.getallticekts();
@@ -35,13 +35,13 @@ public class TicketController {
         return ticketService.getTicektById(key);
     }
 
-    /*@PostMapping("/AjouterTicket")
+    *//*@PostMapping("/AjouterTicket")
     public Ticket createIssue(@RequestParam String key,
                               @RequestParam String issueType,
                               @RequestParam String summary,
                               @RequestParam String description) {
         return ticketService.addIssue(key ,issueType, summary, description);
-    }*/
+    }*//*
     @PostMapping("/createIssue")
     public ResponseEntity<TicketGetDto> createIssue(@RequestBody TicketCreationDto ticketCreationDto) {
         TicketGetDto createdIssue = ticketService.createIssue(ticketCreationDto);
@@ -76,6 +76,6 @@ public class TicketController {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
                     .body("Failed to delete issue with key " + issueKey + ".");
         }
-    }
+    }*/
 }
 

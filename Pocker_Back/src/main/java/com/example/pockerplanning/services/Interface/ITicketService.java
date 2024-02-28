@@ -7,7 +7,7 @@ import com.example.pockerplanning.entities.Ticket;
 import java.util.List;
 
 public interface ITicketService {
-    public List<Ticket> getallticekts();
+   /* public List<Ticket> getallticekts();
     public TicketGetDto createIssue(TicketCreationDto ticketCreationDto) ;
     public String createProject(String projectKey,String projectName);
 
@@ -18,6 +18,6 @@ public interface ITicketService {
 
     //public void updateSprintFieldInJira(String ticketKey, String sprintName) ;
 
-    public TicketGetDto getTicektById(String key) ;
+    public TicketGetDto getTicektById(String key) ;*/
 
 }

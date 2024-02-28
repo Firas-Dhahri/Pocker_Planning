@@ -21,7 +21,7 @@ import java.util.Optional;
 
 @Service
 public class TicketService implements ITicketService {
-    @Autowired
+  /*  @Autowired
     TicketRepository ticketRepository;
     @Autowired
     TicketMapper ticketMapper;
@@ -280,7 +280,7 @@ public class TicketService implements ITicketService {
 
 
 
-  /*  @Override
+  *//*  @Override
     @Transactional
     public void affectTicketsToSprint(long sprintId, List<Long> ticketIds) {
         Optional<Sprint> optionalSprint = sprintRepository.findById(sprintId);
