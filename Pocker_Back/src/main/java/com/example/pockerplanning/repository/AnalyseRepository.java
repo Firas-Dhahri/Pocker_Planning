@@ -12,13 +12,7 @@ import java.util.List;
 @Repository
 public interface AnalyseRepository  extends JpaRepository<Analyse, Integer> {
     //get Analyse par ordre des Sprints
-    @Query("Select a from Analyse a order by a.ticket.sprint.createdDate")
+    @Query("Select a from Analyse a order by a.sprint.createdDate")
     List<Analyse> getAnalyseparsprint();
-
-    @Query("Select a from Analyse a where  a.ticket =null ")
-    List<Analyse> getAnalys_projet();
-
-    @Query("Select a from Analyse a where  a.projet =null ")
-    List<Analyse> getAnalys_Us();
 
 }

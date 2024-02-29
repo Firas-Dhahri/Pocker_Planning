@@ -6,8 +6,6 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Set;
 
 @Entity
@@ -32,8 +30,9 @@ public class Sprint implements Serializable {
 
     @ManyToOne
     Projet projet;
+    @OneToMany(cascade = {CascadeType.ALL}, mappedBy = "sprint")
+    private Set<Ticket> Tickets;
 
-    @OneToMany(mappedBy = "sprint", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<Ticket> tickets = new ArrayList<>();
+
 
 }

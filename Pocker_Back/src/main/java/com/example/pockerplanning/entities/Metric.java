@@ -24,8 +24,8 @@ public class Metric implements Serializable {
 
     @Column(name = "value")
     private Double value;
-/*
+
     @ManyToOne
     private Message message;
-*/
+
 }

@@ -1,9 +1,10 @@
 package com.example.pockerplanning.entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.*;
 
-import java.util.ArrayList;
+import java.time.LocalDateTime;
 import java.util.Date;
 import java.util.List;
 
@@ -17,17 +18,29 @@ public class Session {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
-    private Date start_date;
+    private LocalDateTime startDate;
+    private LocalDateTime Enddate ;
     private String estimation;
+    private Boolean votingStarted ;
 
-    @OneToMany(cascade = CascadeType.ALL, mappedBy="session")
-    private List<Chat> Chats;
 
-    @OneToMany(mappedBy = "session", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<Ticket> tickets = new ArrayList<>();
 
-// @OneToOne
-    //private Historique historique;
+    @OneToMany( mappedBy="session")
+    @JsonIgnore
+    private List<Ticket> TicketsList;
+
+
+    @OneToMany( mappedBy="sessionV")
+    @JsonIgnore
+    private List<Vote> voteList ;
+
+
+    @OneToMany( mappedBy="sessionC")
+    @JsonIgnore
+    private List<Message> chatList ;
+
+
+
 
 
 

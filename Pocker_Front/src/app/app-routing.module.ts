@@ -1,13 +1,21 @@
-import { NgModule } from '@angular/core';
+import { NgModule, Component } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { NavbarComponent } from './components/navbar/navbar.component';
-import { MessageComponent } from './components/message/message.component';
+import { PokerPlanningComponent } from './components/poker-planning/poker-planning.component';
+import { AddSessionComponent } from './components/add-session/add-session.component';
+import { ChronometerComponent } from './components/chronometer/chronometer.component';
+import { VoteChartComponent } from './components/vote-chart/vote-chart.component';
+import {MessageComponent} from "./components/message/message.component";
 
 const routes: Routes = [
-  {path:'' , component:NavbarComponent , children:[ 
-  { path: 'app-message' , component:MessageComponent},
+  {path:'' , component:NavbarComponent , children:[
+    {path:'addsession' , component:AddSessionComponent} ,
+    {path:'poker' , component:PokerPlanningComponent} ,
+    {path:'chronomoetre' , component:ChronometerComponent} ,
+    {path:'votechart' , component:VoteChartComponent} ,
+      {path:'message' , component:MessageComponent}
+  ]},
 
-  ]}
 ];
 
 @NgModule({

@@ -3,34 +3,22 @@ package com.example.pockerplanning.entities;
 import jakarta.persistence.*;
 import lombok.*;
 
-import java.io.Serializable;
-import java.util.List;
-
 @Entity
 @Getter
 @Setter
 @EqualsAndHashCode
 @AllArgsConstructor
 @NoArgsConstructor
-@ToString
-@Table(name = "Chat")
-public class Chat implements Serializable {
+public class Chat {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name="id")
-    private Long id;
-
-    @Column(name = "name")
+    private int id;
     private String name;
-
-    @Column(name = "isActive")
-    private Boolean isActive;
+    private boolean isActive;
 
     @ManyToOne
-    private Session session;
-/*
-    @OneToMany(cascade = CascadeType.ALL, mappedBy="chat")
-    private List<Message> messages;
-*/
+    @JoinColumn(name="session_id")
+    private Session sessionC ;
+
 }
