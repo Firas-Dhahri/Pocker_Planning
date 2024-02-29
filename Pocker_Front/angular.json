@@ -3,7 +3,7 @@
   "version": 1,
   "newProjectRoot": "projects",
   "projects": {
-    "pokerplanning": {
+    "angular-15-jwt-auth": {
       "projectType": "application",
       "schematics": {},
       "root": "",
@@ -13,7 +13,7 @@
         "build": {
           "builder": "@angular-devkit/build-angular:browser",
           "options": {
-            "outputPath": "dist/pokerplanning",
+            "outputPath": "dist/angular-15-jwt-auth",
             "index": "src/index.html",
             "main": "src/main.ts",
             "polyfills": [
@@ -25,11 +25,7 @@
               "src/assets"
             ],
             "styles": [
-              "src/styles.css",
-              "node_modules/ngx-toastr/toastr.css",
-              "node_modules/ngx-spinner/animations/ball-scale-multiple.css" 
-
-              
+              "src/styles.css"
             ],
             "scripts": []
           },
@@ -64,10 +60,10 @@
           "builder": "@angular-devkit/build-angular:dev-server",
           "configurations": {
             "production": {
-              "browserTarget": "pokerplanning:build:production"
+              "browserTarget": "angular-15-jwt-auth:build:production"
             },
             "development": {
-              "browserTarget": "pokerplanning:build:development"
+              "browserTarget": "angular-15-jwt-auth:build:development"
             }
           },
           "defaultConfiguration": "development"
@@ -75,7 +71,7 @@
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n",
           "options": {
-            "browserTarget": "pokerplanning:build"
+            "browserTarget": "angular-15-jwt-auth:build"
           }
         },
         "test": {
@@ -100,6 +96,6 @@
     }
   },
   "cli": {
-    "analytics": "e87e3e77-d969-4084-98a7-54db169d31bb"
+    "analytics": "787e7598-363e-4539-b89e-68782b42fade"
   }
 }
