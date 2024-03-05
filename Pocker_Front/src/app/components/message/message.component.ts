@@ -20,6 +20,7 @@ export class MessageComponent {
 
   username!: any;
   content!: any;
+  messageSent: any;
 
   received: any[] = [];
   sent: any[] = [];
@@ -32,25 +33,6 @@ export class MessageComponent {
 
   ngOnInit(): void {
     this.connect();
-  }
-
-  connect() {
-    const ws = new SockJS(this.url);
-    this.wsClient = Stomp.over(ws);
-    const that = this;
-    this.received = [];
-
-    this.wsClient.connect({}, function () {
-      console.log('Connected!');
-      that.connected = true;
-      that.wsClient.subscribe(that.topicMessage, (message: { body: any }) => {
-        const parsedMessage = JSON.parse(message.body);
-        if (that.username != parsedMessage.sender) {
-          that.received.push(parsedMessage);
-          that.messageService.add({severity: 'info', summary: 'New message from ' + parsedMessage.sender, detail: parsedMessage.content});
-        }
-      });
-    });
   }
 
   disconnect() {
@@ -72,10 +54,38 @@ export class MessageComponent {
         content: this.content,
         dateTime: new Date()
       };
-      this.sent.push(message);
-      this.wsClient.send(this.topicChat, {}, JSON.stringify(message));
+      this.messageSent = true;
+      const that = this;
+      this.wsClient.send(this.topicChat, {}, JSON.stringify(message), function(response: any) {
+        const parsedResponse = JSON.parse(response.body);
+        console.log("Response received from server:", parsedResponse);
+      });
       this.content = '';
     }
+  }
+
+  connect() {
+    const ws = new SockJS(this.url);
+    this.wsClient = Stomp.over(ws);
+    const that = this;
+    this.received = [];
+
+    this.wsClient.connect({}, function () {
+      console.log('Connected!');
+      that.connected = true;
+      that.wsClient.subscribe(that.topicMessage, (message: { body: any }) => {
+        const parsedMessage = JSON.parse(message.body);
+        if (that.username !== parsedMessage.sender) {
+          that.received.push(parsedMessage);
+          that.messageService.add({severity: 'info', summary: 'New message from ' + parsedMessage.sender, detail: parsedMessage.content});
+        } else {
+          if (that.messageSent) {
+            that.sent.push(parsedMessage);
+            that.messageSent = false;
+          }
+        }
+      });
+    });
   }
 
   allMessagesSortedByTime(): any[] {
@@ -89,7 +99,7 @@ export class MessageComponent {
       const updatedMessage = {
         id: message.id,
         content: newContent,
-        sender: message.sender, // Ajouter le sender d'origine au message mis à jour
+        sender: message.sender,
         dateTime: new Date()
       };
       const index = this.sent.findIndex((m: any) => m.id === updatedMessage.id);
@@ -97,9 +107,8 @@ export class MessageComponent {
         this.sent[index] = updatedMessage; // Remplacer le message dans la liste sent par le message mis à jour
       }
       this.wsClient.send(this.updateMessage, {}, JSON.stringify(updatedMessage));
-      this.messageService.add({severity: 'success', summary: 'Message mis à jour', detail: 'Le message a été mis à jour avec succès.'});
+      this.messageService.add({severity: 'succes', summary: 'Message updated', detail: 'Message updated successfully.'});
     }
   }
 
 }
-
