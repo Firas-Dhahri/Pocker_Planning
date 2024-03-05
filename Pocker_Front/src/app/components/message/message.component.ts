@@ -28,7 +28,7 @@ export class MessageComponent {
   wsClient: any;
   connected!: boolean;
 
-  colors = [
+  colors: string[] = [
     'aliceblue', 'antiquewhite', 'aqua', 'aquamarine', 'azure', 'beige', 'bisque', 'black', 'blanchedalmond',
     'blue', 'blueviolet', 'brown', 'burlywood', 'cadetblue', 'chartreuse', 'chocolate', 'coral', 'cornflowerblue',
     'cornsilk', 'crimson', 'cyan', 'darkblue', 'darkcyan', 'darkgoldenrod', 'darkgray', 'darkgreen', 'darkgrey',
@@ -48,6 +48,9 @@ export class MessageComponent {
     'yellowgreen'
   ];
 
+  searchTerm: string = '';
+  filteredMessages: any[] = [];
+
   constructor(private messageService: MessageService) {
   }
 
@@ -64,23 +67,6 @@ export class MessageComponent {
       this.content = '';
       console.log('Disconnected!');
       this.wsClient.disconnect();
-    }
-  }
-
-  sendMessage() {
-    if (this.content.trim() !== '') {
-      const message = {
-        sender: this.username,
-        content: this.content,
-        dateTime: new Date()
-      };
-      this.messageSent = true;
-      const that = this;
-      this.wsClient.send(this.topicChat, {}, JSON.stringify(message), function(response: any) {
-        const parsedResponse = JSON.parse(response.body);
-        console.log("Response received from server:", parsedResponse);
-      });
-      this.content = '';
     }
   }
 
@@ -108,13 +94,30 @@ export class MessageComponent {
     });
   }
 
+  sendMessage() {
+    if (this.content.trim() !== '') {
+      const message = {
+        sender: this.username,
+        content: this.content,
+        dateTime: new Date()
+      };
+      this.messageSent = true;
+      const that = this;
+      this.wsClient.send(this.topicChat, {}, JSON.stringify(message), function(response: any) {
+        const parsedResponse = JSON.parse(response.body);
+        console.log("Response received from server:", parsedResponse);
+      });
+      this.content = '';
+    }
+  }
+
   allMessagesSortedByTime(): any[] {
     const allMessages = [...this.sent, ...this.received];
     return allMessages.sort((a, b) => new Date(a.dateTime).getTime() - new Date(b.dateTime).getTime());
   }
 
   editMessage(message: any) {
-    const newContent = prompt('Entrez le nouveau contenu du message :', message.content);
+    const newContent = prompt('Type the new message :', message.content);
     if (newContent !== null && newContent.trim() !== '') {
       const updatedMessage = {
         id: message.id,
@@ -138,6 +141,17 @@ export class MessageComponent {
     }
     const index = Math.abs(hash % this.colors.length);
     return this.colors[index];
+  }
+
+  searchMessages(): void {
+    if (this.searchTerm.trim() !== '') {
+      this.filteredMessages = this.allMessagesSortedByTime().filter(message => {
+        return message.content.toLowerCase().includes(this.searchTerm.toLowerCase()) ||
+          message.sender.toLowerCase().includes(this.searchTerm.toLowerCase());
+      });
+    } else {
+      this.filteredMessages = [];
+    }
   }
 
 }
