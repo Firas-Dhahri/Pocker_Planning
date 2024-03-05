@@ -36,24 +36,27 @@
                 <ng-container *ngFor="let message of allMessagesSortedByTime()">
                   <li *ngIf="message.sender === username; else receivedMessage" class="chat-item odd list-style-none mt-3">
                     <div class="chat-content text-end d-inline-block ps-3">
-                      <div class="box msg p-2 d-inline-block mb-1">{{message.content}}</div>
+                      <div class="box msg p-2 d-inline-block mb-1">
+                        <button class="btn btn-sm btn-link" (click)="editMessage(message)">
+                          <i class="fas fa-pencil-alt"></i>
+                        </button>
+                        {{message.content}}
+                      </div>
                     </div>
-                    <div class="chat-time text-end d-block font-10 mt-1 mr-0 mb-3">{{message.dateTime | date: 'dd.MM.yyyy hh:mm:ss'}}</div>
-                    <button class="btn btn-sm btn-link" (click)="editMessage(message)">
-                      <i class="fas fa-pencil-alt"></i> Edit
-                    </button>
-
+                    <div class="chat-time text-end d-block font-10 mt-1 mr-0 mb-3">{{message.dateTime | date: 'dd/MM/yyyy hh:mm:ss'}}</div>
                   </li>
                   <ng-template #receivedMessage>
                     <li class="chat-item list-style-none mt-3">
                       <div class="chat-img d-inline-block">
-                        <img src="../assets/images/users/3.jpg" alt="user" class="rounded-circle" width="45">
+                        <div class="avatar" [style.background-color]="getAvatarColor(message.sender)">
+                          {{ message.sender.charAt(0).toUpperCase() }}
+                        </div>
                       </div>
                       <div class="chat-content d-inline-block ps-3">
                         <h6 class="font-weight-medium">{{message.sender}}</h6>
                         <div class="msg p-2 d-inline-block mb-1">{{message.content}}</div>
                       </div>
-                      <div class="chat-time d-block font-10 mt-1 mr-0 mb-3">{{message.dateTime | date: 'dd.MM.yyyy hh:mm:ss'}}</div>
+                      <div class="chat-time d-block font-10 mt-1 mr-0 mb-3">{{message.dateTime | date: 'dd/MM/yyyy hh:mm:ss'}}</div>
                     </li>
                   </ng-template>
                 </ng-container>
