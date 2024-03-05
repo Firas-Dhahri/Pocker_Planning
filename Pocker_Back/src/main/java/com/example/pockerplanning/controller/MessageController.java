@@ -2,6 +2,7 @@ package com.example.pockerplanning.controller;
 
 import com.example.pockerplanning.entities.Message;
 import com.example.pockerplanning.repository.MessageRepository;
+import jakarta.persistence.EntityNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.messaging.handler.annotation.*;
 import org.springframework.messaging.simp.SimpMessagingTemplate;
@@ -10,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.Date;
+import java.util.Optional;
 
 @RestController
 public class MessageController {

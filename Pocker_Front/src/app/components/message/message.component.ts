@@ -82,20 +82,6 @@ export class MessageComponent {
     const allMessages = [...this.sent, ...this.received];
     return allMessages.sort((a, b) => new Date(a.dateTime).getTime() - new Date(b.dateTime).getTime());
   }
-/*
-  editMessage(message: any) {
-    const newContent = prompt('Entrez le nouveau contenu du message :', message.content);
-    if (newContent !== null && newContent.trim() !== '') {
-      const updatedMessage = {
-        id: message.id,
-        content: newContent,
-        dateTime: new Date()
-      };
-      this.sent.push(updatedMessage);
-      this.wsClient.send(this.updateMessage, {}, JSON.stringify(updatedMessage));
-      this.messageService.add({severity: 'success', summary: 'Message Updated', detail: 'The message has been updated successfully.'});
-    }
-  }
 
   editMessage(message: any) {
     const newContent = prompt('Entrez le nouveau contenu du message :', message.content);
@@ -106,18 +92,14 @@ export class MessageComponent {
         sender: message.sender, // Ajouter le sender d'origine au message mis à jour
         dateTime: new Date()
       };
-      const index = this.sent.findIndex(m => m.id === updatedMessage.id);
+      const index = this.sent.findIndex((m: any) => m.id === updatedMessage.id);
       if (index !== -1) {
-        this.sent[index].content = updatedMessage.content; // Mettre à jour le contenu dans la liste sent
-        this.sent[index].dateTime = updatedMessage.dateTime; // Mettre à jour la date-heure dans la liste sent
+        this.sent[index] = updatedMessage; // Remplacer le message dans la liste sent par le message mis à jour
       }
       this.wsClient.send(this.updateMessage, {}, JSON.stringify(updatedMessage));
-      this.messageService.add({severity: 'success', summary: 'Message Updated', detail: 'Le message a été mis à jour avec succès.'});
+      this.messageService.add({severity: 'success', summary: 'Message mis à jour', detail: 'Le message a été mis à jour avec succès.'});
     }
   }
-*/
-
-
 
 }
 

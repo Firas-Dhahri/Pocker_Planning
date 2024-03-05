@@ -42,10 +42,10 @@
                       <div class="box msg p-2 d-inline-block mb-1">{{message.content}}</div>
                     </div>
                     <div class="chat-time text-end d-block font-10 mt-1 mr-0 mb-3">{{message.dateTime | date: 'dd.MM.yyyy hh:mm:ss'}}</div>
-                    <!-- <button class="btn btn-sm btn-link" (click)="editMessage(message)">
+                    <button class="btn btn-sm btn-link" (click)="editMessage(message)">
                       <i class="fas fa-pencil-alt"></i> Edit
                     </button>
-                    -->
+
                   </li>
                   <ng-template #receivedMessage>
                     <li class="chat-item list-style-none mt-3">
