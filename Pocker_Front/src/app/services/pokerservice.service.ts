@@ -65,10 +65,10 @@ private socket!: WebSocket;
   }
 
   updateSession(session:any){
-    return this.http.put<string>(`${this.BasedUrl}/Poker/session/update/81` ,session);
+    return this.http.put<string>(`${this.BasedUrl}/Poker/session/update/1` ,session);
   }
   updateSessionFalse(session:any){
-    return this.http.put<string>(`${this.BasedUrl}/Poker/session/updateFalse/81` ,session);
+    return this.http.put<string>(`${this.BasedUrl}/Poker/session/updateFalse/1` ,session);
   }
 
   getSession(): Observable<any> {

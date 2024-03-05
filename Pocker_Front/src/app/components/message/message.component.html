@@ -3,8 +3,10 @@
   <input type="text" id="username" pInputText [(ngModel)]="username"/>
   <label for="username">Username</label>
 </div>
+
 <!-- Toast Component (if needed) -->
 <p-toast></p-toast>
+
 <!-- Page Breadcrumb -->
 <div class="page-breadcrumb">
   <div class="row">
@@ -16,13 +18,14 @@
       <div class="customize-input float-end">
         <form>
           <div class="customize-input">
-              <input class="form-control custom-shadow custom-radius border-0 bg-white" type="search" placeholder="Search" aria-label="Search">
+            <input class="form-control custom-shadow custom-radius border-0 bg-white" type="search" placeholder="Search" aria-label="Search">
           </div>
         </form>
       </div>
     </div>
   </div>
 </div>
+
 <!-- Chat Interface -->
 <div class="container-fluid">
   <div class="row">
@@ -33,31 +36,30 @@
             <!-- Chat Box -->
             <div class="chat-box scrollable position-relative" style="height: calc(100vh - 111px);">
               <ul class="chat-list list-style-none px-3 pt-3">
-                <!-- Received Messages -->
-                <li class="chat-item list-style-none mt-3" *ngFor="let message of received">
-                  <div class="chat-img d-inline-block">
-                    <img src="../assets/images/users/3.jpg" alt="user" class="rounded-circle" width="45">
-                  </div>
-                  <div class="chat-content d-inline-block ps-3">
-                    <h6 class="font-weight-medium">{{message.sender}}</h6>
-                    <div class="msg p-2 d-inline-block mb-1">{{message.content}}</div>
-                  </div>
-                  <div class="chat-time d-block font-10 mt-1 mr-0 mb-3">{{message.dateTime | date: 'dd.MM.yyyy hh:mm:ss'}}</div>
-                </li>
-                <!-- Sent Messages -->
-                <li class="chat-item odd list-style-none mt-3" *ngFor="let message of sent">
-                  <div class="chat-content text-end d-inline-block ps-3">
-                    <div class="box msg p-2 d-inline-block mb-1">{{message.content}}</div>
-                  </div>
-                  <div class="update-button">
-                    <!--
-                    <button class="btn btn-sm btn-link" (click)="editMessage(message)">
-                      <i class="fas fa-pencil-alt"></i> Update
+                <ng-container *ngFor="let message of allMessagesSortedByTime()">
+                  <li *ngIf="message.sender === username; else receivedMessage" class="chat-item odd list-style-none mt-3">
+                    <div class="chat-content text-end d-inline-block ps-3">
+                      <div class="box msg p-2 d-inline-block mb-1">{{message.content}}</div>
+                    </div>
+                    <div class="chat-time text-end d-block font-10 mt-1 mr-0 mb-3">{{message.dateTime | date: 'dd.MM.yyyy hh:mm:ss'}}</div>
+                    <!-- <button class="btn btn-sm btn-link" (click)="editMessage(message)">
+                      <i class="fas fa-pencil-alt"></i> Edit
                     </button>
                     -->
-                  </div>
-                  <div class="chat-time text-end d-block font-10 mt-1 mr-0 mb-3">{{message.dateTime | date: 'dd.MM.yyyy hh:mm:ss'}}</div>
-                </li>
+                  </li>
+                  <ng-template #receivedMessage>
+                    <li class="chat-item list-style-none mt-3">
+                      <div class="chat-img d-inline-block">
+                        <img src="../assets/images/users/3.jpg" alt="user" class="rounded-circle" width="45">
+                      </div>
+                      <div class="chat-content d-inline-block ps-3">
+                        <h6 class="font-weight-medium">{{message.sender}}</h6>
+                        <div class="msg p-2 d-inline-block mb-1">{{message.content}}</div>
+                      </div>
+                      <div class="chat-time d-block font-10 mt-1 mr-0 mb-3">{{message.dateTime | date: 'dd.MM.yyyy hh:mm:ss'}}</div>
+                    </li>
+                  </ng-template>
+                </ng-container>
               </ul>
             </div>
             <!-- Message Input -->
@@ -65,7 +67,7 @@
               <div class="row">
                 <div class="col-9">
                   <div class="input-field mt-0 mb-0">
-                    <input placeholder="Type and enter" type="text" id="content" pInputText [(ngModel)]="content" class="form-control border-0" >
+                    <input placeholder="Type and press enter" type="text" id="content" pInputText [(ngModel)]="content" class="form-control border-0" (keydown.enter)="sendMessage()">
                   </div>
                 </div>
                 <div class="col-3">
@@ -79,5 +81,3 @@
     </div>
   </div>
 </div>
-
-

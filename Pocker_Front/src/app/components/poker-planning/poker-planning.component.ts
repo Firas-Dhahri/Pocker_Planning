@@ -108,10 +108,11 @@ export class PokerPlanningComponent {
   GetCards(){
     this.Ticketsservice.GetCarte().subscribe((data:any) => {
       this.cards = data.map((card: any) => card.valeur);
+
     });
   }
   GetTicketsBySession(){
-    this.Ticketsservice.GetBySession(40).subscribe((data)=>{
+    this.Ticketsservice.GetBySession(1).subscribe((data)=>{
       this.TicketList = data ;
       console.log(data);
     })
