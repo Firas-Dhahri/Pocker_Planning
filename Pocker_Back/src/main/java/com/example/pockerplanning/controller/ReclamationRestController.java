@@ -15,6 +15,7 @@ import java.util.Optional;
 
 @RestController
 @RequestMapping("/reclamations")
+@CrossOrigin(origins = "http://localhost:4200")
 public class ReclamationRestController {
 
     @Autowired
@@ -35,19 +36,19 @@ public class ReclamationRestController {
                 .orElseGet(() -> new ResponseEntity<>(HttpStatus.NOT_FOUND));
     }
 
-    @PostMapping
+    @PostMapping("/create-reclamation")
     public ResponseEntity<Reclamation> createReclamation(@RequestBody Reclamation reclamation) {
         Reclamation createdReclamation = reclamationService.createReclamation(reclamation);
         return new ResponseEntity<>(createdReclamation, HttpStatus.CREATED);
     }
 
-    @PutMapping("/{id}")
+    @PutMapping("/update-reclamation/{id}")
     public ResponseEntity<Reclamation> updateReclamation(@PathVariable Long id, @RequestBody Reclamation reclamation) {
         Reclamation updatedReclamation = reclamationService.updateReclamation(id, reclamation);
         return new ResponseEntity<>(updatedReclamation, HttpStatus.OK);
     }
 
-    @DeleteMapping("/{id}")
+    @DeleteMapping("/delete-reclamation/{id}")
     public ResponseEntity<Void> deleteReclamation(@PathVariable Long id) {
         reclamationService.deleteReclamation(id);
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
@@ -57,16 +58,16 @@ public class ReclamationRestController {
         List<Reclamation> reclamations = reclamationService.getReclamationsByStatut(statut);
         return new ResponseEntity<>(reclamations, HttpStatus.OK);
     }
-    @GetMapping("/reclamations/priority/{priority}")
+    @GetMapping("/priority/{priority}")
     public List<Reclamation> getReclamationsByPriority(@PathVariable Priorite priority) {
         return reclamationService.getReclamationsByPriority(priority);
     }
-    @GetMapping("/reclamations/Type/{type}")
+    @GetMapping("/Type/{type}")
     public List<Reclamation> getReclamationsByType(@PathVariable TypeReclamation type) {
         return reclamationService.getReclamationsByType(type);
     }
 
-    @GetMapping("/reclamations/sorted-by-date")
+    @GetMapping("/sorted-by-date")
     public ResponseEntity<List<Reclamation>> getReclamationsSortedByDate() {
         List<Reclamation> reclamations = reclamationService.getReclamationsSortedByDate();
         return new ResponseEntity<>(reclamations, HttpStatus.OK);

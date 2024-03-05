@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { CommonModule, DatePipe } from '@angular/common';
-
+import { FormsModule } from '@angular/forms';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { NavbarComponent } from './components/navbar/navbar.component';
@@ -13,7 +13,15 @@ import { UpdateticketComponent } from './components/updateticket/updateticket.co
 import { ToastrModule } from 'ngx-toastr';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { NgxSpinnerModule } from 'ngx-spinner';
+import { ReclamationComponent } from './components/reclamation/reclamation.component';
+import { AddReclamationComponent } from './components/add-reclamation/add-reclamation.component';
+import { UpdateReclamationComponent } from './components/update-reclamation/update-reclamation.component';
+import { DeleteReclamationComponent } from './components/delete-reclamation/delete-reclamation.component';
 
+import { MatInputModule } from '@angular/material/input';
+import { MatSelectModule } from '@angular/material/select';
+import { MatButtonModule } from '@angular/material/button';
+import { MatFormFieldModule } from '@angular/material/form-field';
 
 @NgModule({
   declarations: [
@@ -22,6 +30,10 @@ import { NgxSpinnerModule } from 'ngx-spinner';
     AfficherTicketrComponent,
     AjouterticketComponent,
     UpdateticketComponent,
+    ReclamationComponent,
+    AddReclamationComponent,
+    UpdateReclamationComponent,
+    DeleteReclamationComponent,
   ],
   imports: [
     BrowserModule,
@@ -30,7 +42,14 @@ import { NgxSpinnerModule } from 'ngx-spinner';
     ReactiveFormsModule,
     ToastrModule.forRoot(),
     BrowserAnimationsModule,
-    NgxSpinnerModule 
+    NgxSpinnerModule,
+    FormsModule,
+    ReactiveFormsModule,
+    MatInputModule,
+    MatSelectModule,
+    MatButtonModule,
+    MatFormFieldModule 
+    
     
   ],
   providers: [DatePipe],

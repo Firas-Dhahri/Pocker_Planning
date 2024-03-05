@@ -58,8 +58,13 @@ public class ReclamationService implements IReclamationService {
     public Reclamation updateReclamation(Long id, Reclamation reclamation) {
         Reclamation existingReclamation = reclamationRepository.findById(id)
                 .orElseThrow(() -> new NotFoundException("Reclamation not found with id: " + id));
-
+        existingReclamation.setDescription(reclamation.getDescription());
+        existingReclamation.setType(reclamation.getType());
+        existingReclamation.setPriorite(reclamation.getPriorite());
+        existingReclamation.setStatut(reclamation.getStatut());
+        existingReclamation.setPieceJointe(reclamation.getPieceJointe());
         existingReclamation.setDateMiseAJour(java.sql.Date.valueOf(LocalDate.now()));
+        existingReclamation.setUtilisateurTraitantId(reclamation.getUtilisateurTraitantId());
 
         Reclamation updatedReclamation = reclamationRepository.save(existingReclamation);
 

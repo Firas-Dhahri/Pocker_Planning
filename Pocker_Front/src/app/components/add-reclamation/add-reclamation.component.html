@@ -1,0 +1,55 @@
+<div class="container">
+  <div class="row">
+    <div class="col-md-6 offset-md-3">
+      <h2 class="mb-4">Ajouter Réclamation</h2>
+      <form (ngSubmit)="createReclamation()">
+        <div class="form-group">
+          <label for="utilisateurId">Utilisateur ID:</label>
+          <input type="text" id="utilisateurId" name="utilisateurId" [(ngModel)]="reclamationData.utilisateurId" class="form-control" required>
+        </div>
+        <div class="form-group">
+          <label for="description">Description:</label>
+          <textarea id="description" name="description" [(ngModel)]="reclamationData.description" class="form-control" required></textarea>
+        </div>
+        <div class="form-group">
+          <label for="type">Type:</label>
+          <select id="type" name="type" [(ngModel)]="reclamationData.type" class="form-control" required>
+            <option value="BUG">Bug</option>
+            <option value="AMELIORATION">Suggestion d'amélioration</option>
+            <option value="DEMANDE_FONCTIONNALITE">Demande de fonctionnalité</option>
+            <option value="ASSISTANCE">ASSISTANCE</option>
+            <option value="QUESTION">QUESTION</option>
+            <option value="FEEDBACK_UTILISATEUR">FEEDBACK UTILISATEUR</option>
+            <option value="RAPPORT_SECURITE">SECURITE</option>
+            <option value="ABUS_SPAM">SPAM</option>
+            <option value="INACCESSIBILITE">INACCESSIBILITE</option>
+            <!-- Add other type options if needed -->
+          </select>
+        </div>
+        <div class="form-group">
+          <label for="priorite">Priorité:</label>
+          <select id="priorite" name="priorite" [(ngModel)]="reclamationData.priorite" class="form-control" required>
+            <option value="HIGH">Haute</option>
+            <option value="MEDIUM">Moyenne</option>
+            <option value="LOW">Faible</option>
+            <!-- Add other priority options if needed -->
+          </select>
+        </div>
+        <div class="form-group">
+          <label for="statut">Statut:</label>
+          <select id="statut" name="statut" [(ngModel)]="reclamationData.statut" class="form-control" required>
+            <option value="IN_PROGRESS">En attente</option>
+            <option value="OPEN">En cours</option>
+            <option value="CLOSED">Résolue</option>
+            <!-- Add other status options if needed -->
+          </select>
+        </div>
+        <div class="form-group">
+          <label for="pieceJointe">Pièce jointe:</label>
+          <input type="file" id="pieceJointe" name="pieceJointe" [(ngModel)]="reclamationData.pieceJointe" class="form-control">
+        </div>
+        <button type="submit" class="btn btn-primary">Ajouter Réclamation</button>
+      </form>
+    </div>
+  </div>
+</div>

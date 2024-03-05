@@ -3,6 +3,7 @@ import { NgxSpinnerService } from 'ngx-spinner';
 import { ToastrService } from 'ngx-toastr';
 import { TicketService } from 'src/app/services/ticket.service';
 
+
 @Component({
   selector: 'app-afficher-ticketr',
   templateUrl: './afficher-ticketr.component.html',

@@ -1,0 +1,95 @@
+<ngx-spinner type="ball-scale-multiple"></ngx-spinner>
+
+<div class="container">
+  <div class="row">
+    <div class="col-md-12">
+      <div class="row mb-4 mt-4">
+        <div class="col">
+          <h2 class="mb-4">Reclamations</h2>
+          <!-- Title added -->
+        </div>
+      </div>
+      <div class="row mb-4">
+        <div class="col-auto">
+          <button class="btn btn-rounded mt-4 btn-success" routerLink="/add-reclamation">Ajouter Reclamation</button>
+          <!-- Button moved to the left -->
+        </div>
+      </div>
+      <div class="row mb-4">
+        <div class="col-auto">
+          <div class="d-inline-block select-menu mr-3">
+            <!-- Add margin-right class for spacing -->
+            <label for="statutFilter" class="mb-2">Sort by Statut:</label>
+            <select class="form-control mb-4" (change)="onStatutChange($event)">
+              <option value="">All</option>
+              <option value="OPEN">OPEN</option>
+              <option value="CLOSED">CLOSED</option>
+              <option value="IN_PROGRESS">IN PROGRESS</option>
+            </select>
+          </div>
+          <div class="d-inline-block select-menu mr-3">
+            <!-- Add margin-right class for spacing -->
+            <label for="priority" class="mb-2">Sort by priority:</label>
+            <select class="form-control mb-4" (change)="onPriorityChange($event)">
+              <option value="">All</option>
+              <option value="HIGH">HIGH</option>
+              <option value="MEDIUM">MEDIUM</option>
+              <option value="LOW">LOW</option>
+            </select>
+          </div>
+          <div class="d-inline-block select-menu">
+            <!-- No margin added to the last select -->
+            <label for="type" class="mb-2">Sort by type:</label>
+            <select class="form-control mb-4" (change)="onTypeChange($event)">
+              <option value="">All</option>
+              <option value="BUG">BUG</option>
+              <option value="AMELIORATION">AMELIORATION</option>
+              <option value="DEMANDE_FONCTIONNALITE">DEMANDE_FONCTIONNALITE</option>
+            </select>
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col">
+          <table class="table">
+            <thead class="bg-primary text-white">
+              <tr>
+                <th>utilisateurId</th>
+                <th>description</th>
+                <th>type</th>
+                <th>priorite</th>
+                <th>statut</th>
+                <th>pieceJointe</th>
+                <th (click)="sortByDate()">dateSoumission</th>
+                <th (click)="sortByDate()">dateMiseAJour</th>
+                <th>utilisateurTraitantId</th>
+                <th>Update</th>
+                <th>Delete</th>
+              </tr>
+            </thead>
+            <tbody class="border border-primary">
+              <tr *ngFor="let reclamation of reclamations; let i = index">
+                <td>{{ reclamation.utilisateurId }}</td>
+                <td>{{ reclamation.description }}</td>
+                <td>{{ reclamation.type }}</td>
+                <td>{{ reclamation.priorite }}</td>
+                <td>{{ reclamation.statut }}</td>
+                <td>{{ reclamation.pieceJointe }}</td>
+                <td>{{ reclamation.dateSoumission }}</td>
+                <td>{{ reclamation.dateMiseAJour }}</td>
+                <td>
+                  <select class="form-control" [(ngModel)]="reclamation.utilisateurTraitantId"
+                    (change)="assignReclamationToUser(reclamation)">
+                    <option *ngFor="let user of users" [value]="user.idUser">{{ user.nom }} {{ user.prenom }}</option>
+                  </select>
+                </td>
+                <td><button class="btn btn-rounded btn-primary m-2" [routerLink]="['/update-reclamation', reclamation.id]">Update</button></td>
+                <td><button class="btn btn-rounded btn-primary m-1" [routerLink]="['/delete-reclamation', reclamation.id]">Delete</button></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

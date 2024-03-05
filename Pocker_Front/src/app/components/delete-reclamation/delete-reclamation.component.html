@@ -1,0 +1,28 @@
+<div class="container">
+    <h2 class="mb-4">Reclamations</h2>
+    
+    <table class="table">
+      <thead>
+        <tr>
+          <th>ID</th>
+          <th>Date Mise à Jour</th>
+          <th>Date Soumission</th>
+          <th>Description</th>
+          <!-- Add other table headers as needed -->
+          <th>Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>{{ reclamation.id }}</td>
+          <td>{{ reclamation.dateMiseAJour }}</td>
+          <td>{{ reclamation.dateSoumission }}</td>
+          <td>{{ reclamation.description }}</td>
+          <!-- Add other table cells as needed -->
+          <td>
+            <button class="btn btn-danger" (click)="deleteReclamation(reclamation.id)">Delete</button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
