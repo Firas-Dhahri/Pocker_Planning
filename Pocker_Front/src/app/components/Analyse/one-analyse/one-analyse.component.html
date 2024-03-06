@@ -1,0 +1,140 @@
+<div class="container">
+  <h1>Détails de l'Analyse de Projet</h1>
+  <button (click)="exportexcel()">Export to Excel</button>
+
+
+  <div *ngIf="analyse">
+    <div class="details-section">
+      <strong>Description :</strong> {{ analyse.description }}
+    </div>
+
+    <div class="details-section">
+      <strong>Date d'Analyse :</strong> {{ analyse.date_analyse | date }}
+    </div>
+
+    <div class="details-section">
+      <strong>Projet :</strong> {{ analyse.projet.titre }}
+    </div>
+
+    <div class="details-section">
+      <strong>Sprints :</strong>
+      <ul>
+        <li *ngFor="let sprint of analyse.projet.sprints">
+          {{ sprint.name }}
+        </li>
+      </ul>
+    </div>
+
+    <div class="details-section">
+      <strong>Date de début du projet :</strong> {{ analyse.projet.date_debut | date }}
+    </div>
+    <div class="details-section">
+      <strong>Pourcentage d'avancement :</strong>
+      <ngb-progressbar class="mb-3 custom-progress" type="success" textType="white" [value]="pourcentage" [showValue]="true"></ngb-progressbar>
+    </div>
+    <div class="details-section">
+      <strong>Sprint EN retard :</strong>
+      <button class="btn btn-info" (click)="sprints_retard()">Sprints en retard</button>
+      <button class="btn btn-info" (click)="sprints_en_cours()">Sprints en cours</button>
+      <!-- Bouton qui déclenche l'affichage du graphique -->
+      <div class="card-body">
+        <div *ngIf="showretard">
+          <div class="container">
+            <h1>Sprint Data</h1>
+
+            <table class="table">
+              <thead>
+              <tr>
+                <th>ID Sprint</th>
+                <th>Created Date</th>
+                <th>End Date</th>
+                <th>Goal</th>
+                <th>Name</th>
+                <th>Origin Board ID</th>
+                <th>Self</th>
+                <th>Start Date</th>
+                <th>State</th>
+                <th>Projet ID</th>
+                <th>Real End Date</th>
+              </tr>
+              </thead>
+              <tbody>
+              <!-- Loop through your data and create rows -->
+              <tr class="col-lg-6" *ngFor="let sprint of listAnalyse1; let i=index">
+                <td>{{ sprint.id_sprint }}</td>
+                <td>{{ sprint.created_date }}</td>
+                <td>{{ sprint.end_date }}</td>
+                <td>{{ sprint.goal }}</td>
+                <td>{{ sprint.name }}</td>
+                <td>{{ sprint.origin_board_id }}</td>
+                <td>{{ sprint.self }}</td>
+                <td>{{ sprint.start_date }}</td>
+                <td>{{ sprint.state }}</td>
+                <td>{{ sprint.projet_id }}</td>
+                <td>{{ sprint.real_end_date }}</td>
+              </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+      </div>
+      <div *ngIf="showcours">
+        <div class="container">
+          <h1>Sprint Data</h1>
+
+          <table class="table">
+            <thead>
+            <tr>
+              <th>ID Sprint</th>
+              <th>Created Date</th>
+              <th>End Date</th>
+              <th>Goal</th>
+              <th>Name</th>
+              <th>Origin Board ID</th>
+              <th>Self</th>
+              <th>Start Date</th>
+              <th>State</th>
+              <th>Projet ID</th>
+              <th>Real End Date</th>
+            </tr>
+            </thead>
+            <tbody>
+            <!-- Loop through your data and create rows -->
+            <tr class="col-lg-6" *ngFor="let sprint of listAnalyse1; let i=index">
+              <td>{{ sprint.id_sprint }}</td>
+              <td>{{ sprint.created_date }}</td>
+              <td>{{ sprint.end_date }}</td>
+              <td>{{ sprint.goal }}</td>
+              <td>{{ sprint.name }}</td>
+              <td>{{ sprint.origin_board_id }}</td>
+              <td>{{ sprint.self }}</td>
+              <td>{{ sprint.start_date }}</td>
+              <td [ngClass]="{'in-progress': sprint.state === 'inProgress', 'delayed': sprint.state === 'delayed'}">{{ sprint.state }}</td>
+
+              <td>{{ sprint.projet_id }}</td>
+              <td>{{ sprint.real_end_date }}</td>
+            </tr>
+            </tbody>
+          </table>
+        </div>
+
+
+      </div>
+    </div>
+  </div>
+
+
+
+
+  <div class="details-section">
+    <strong>Graphique :</strong>
+    <button class="btn btn-info" (click)="add2Clicked()">Charts</button>
+    <!-- Bouton qui déclenche l'affichage du graphique -->
+    <div *ngIf="showChart">
+      <canvasjs-chart [options]="chartOptions" [styles]="{width: '400px', height:'350px'}"></canvasjs-chart>
+    </div>
+  </div>
+  <!-- Ajoutez d'autres détails en fonction de vos besoins -->
+</div>
+

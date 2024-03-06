@@ -1,0 +1,70 @@
+<p>add-analyse works!</p>
+<h1> ADD Analyse  </h1>
+
+<form class="form-control" [formGroup]="addanalyse" (ngSubmit)="Add()">
+  <!-- ... autres champs ... -->
+
+  <div class="row">
+    <h4 class="card-title">Description</h4>
+    <div class="col-md-11">
+      <div class="form-group mb-3">
+        <input type="text" class="form-control" formControlName="description" placeholder="Description">
+      </div>
+    </div>
+  </div>
+
+  <div>
+    <label>Date Analyse:</label>
+    <input type="date" formControlName="date_analyse">
+    <!-- Ajoutez des validateurs si nécessaire -->
+  </div>
+
+
+  <div class="mb-3">
+    <label class="form-label">Type:</label>
+    <div class="form-check">
+      <input type="radio" class="form-check-input" id="typeProjet" value="projet" formControlName="type" [(ngModel)]="selectedType" required>
+      <label class="form-check-label" for="typeProjet">Projet</label>
+    </div>
+    <div class="form-check">
+      <input type="radio" class="form-check-input" id="typeUS" value="us" formControlName="type" [(ngModel)]="selectedType" required>
+      <label class="form-check-label" for="typeUS">User Story (US)</label>
+    </div>
+  </div>
+
+
+  <!-- Affichez le bloc de projet uniquement si le type est "projet" -->
+  <div *ngIf="isProjetSelected()">
+    <div>
+      <label>Projet:</label>
+      <select formControlName="projet" class="form-control" required>
+        <option *ngFor="let projet of listeProjets" [value]="projet.id">{{ projet.titre }}</option>
+      </select>
+      <div *ngIf="addanalyse.controls['projet'].touched">
+        <div class="alert alert-danger" *ngIf="addanalyse.controls['projet'].hasError('required')">
+          Projet is a required field
+        </div>
+      </div>
+    </div>
+    <button class="btn btn-info" type="submit">ajouter un projet</button>
+  </div>
+  <div *ngIf="isTicketSelected()">
+    <div class="mb-3">
+      <label for="ticket" class="form-label">Ticket:</label>
+      <select formControlName="ticket" class="form-control" id="ticket" required>
+        <option *ngFor="let ticket of listeTickets" [value]="ticket.id"> ticket num:{{ ticket.idticket }}</option>
+      </select>
+      <div *ngIf="addanalyse.controls['ticket'].touched">
+        <div class="alert alert-danger" *ngIf="addanalyse.controls['ticket'].hasError('required')">
+          Ticket is a required field
+        </div>
+      </div>
+    </div>
+    <button class="btn btn-info" type="submit" (click)="add2()">ajotuer un ticket</button>
+
+  </div>
+
+  <!-- ... autres champs ... -->
+
+
+</form>

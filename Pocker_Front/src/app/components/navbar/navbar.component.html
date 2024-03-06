@@ -1,0 +1,174 @@
+<div id="main-wrapper" data-theme="light" data-layout="vertical" data-navbarbg="skin6" data-sidebartype="full"
+data-sidebar-position="fixed" data-header-position="fixed" data-boxed-layout="full">
+<!-- ============================================================== -->
+<!-- Topbar header - style you can find in pages.scss -->
+<!-- ============================================================== -->
+<header class="topbar" data-navbarbg="skin6">
+    <nav class="navbar top-navbar navbar-expand-lg">
+        <div class="navbar-header" data-logobg="skin6">
+            <!-- This is for the sidebar toggle which is visible on mobile only -->
+            <a class="nav-toggler waves-effect waves-light d-block d-lg-none" href="javascript:void(0)"><i
+                    class="ti-menu ti-close"></i></a>
+            <!-- ============================================================== -->
+            <!-- Logo -->
+            <!-- ============================================================== -->
+          <div class="navbar-brand">
+            <!-- Logo icon -->
+            <a href="index.html">
+              <img src="../assets/images/logo-icon.png" alt="" class="img-fluid">
+              <span class="logo-text">Poker <span class="spire-text">Spire</span></span>
+            </a>
+          </div>
+            <!-- ============================================================== -->
+            <!-- End Logo -->
+            <!-- ============================================================== -->
+            <!-- ============================================================== -->
+            <!-- Toggle which is visible on mobile only -->
+            <!-- ============================================================== -->
+
+        </div>
+        <!-- ============================================================== -->
+        <!-- End Logo -->
+        <!-- ============================================================== -->
+        <div class="navbar-collapse collapse" id="navbarSupportedContent">
+            <!-- ============================================================== -->
+            <!-- toggle and nav items -->
+            <!-- ============================================================== -->
+
+            <!-- ============================================================== -->
+            <!-- Right side toggle and nav items -->
+            <!-- ============================================================== -->
+            <ul class="navbar-nav float-end">
+                <!-- ============================================================== -->
+                <!-- Search -->
+                <!-- ============================================================== -->
+
+                <!-- ============================================================== -->
+                <!-- User profile and search -->
+                <!-- ============================================================== -->
+                <li class="nav-item dropdown" style="margin-left: 1075px;">
+                    <a class="nav-link dropdown-toggle" href="javascript:void(0)" data-bs-toggle="dropdown"
+                        aria-haspopup="true" aria-expanded="false">
+                        <img src="../assets/images/big/icon.png" alt="user" class="rounded-circle"
+                            width="40">
+                        <span class="ms-2 d-none d-lg-inline-block"> <span
+                                class="text-dark">{{ username }}</span> <i data-feather="chevron-down"
+                                class="svg-icon"></i></span>
+                    </a>
+                    <div class="dropdown-menu dropdown-menu-end dropdown-menu-right user-dd animated flipInY">
+                        <a class="dropdown-item" href="javascript:void(0)"><i data-feather="user"
+                                class="svg-icon me-2 ms-1"></i>
+                            My Profile</a>
+                        <a class="dropdown-item" href="javascript:void(0)"><i data-feather="credit-card"
+                                class="svg-icon me-2 ms-1"></i>
+                            My Balance</a>
+                        <a class="dropdown-item" href="javascript:void(0)"><i data-feather="mail"
+                                class="svg-icon me-2 ms-1"></i>
+                            Inbox</a>
+                        <div class="dropdown-divider"></div>
+                        <a class="dropdown-item" href="javascript:void(0)"><i data-feather="settings"
+                                class="svg-icon me-2 ms-1"></i>
+                            Account Setting</a>
+                        <div class="dropdown-divider"></div>
+                      <div class="dropdown-divider"></div>
+                      <a class="dropdown-item" href="javascript:void(0)" (click)="logout()" ><i data-feather="power"
+                                                                                                class="svg-icon me-2 ms-1" ></i>
+                        Logout</a>
+                      <div class="dropdown-divider"></div>
+                      <div class="pl-4 p-3"><a href="/profile" routerLink="profile" class="btn btn-sm btn-info">View
+                        Profile</a></div>
+                    </div>
+                </li>
+                <!-- ============================================================== -->
+                <!-- User profile and search -->
+                <!-- ============================================================== -->
+            </ul>
+        </div>
+    </nav>
+</header>
+<!-- ============================================================== -->
+<!-- End Topbar header -->
+<!-- ============================================================== -->
+<!-- ============================================================== -->
+<!-- Left Sidebar - style you can find in sidebar.scss  -->
+<!-- ============================================================== -->
+<aside class="left-sidebar" data-sidebarbg="skin6">
+    <!-- Sidebar scroll-->
+    <div class="scroll-sidebar" data-sidebarbg="skin6">
+        <!-- Sidebar navigation-->
+        <nav class="sidebar-nav">
+            <ul id="sidebarnav">
+
+
+
+
+
+                <li class="list-divider"></li>
+
+
+              <li class="sidebar-item"> <a class="sidebar-link sidebar-link" href="navbar/addsession"
+                                           aria-expanded="false"><i data-feather="grid" class="feather-icon"></i><span
+                class="hide-menu">Add Session</span></a></li>
+
+
+              <li class="sidebar-item"> <a class="sidebar-link sidebar-link" href="navbar/chronometre"
+                                           aria-expanded="false"><i data-feather="grid" class="feather-icon"></i><span
+                class="hide-menu">Remaining Time</span></a></li>
+
+                <li class="sidebar-item"> <a class="sidebar-link sidebar-link" href="navbar/message"
+                        aria-expanded="false"><i data-feather="message-square" class="feather-icon"></i><span
+                            class="hide-menu">Chat</span></a></li>
+                <li class="sidebar-item">
+                    <a routerLink="/analyse" class="sidebar-link" aria-expanded="false">
+                        <i data-feather="bar-chart" class="feather-icon"></i>
+                        Charts1
+                    </a>
+                    <ul aria-expanded="false" class="collapse first-level base-level-line">
+                        <li class="sidebar-item">
+                            <a routerLink="analyse_Projet" class="sidebar-link">
+                                <span class="hide-menu">Projet</span>
+                            </a>
+                        </li>
+                        <li class="sidebar-item">
+                            <a routerLink="analyse_Us" class="sidebar-link">
+                                <span class="hide-menu">US</span>
+                            </a>
+                        </li>
+                        <li class="sidebar-item">
+                            <a routerLink=" add_analyse" class="sidebar-link">
+                                <span class="hide-menu">ADD</span>
+                            </a>
+                        </li>
+                    </ul>
+                </li>
+
+
+
+
+                <li class="sidebar-item"> <a class="sidebar-link sidebar-link" href="app-calendar.html"
+                        aria-expanded="false"><i data-feather="calendar" class="feather-icon"></i><span
+                            class="hide-menu">Calendar</span></a></li>
+
+                <li class="list-divider"></li>
+
+
+
+
+
+
+
+            </ul>
+        </nav>
+        <!-- End Sidebar navigation -->
+    </div>
+    <!-- End Sidebar scroll-->
+</aside>
+
+
+<div class="page-wrapper">
+  <router-outlet></router-outlet>
+</div>
+<!-- ============================================================== -->
+<!-- End Page wrapper  -->
+<!-- ============================================================== -->
+</div>

@@ -1,0 +1,20 @@
+<div class="col-lg-6" *ngFor="let analyse of listAnalyse1; let i=index">
+  <div class="card">
+    <div class="card-body">
+      <h4 class="card-title"> Ticket num :{{ analyse.ticket.id }}</h4>
+      <ul class="list-inline text-end">
+        <li class="list-inline-item">
+          <h5><i class="fa fa-circle me-1 text-info"></i>{{ analyse.description }}</h5>
+        </li>
+        <li class="list-inline-item">
+          <h5><i class="fa fa-circle me-1 text-cyan"></i>{{ analyse.id }}</h5>
+        </li>
+
+        <button class="btn btn-danger"  (click)="delete(analyse.id)">delete</button>
+        <button class="btn btn-warning" type="submit" [routerLink]="['one_ticket',analyse.id]">Details</button>
+
+      </ul>
+      <div id="morris-area-chart"></div>
+    </div>
+  </div>
+</div>
