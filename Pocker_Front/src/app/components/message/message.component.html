@@ -59,6 +59,24 @@
                       <div class="chat-content d-inline-block ps-3">
                         <h6 class="font-weight-medium">{{message.sender}}</h6>
                         <div class="msg p-2 d-inline-block mb-1">{{message.content}}</div>
+                        <!-- Message Input for Reply -->
+                        <div class="row">
+                          <div class="col-5">
+                            <div class="input-field mt-0 mb-0">
+                              <input placeholder="Type and press enter" type="text" id="replyContent" pInputText [(ngModel)]="replyContent" class="form-control border-0" (keydown.enter)="sendReply(message.id)">
+                            </div>
+                          </div>
+                          <div class="col-1">
+                            <a class="btn-circle bg-cyan float-end text-white d-flex align-items-center justify-content-center" (click)="sendReply(message.id)">
+                              <i class="fas fa-reply"></i>
+                            </a>
+                          </div>
+                        </div>
+                        <!-- Display Replies -->
+                        <div *ngFor="let reply of message.replies">
+                          <div class="msg p-2 d-inline-block mb-1">{{ reply.content }}</div>
+                          <div class="time d-block font-10 mt-1 mr-0 mb-3">{{ reply.dateTime | date: 'dd/MM/yyyy hh:mm:ss' }}</div>
+                        </div>
                       </div>
                       <div class="chat-time d-block font-10 mt-1 mr-0 mb-3">{{message.dateTime | date: 'dd/MM/yyyy hh:mm:ss'}}</div>
                     </li>

@@ -3,6 +3,7 @@ import * as Stomp from 'stompjs';
 // @ts-ignore
 import SockJS from 'sockjs-client/dist/sockjs';
 import {MessageService} from 'primeng/api';
+
 @Component({
   selector: 'app-message',
   templateUrl: './message.component.html',
@@ -51,6 +52,8 @@ export class MessageComponent {
   searchTerm: string = '';
   filteredMessages: any[] = [];
 
+  replyContent: string = '';
+
   constructor(private messageService: MessageService) {
   }
 
@@ -83,7 +86,11 @@ export class MessageComponent {
         const parsedMessage = JSON.parse(message.body);
         if (that.username !== parsedMessage.sender) {
           that.received.push(parsedMessage);
-          that.messageService.add({severity: 'info', summary: 'New message from ' + parsedMessage.sender, detail: parsedMessage.content});
+          that.messageService.add({
+            severity: 'info',
+            summary: 'New message from ' + parsedMessage.sender,
+            detail: parsedMessage.content
+          });
         } else {
           if (that.messageSent) {
             that.sent.push(parsedMessage);
@@ -103,7 +110,7 @@ export class MessageComponent {
       };
       this.messageSent = true;
       const that = this;
-      this.wsClient.send(this.topicChat, {}, JSON.stringify(message), function(response: any) {
+      this.wsClient.send(this.topicChat, {}, JSON.stringify(message), function (response: any) {
         const parsedResponse = JSON.parse(response.body);
         console.log("Response received from server:", parsedResponse);
       });
@@ -151,6 +158,22 @@ export class MessageComponent {
       });
     } else {
       this.filteredMessages = [];
+    }
+  }
+
+  sendReply(id: any) {
+    if (this.replyContent.trim() !== '') {
+      const payload = {
+        id: id,
+        reply: {
+          content: this.replyContent
+        }
+      };
+      this.wsClient.send('/app/chat.sendReply', {}, JSON.stringify(payload), (response: any) => {
+        const parsedResponse = JSON.parse(response.body);
+        console.log("Response received from server:", parsedResponse);
+      });
+      this.replyContent = '';
     }
   }
 
