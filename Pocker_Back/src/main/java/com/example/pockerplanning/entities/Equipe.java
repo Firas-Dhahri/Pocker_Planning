@@ -27,4 +27,7 @@ public class Equipe {
 
     @ManyToMany(mappedBy = "equipes", cascade = {CascadeType.ALL})
     private Set<User> users;
+
+
+
 }

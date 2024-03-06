@@ -34,7 +34,8 @@ public class Projet {
     @JsonIgnore
     @OneToMany(cascade = CascadeType.ALL, mappedBy="projet")
     private List<Sprint> Sprints;
-    @JsonIgnore
+
+
     @ManyToOne
     Equipe equipe;
 

@@ -1,10 +1,12 @@
 package com.example.pockerplanning.controller;
 
-import com.example.pockerplanning.entities.Analyse;
-import com.example.pockerplanning.entities.Historique;
+import com.example.pockerplanning.entities.*;
+import com.example.pockerplanning.repository.AnalyseRepository;
+import com.example.pockerplanning.repository.ProjetRepository;
 import com.example.pockerplanning.services.Interface.IAnalyseService;
 import com.example.pockerplanning.services.Interface.IHistoriqueService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -14,6 +16,10 @@ public class AnalyseController {
 
     @Autowired
     IAnalyseService analyseService;
+    @Autowired
+    AnalyseRepository analyseRepository ;
+    @Autowired
+    ProjetRepository projetReposiroty ;
 
     //http://localhost:8088/Spring/etudiant/retrieve-all-etudiants
     @GetMapping("/retrieve-all-Analyses")
@@ -22,18 +28,52 @@ public class AnalyseController {
         List<Analyse> listAnalyse = analyseService.afficherAnalyse();
         return listAnalyse;
     }
-    @GetMapping("/getAnalyses_par_projets")
+    @GetMapping("/getAnalyses_par_projets/{id}")
     @ResponseBody
-    public List<Analyse> getAnalyses_par_projets() {
-        List<Analyse> listAnalyse = analyseService.afficherAnalyse_projet();
-        return listAnalyse;
+    public Analyse getAnalyses_par_projets(@PathVariable Long id) {
+        Projet p = projetReposiroty.findById(id).orElse(null);
+        return analyseRepository.findByProjet(p);
     }
+
+    @GetMapping("/getAnalyses_par_projets_khalil")
+    @ResponseBody
+    public List<Analyse> getAnalyses_par_projets2() {
+
+        return analyseService.afficherAnalyse_projet();
+    }
+    @GetMapping("/get_analyse_retard/{projet-id}")
+    @ResponseBody
+    public List<Sprint> get_analyse_retard(@PathVariable("projet-id") Long id) {
+        return analyseService.sprint_en_retard(id);
+    }
+    @GetMapping("/get_sprint_en_cours/{projet-id}")
+    @ResponseBody
+    public List<Sprint> get_analyse_en_cours(@PathVariable("projet-id") Long id) {
+        return analyseService.sprint_en_cours(id);
+    }
+
     @GetMapping("/getAnalyses_par_us")
     @ResponseBody
     public List<Analyse> getAnalyses_par_Us() {
         List<Analyse> listAnalyse = analyseService.afficherAnalyse_Us();
         return listAnalyse;
     }
+
+    @GetMapping("/Liste_Sprint_par_projet/{projet-id}")
+    @ResponseBody
+    public ResponseEntity<?> affichersprint_par_projet(@PathVariable("projet-id") Long id) {
+        return analyseService.GetProjetParSprint(id);
+    }
+
+    @GetMapping("/getprojet_par_time/{projet-id}")
+    public ResponseEntity<?> getprojetpartime(@PathVariable("projet-id") Long id) {
+        return analyseService.getprojetpartime(id);
+    }
+    @GetMapping("/get_pourcentage_avancement/{projet-id}")
+    public Float get_pourcentage_avancement(@PathVariable("projet-id") Long id) {
+        return analyseService.Pourcentage_avancemenet_pojet(id);
+    }
+
 
     // http://localhost:8088/Spring/etudiant/retrieve-etudiant/8
     @GetMapping("/retrieve-Analyse/{Analyse-id}")
@@ -43,15 +83,25 @@ public class AnalyseController {
     }
     @GetMapping("/retrieve-Analyse_par_sprint_par_ordre/{Analyse-id}")
     public List<Analyse> retrieve_Analyse_par_sprint() {
+
         return analyseService.getAnalyse_par_ordre_chronologique();
     }
 
     // http://localhost:8088/Spring/etudiant/add-etudiant
-    @PostMapping("/add-Analyse")
+    @PostMapping("/add-Analyse/{id_projet}")
     @ResponseBody
-    public Analyse addAnalyse(@RequestBody Analyse ae)
+    public Analyse addAnalyse(@RequestBody Analyse ae,@PathVariable("id_projet") Long id_projet)
     {
-        Analyse analyse = analyseService.ajouterAnalyse(ae);
+        Analyse analyse = analyseService.ajouterAnalyse(ae,id_projet);
+
+        return analyse;
+    }
+    @PostMapping("/add-Analyse_us/{id_ticket}")
+    @ResponseBody
+    public Analyse addAnalyse_us(@RequestBody Analyse ae,@PathVariable("id_ticket") long id_ticket)
+    {
+        Analyse analyse = analyseService.ajouterAnalyse_Us(ae,id_ticket);
+
         return analyse;
     }
 
@@ -69,4 +119,20 @@ public class AnalyseController {
     public void deleteAnalyse(@PathVariable("Analyse-id") int id) {
         analyseService.deleteAnalyse(id);
     }
+
+
+    @GetMapping("/retrieve-ticket/{ticket-id}")
+    @ResponseBody
+    public Ticket retrieveTicket(@PathVariable("ticket-id") Long id) {
+        return analyseService.getticket_par_id(id);
+    }
+
+    @GetMapping("/ticket_priorite/{sprint_id}")
+    @ResponseBody
+    public boolean ticket_priorite(@PathVariable("sprint_id") Long id) {
+
+        return analyseService.sprint_priorite(id);
+    }
+
+
 }

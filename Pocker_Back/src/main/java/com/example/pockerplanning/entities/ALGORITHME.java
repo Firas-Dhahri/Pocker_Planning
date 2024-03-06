@@ -7,4 +7,5 @@ public enum ALGORITHME {
     DOT_VOTING,
     PLAYING_CARDS
 
+
 }

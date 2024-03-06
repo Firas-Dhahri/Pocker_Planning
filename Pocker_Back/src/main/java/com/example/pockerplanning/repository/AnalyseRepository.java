@@ -2,6 +2,7 @@ package com.example.pockerplanning.repository;
 
 import com.example.pockerplanning.entities.Analyse;
 import com.example.pockerplanning.entities.Historique;
+import com.example.pockerplanning.entities.Projet;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
@@ -12,6 +13,7 @@ import java.util.List;
 @Repository
 public interface AnalyseRepository  extends JpaRepository<Analyse, Integer> {
     //get Analyse par ordre des Sprints
+    //get Analyse par ordre des Sprints
     @Query("Select a from Analyse a order by a.ticket.sprint.createdDate")
     List<Analyse> getAnalyseparsprint();
 
@@ -20,5 +22,7 @@ public interface AnalyseRepository  extends JpaRepository<Analyse, Integer> {
 
     @Query("Select a from Analyse a where  a.projet =null ")
     List<Analyse> getAnalys_Us();
+
+    Analyse findByProjet(Projet p) ;
 
 }

@@ -1,10 +1,10 @@
 package com.example.pockerplanning.entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.*;
 
 import java.io.Serializable;
-import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -22,11 +22,11 @@ public class Ticket implements Serializable {
     private String key;
     @Embedded
     private Fields fields;
-
+    @JsonIgnore
     @ManyToOne
     @JoinColumn(name = "session_id")
     private Session session;
-
+    @JsonIgnore
     @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "sprint_id_sprint")
     private Sprint sprint;

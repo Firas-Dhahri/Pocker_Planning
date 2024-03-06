@@ -1,5 +1,6 @@
 package com.example.pockerplanning.entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -8,6 +9,7 @@ import lombok.NoArgsConstructor;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Date;
 import java.util.Set;
 
 @Entity
@@ -30,10 +32,17 @@ public class Sprint implements Serializable {
     private String goal;
 
 
-    @ManyToOne
-    Projet projet;
 
     @OneToMany(mappedBy = "sprint", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Ticket> tickets = new ArrayList<>();
+    private Date real_end_date;
+    @JsonIgnore
+    @ManyToOne
+    Projet projet;
+    @JsonIgnore
+    @OneToMany(cascade = {CascadeType.ALL}, mappedBy = "sprint")
+    private Set<Ticket> Tickets;
+
+
 
 }

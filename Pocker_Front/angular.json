@@ -10,9 +10,23 @@
       "sourceRoot": "src",
       "prefix": "app",
       "architect": {
+<<<<<<< HEAD
         "build": {
           "builder": "@angular-devkit/build-angular:browser",
           "options": {
+=======
+
+        "build": {
+          "builder": "@angular-devkit/build-angular:browser",
+          "options": {
+            "allowedCommonJsDependencies": [
+              "sockjs-client/dist/sockjs",
+              "sockjs-client",
+              "stompjs",
+              "sweetalert2"
+            ] ,
+
+>>>>>>> f63b69fb615c7369c9e19c572f91cbb40c7d464c
             "outputPath": "dist/pokerplanning",
             "index": "src/index.html",
             "main": "src/main.ts",
@@ -25,6 +39,7 @@
               "src/assets"
             ],
             "styles": [
+<<<<<<< HEAD
               "src/styles.css",
               "node_modules/ngx-toastr/toastr.css",
               "node_modules/ngx-spinner/animations/ball-scale-multiple.css" 
@@ -32,6 +47,13 @@
               
             ],
             "scripts": []
+=======
+              "src/styles.css"
+            ],
+            "scripts": [
+
+            ]
+>>>>>>> f63b69fb615c7369c9e19c572f91cbb40c7d464c
           },
           "configurations": {
             "production": {
@@ -55,7 +77,17 @@
               "vendorChunk": true,
               "extractLicenses": false,
               "sourceMap": true,
+<<<<<<< HEAD
               "namedChunks": true
+=======
+              "namedChunks": true,
+              "fileReplacements": [
+                {
+                  "replace": "src/environments/environment.ts",
+                  "with": "src/environments/environment.development.ts"
+                }
+              ]
+>>>>>>> f63b69fb615c7369c9e19c572f91cbb40c7d464c
             }
           },
           "defaultConfiguration": "production"

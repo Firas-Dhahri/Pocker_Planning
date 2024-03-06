@@ -3,6 +3,7 @@ package com.example.pockerplanning.controller;
 import com.example.pockerplanning.dto.TicketCreationDto;
 import com.example.pockerplanning.dto.TicketGetDto;
 import com.example.pockerplanning.entities.Ticket;
+import com.example.pockerplanning.repository.TicketRepository;
 import com.example.pockerplanning.services.impl.TicketService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -78,4 +79,3 @@ public class TicketController {
         }
     }
 }
-

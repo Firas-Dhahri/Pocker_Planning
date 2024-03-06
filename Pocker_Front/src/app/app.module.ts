@@ -1,54 +1,97 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-import { CommonModule, DatePipe } from '@angular/common';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { NavbarComponent } from './components/navbar/navbar.component';
-import { AfficherTicketrComponent } from './components/afficher-ticket/afficher-ticketr.component';
-import { HttpClient, HttpClientModule } from '@angular/common/http';
-import { AjouterticketComponent } from './components/ajouterticket/ajouterticket.component';
-import { ReactiveFormsModule } from '@angular/forms';
-import { UpdateticketComponent } from './components/updateticket/updateticket.component';
+import { CardComponent } from './components/Session/card/card.component';
+import { PokerPlanningComponent } from './components/Session/poker-planning/poker-planning.component';
+import { PbiTitleComponent } from './components/Session/pbi-title/pbi-title.component';
+import { RowComponent } from './components/Session/row/row.component';
+import { ParticipantsComponent } from './components/Session/participants/participants.component';
+import { AddSessionComponent } from './components/Session/add-session/add-session.component';
+import {HttpClientModule} from '@angular/common/http';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { ChronometerComponent } from './components/Session/chronometer/chronometer.component';
+import { VoteChartComponent } from './components/Session/vote-chart/vote-chart.component';
+import { MessageComponent } from './components/Forum/message/message.component';
+import { MetricComponent } from './components/Forum/metric/metric.component';
+import {MessageService} from "primeng/api";
+import {ToastModule} from "primeng/toast";
+import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
+import {ButtonModule} from "primeng/button";
+import { LoginComponent } from './components/User/login/login.component';
+import {RegisterComponent} from "./components/User/register/register.component";
+import { ProfileComponent } from './components/User/profile/profile.component';
+import { AddAnalyseComponent } from './components/Analyse/add-analyse/add-analyse.component';
+import { AnalyseProjetComponent } from './components/Analyse/analyse-projet/analyse-projet.component';
+import { AnalyseUsComponent } from './components/Analyse/analyse-us/analyse-us.component';
+import { AnalyseComponent } from './components/Analyse/analyse/analyse.component';
+import { OneAnalyseComponent } from './components/Analyse/one-analyse/one-analyse.component';
+import { OneAnalyseTicketComponent } from './components/Analyse/one-analyse-ticket/one-analyse-ticket.component';
+import {NgChartsModule} from "ng2-charts";
+import {NgbProgressbar} from "@ng-bootstrap/ng-bootstrap";
+import {CanvasJSAngularChartsModule} from "@canvasjs/angular-charts";
+import { AjouterticketComponent } from './components/ticket/ajouterticket/ajouterticket.component';
+import { AfficherTicketComponent } from './components/ticket/afficher-ticket/afficher-ticket.component';
+import { UpdateticketComponent } from './components/ticket/updateticket/updateticket.component';
+import {NgxSpinnerModule} from "ngx-spinner";
 import { ToastrModule } from 'ngx-toastr';
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { NgxSpinnerModule } from 'ngx-spinner';
 
-import { AjouterProjetComponent } from './components/gestionProjets/ajouter-projet/ajouter-projet.component';
-import { AfficherProjetComponent } from './components/gestionProjets/afficher-projet/afficher-projet.component';
-import { AjouterCarteComponent } from './components/gestionProjets/ajouter-carte/ajouter-carte.component';
-import { AfficherCarteComponent } from './components/gestionProjets/afficher-carte/afficher-carte.component';
-import { UpdateProjetComponent } from './components/gestionProjets/update-projet/update-projet.component';
-import { UpdateCarteComponent } from './components/gestionProjets/update-carte/update-carte.component';
-import { ShowProjetComponent } from './components/gestionProjets/show-projet/show-projet.component';
+
 
 
 @NgModule({
   declarations: [
     AppComponent,
     NavbarComponent,
-    AfficherTicketrComponent,
+    CardComponent,
+    PokerPlanningComponent,
+    PbiTitleComponent,
+    RowComponent,
+    ParticipantsComponent,
+    AddSessionComponent,
+    ChronometerComponent,
+    VoteChartComponent,
+    MessageComponent,
+    MetricComponent,
+    LoginComponent,
+    RegisterComponent,
+    ProfileComponent,
+    AddAnalyseComponent,
+    AnalyseProjetComponent,
+    AnalyseUsComponent,
+    AnalyseComponent,
+    OneAnalyseComponent,
+    OneAnalyseTicketComponent,
     AjouterticketComponent,
-    UpdateticketComponent,
-    AfficherCarteComponent,
-    AjouterCarteComponent,
-    AjouterProjetComponent,
-    AfficherProjetComponent,
-    UpdateProjetComponent,
-    UpdateCarteComponent,
-    ShowProjetComponent,
+    AfficherTicketComponent,
+    UpdateticketComponent
+
+
+
+
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     HttpClientModule,
     ReactiveFormsModule,
-    ToastrModule.forRoot(),
+    FormsModule,
+    ToastModule,
     BrowserAnimationsModule,
-    NgxSpinnerModule 
-    
+    ButtonModule,
+    NgChartsModule,
+    NgbProgressbar,
+    NgxSpinnerModule,
+    FormsModule,
+      CanvasJSAngularChartsModule,
+    ToastrModule.forRoot()
+
+
+
   ],
-  providers: [DatePipe],
+  providers: [MessageService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
