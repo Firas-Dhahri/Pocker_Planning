@@ -59,6 +59,7 @@
                       <div class="chat-content d-inline-block ps-3">
                         <h6 class="font-weight-medium">{{message.sender}}</h6>
                         <div class="msg p-2 d-inline-block mb-1">{{message.content}}</div>
+                        <div class="chat-time d-block font-10 mt-1 mr-0 mb-3">{{message.dateTime | date: 'dd/MM/yyyy hh:mm:ss'}}</div>
                         <!-- Message Input for Reply -->
                         <div class="row">
                           <div class="col-5">

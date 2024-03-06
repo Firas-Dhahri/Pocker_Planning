@@ -54,8 +54,7 @@ export class MessageComponent {
 
   replyContent: string = '';
 
-  constructor(private messageService: MessageService) {
-  }
+  constructor(private messageService: MessageService) {}
 
   ngOnInit(): void {
     this.connect();
