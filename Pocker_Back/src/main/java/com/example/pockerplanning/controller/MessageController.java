@@ -5,13 +5,13 @@ import com.example.pockerplanning.repository.MessageRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.messaging.handler.annotation.*;
 import org.springframework.messaging.simp.SimpMessagingTemplate;
-import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.Date;
 
 @RestController
+@CrossOrigin("*")
 public class MessageController {
 
     private final MessageRepository messageRepository;
@@ -25,9 +25,11 @@ public class MessageController {
 
     @MessageMapping("/chat.sendMessage")
     public void sendMessage(@Payload Message message) {
-        message.setDateTime(new Date());
-        messageRepository.save(message);
-        messagingTemplate.convertAndSend("/topic/public", message);
+        if (message.getContent() != null && !message.getContent().isEmpty()) {
+            message.setDateTime(new Date());
+            messageRepository.save(message);
+            messagingTemplate.convertAndSend("/topic/public", message);
+        }
     }
 
     @MessageMapping("/chat.updateMessage")
@@ -38,7 +40,6 @@ public class MessageController {
             existingMessage.setContent(updatedMessage.getContent());
             existingMessage.setDateTime(new Date());
             messageRepository.save(existingMessage);
-            // Créer un nouvel objet JSON représentant uniquement le nouveau message mis à jour
             return new Message(updatedMessage.getId(), updatedMessage.getContent(), updatedMessage.getSender(), existingMessage.getDateTime());
         } else {
             return null;
