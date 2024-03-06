@@ -14,6 +14,9 @@ import {AnalyseProjetComponent} from "./components/Analyse/analyse-projet/analys
 import {AnalyseUsComponent} from "./components/Analyse/analyse-us/analyse-us.component";
 import {AddAnalyseComponent} from "./components/Analyse/add-analyse/add-analyse.component";
 import {OneAnalyseComponent} from "./components/Analyse/one-analyse/one-analyse.component";
+import {AfficherTicketComponent} from "./components/ticket/afficher-ticket/afficher-ticket.component";
+import {AjouterticketComponent} from "./components/ticket/ajouterticket/ajouterticket.component";
+import {UpdateticketComponent} from "./components/ticket/updateticket/updateticket.component";
 
 
 
@@ -28,15 +31,20 @@ const routes: Routes = [
     {path:'chronometre' , component:ChronometerComponent} ,
     {path:'votechart' , component:VoteChartComponent} ,
       {path:'message' , component:MessageComponent},
-
-
+      //TIcket
+      { path: 'affichertickets', component: AfficherTicketComponent },
+      { path: 'ajouterticket', component: AjouterticketComponent },
+      { path: 'updateticket/:issueKey', component: UpdateticketComponent },
         //partie analyse
       { path: 'analyse_Us/one_ticket/:id', component:OneAnalyseTicketComponent },
       { path: 'analyse',component:AnalyseComponent },
       { path: 'analyse_Projet',component:AnalyseProjetComponent},
       { path: 'analyse_Us',component:AnalyseUsComponent },
       { path: 'add_analyse',component:AddAnalyseComponent },
-      { path: 'analyse_Projet/one_analyse/:id', component: OneAnalyseComponent}
+      { path: 'analyse_Projet/one_analyse/:id', component: OneAnalyseComponent},
+
+
+
 
   ]},
 

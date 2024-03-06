@@ -32,6 +32,11 @@ import { OneAnalyseTicketComponent } from './components/Analyse/one-analyse-tick
 import {NgChartsModule} from "ng2-charts";
 import {NgbProgressbar} from "@ng-bootstrap/ng-bootstrap";
 import {CanvasJSAngularChartsModule} from "@canvasjs/angular-charts";
+import { AjouterticketComponent } from './components/ticket/ajouterticket/ajouterticket.component';
+import { AfficherTicketComponent } from './components/ticket/afficher-ticket/afficher-ticket.component';
+import { UpdateticketComponent } from './components/ticket/updateticket/updateticket.component';
+import {NgxSpinnerModule} from "ngx-spinner";
+import { ToastrModule } from 'ngx-toastr';
 
 
 
@@ -58,7 +63,10 @@ import {CanvasJSAngularChartsModule} from "@canvasjs/angular-charts";
     AnalyseUsComponent,
     AnalyseComponent,
     OneAnalyseComponent,
-    OneAnalyseTicketComponent
+    OneAnalyseTicketComponent,
+    AjouterticketComponent,
+    AfficherTicketComponent,
+    UpdateticketComponent
 
 
 
@@ -75,8 +83,10 @@ import {CanvasJSAngularChartsModule} from "@canvasjs/angular-charts";
     ButtonModule,
     NgChartsModule,
     NgbProgressbar,
+    NgxSpinnerModule,
     FormsModule,
       CanvasJSAngularChartsModule,
+    ToastrModule.forRoot()
 
 
 
