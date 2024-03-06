@@ -7,6 +7,7 @@ import { VoteServiceService } from 'src/app/services/sessionservice/vote-service
 import {WebsocketserviceService} from "../../../services/sessionservice/websocketservice.service";
 import * as SockJS from "sockjs-client";
 import * as Stomp from "stompjs";
+import {StorageService} from "../../../services/userservice/storage.service";
 
 @Component({
   selector: 'app-poker-planning',
@@ -41,13 +42,19 @@ export class PokerPlanningComponent {
 
   idticket!: any;
   stompClient:any;
-  constructor(private pokerService:PokerserviceService,private websoketService:WebsocketserviceService , private Ticketsservice : TicketsserviceService , private voteservice:VoteServiceService){ }
+
+
+  isLoggedIn = false;
+  showAdminBoard = false;
+  showDevBoard = false;
+  username?: string;
+  constructor(private pokerService:PokerserviceService,private websoketService:WebsocketserviceService , private Ticketsservice : TicketsserviceService , private voteservice:VoteServiceService , private storageService: StorageService){ }
 
 
   ngOnInit(){
     this.GetTicketsBySession() ;
     this.GetCards() ;
-    this.participants={"nom":"khedhri","prenom":"test"};
+
     const socket = new SockJS('http://localhost:8090/pokerplaning');
     this.stompClient = Stomp.over(socket);
     this.stompClient.connect({}, (frame:any) => {
@@ -61,12 +68,19 @@ export class PokerPlanningComponent {
 
           this.VoteStartServer() ;
         }
-
-
-
-
       });
     });
+
+
+    this.isLoggedIn = this.storageService.isLoggedIn();
+
+    if (this.isLoggedIn) {
+      const user = this.storageService.getUser();
+
+
+      this.username = user.username;
+      this.participants = user.username ;
+    }
   }
 
   VoteStartServer(){
