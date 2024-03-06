@@ -7,7 +7,7 @@
 
 <div class="page-breadcrumb">
   <div class="row">
-    <div class="col-13 align-self-center">
+    <div class="col-12 align-self-center">
       <div class="customize-input float-end">
         <div class="customize-input">
           <input class="form-control custom-shadow custom-radius border-0 bg-white" type="text" [(ngModel)]="searchTerm" (input)="searchMessages()" placeholder="Search">
@@ -53,7 +53,7 @@
                     <li class="chat-item list-style-none mt-3">
                       <div class="chat-img d-inline-block">
                         <div class="avatar" [style.background-color]="getAvatarColor(message.sender)">
-                          {{ message.sender.charAt(0).toUpperCase() }}
+                          {{ message.sender ? message.sender.charAt(0).toUpperCase() : '' }}
                         </div>
                       </div>
                       <div class="chat-content d-inline-block ps-3">
@@ -78,7 +78,6 @@
                           <div class="time d-block font-10 mt-1 mr-0 mb-3">{{ reply.dateTime | date: 'dd/MM/yyyy hh:mm:ss' }}</div>
                         </div>
                       </div>
-                      <div class="chat-time d-block font-10 mt-1 mr-0 mb-3">{{message.dateTime | date: 'dd/MM/yyyy hh:mm:ss'}}</div>
                     </li>
                   </ng-template>
                 </ng-container>

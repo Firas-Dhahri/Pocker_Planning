@@ -141,13 +141,17 @@ export class MessageComponent {
     }
   }
 
-  getAvatarColor(userId: number): string {
-    let hash = 0;
-    for (let i = 0; i < userId.toString().length; i++) {
-      hash = 31 * hash + userId.toString().charCodeAt(i);
+  getAvatarColor(sender: string): string {
+    if (sender && sender.trim() !== '') {
+      let hash = 0;
+      for (let i = 0; i < sender.length; i++) {
+        hash = 31 * hash + sender.charCodeAt(i);
+      }
+      const index = Math.abs(hash % this.colors.length);
+      return this.colors[index];
+    } else {
+      return 'lightgray';
     }
-    const index = Math.abs(hash % this.colors.length);
-    return this.colors[index];
   }
 
   searchMessages(): void {
@@ -166,12 +170,20 @@ export class MessageComponent {
       const payload = {
         id: id,
         reply: {
-          content: this.replyContent
+          content: this.replyContent,
+          dateTime: new Date()
         }
       };
       this.wsClient.send('/app/chat.sendReply', {}, JSON.stringify(payload), (response: any) => {
         const parsedResponse = JSON.parse(response.body);
         console.log("Response received from server:", parsedResponse);
+        const messageToUpdate = this.received.find(message => message.id === id);
+        if (messageToUpdate) {
+          if (!messageToUpdate.replies) {
+            messageToUpdate.replies = [];
+          }
+          messageToUpdate.replies.push(parsedResponse.reply);
+        }
       });
       this.replyContent = '';
     }

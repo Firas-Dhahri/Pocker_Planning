@@ -28,8 +28,6 @@ public class ReplyController {
 
     @MessageMapping("/chat.sendReply")
     public void saveReply(@Payload ReplyPayload reply ) {
-
-
         Message m = messageRepository.findById(reply.getId()).orElse(null) ;
         reply.getReply().setMessage(m);
         Reply savedReply = replyRepository.save(reply.getReply());
