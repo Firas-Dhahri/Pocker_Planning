@@ -1,5 +1,18 @@
+<!-- board-admin.component.html -->
+
 <div class="container">
   <header class="jumbotron">
     <p>{{ content }}</p>
+
+    <div *ngIf="users.length > 0">
+      <h3>Liste des utilisateurs :</h3>
+      <ul>
+        <li *ngFor="let user of users">
+          {{ user.username }} - {{ user.email }} - {{ user.status ? 'Active' : 'Inactive' }}
+          <button (click)="activateAccount(user.id)" [disabled]="user.status">Activer</button>
+          <button (click)="deactivateAccount(user.id)" [disabled]="!user.status">Désactiver</button>
+        </li>
+      </ul>
+    </div>
   </header>
 </div>

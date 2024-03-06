@@ -3,7 +3,7 @@
   "version": 1,
   "newProjectRoot": "projects",
   "projects": {
-    "angular-15-jwt-auth": {
+    "pokerplanning": {
       "projectType": "application",
       "schematics": {},
       "root": "",
@@ -13,7 +13,7 @@
         "build": {
           "builder": "@angular-devkit/build-angular:browser",
           "options": {
-            "outputPath": "dist/angular-15-jwt-auth",
+            "outputPath": "dist/pokerplanning",
             "index": "src/index.html",
             "main": "src/main.ts",
             "polyfills": [
@@ -60,10 +60,10 @@
           "builder": "@angular-devkit/build-angular:dev-server",
           "configurations": {
             "production": {
-              "browserTarget": "angular-15-jwt-auth:build:production"
+              "browserTarget": "pokerplanning:build:production"
             },
             "development": {
-              "browserTarget": "angular-15-jwt-auth:build:development"
+              "browserTarget": "pokerplanning:build:development"
             }
           },
           "defaultConfiguration": "development"
@@ -71,7 +71,7 @@
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n",
           "options": {
-            "browserTarget": "angular-15-jwt-auth:build"
+            "browserTarget": "pokerplanning:build"
           }
         },
         "test": {
@@ -96,6 +96,6 @@
     }
   },
   "cli": {
-    "analytics": "787e7598-363e-4539-b89e-68782b42fade"
+    "analytics": "e87e3e77-d969-4084-98a7-54db169d31bb"
   }
 }

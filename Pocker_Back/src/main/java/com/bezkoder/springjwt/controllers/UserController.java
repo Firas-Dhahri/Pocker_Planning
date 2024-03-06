@@ -1,8 +1,7 @@
 package com.bezkoder.springjwt.controllers;
 
-
 import com.bezkoder.springjwt.models.User;
-import com.bezkoder.springjwt.security.services.UserService;
+//import com.bezkoder.springjwt.security.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -12,10 +11,11 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 import java.util.Optional;
 
+@CrossOrigin(origins = "http://localhost:8081", maxAge = 3600, allowCredentials="true")
 @RestController
 @RequestMapping("/api/users")
 public class UserController {
-
+/*
     private final UserService userService;
 
     @Autowired
@@ -67,9 +67,21 @@ public class UserController {
 
     @PreAuthorize("permitAll()")
     @PutMapping("/forgot-password")
-    public ResponseEntity<String> forgotPassword(@RequestParam String email)
-    {
+    public ResponseEntity<String> forgotPassword(@RequestParam String email) {
         return new ResponseEntity<>(userService.forgotPassword(email), HttpStatus.OK);
     }
 
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
+    @PutMapping("/activate-account/{id}")
+    public ResponseEntity<Void> activateAccount(@PathVariable("id") Long id) {
+        userService.activateAccount(id);
+        return new ResponseEntity<>(HttpStatus.OK);
+    }
+
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
+    @PutMapping("/deactivate-account/{id}")
+    public ResponseEntity<Void> deactivateAccount(@PathVariable("id") Long id) {
+        userService.deactivateAccount(id);
+        return new ResponseEntity<>(HttpStatus.OK);
+    }*/
 }

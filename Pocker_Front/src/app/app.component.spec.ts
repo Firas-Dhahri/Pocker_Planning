@@ -20,16 +20,16 @@ describe('AppComponent', () => {
     expect(app).toBeTruthy();
   });
 
-  it(`should have as title 'angular-15-jwt-auth'`, () => {
+  it(`should have as title 'pokerplanning'`, () => {
     const fixture = TestBed.createComponent(AppComponent);
     const app = fixture.componentInstance;
-    expect(app.title).toEqual('angular-15-jwt-auth');
+    expect(app.title).toEqual('pokerplanning');
   });
 
   it('should render title', () => {
     const fixture = TestBed.createComponent(AppComponent);
     fixture.detectChanges();
     const compiled = fixture.nativeElement as HTMLElement;
-    expect(compiled.querySelector('.content span')?.textContent).toContain('angular-15-jwt-auth app is running!');
+    expect(compiled.querySelector('.content span')?.textContent).toContain('pokerplanning app is running!');
   });
 });

@@ -97,56 +97,24 @@ public class AuthController {
                     .badRequest()
                     .body(new MessageResponse("Error: Email is already in use!"));
         }
-
         // Create new user's account
         User user = new User(signUpRequest.getUsername(),
                 signUpRequest.getEmail(),
                 encoder.encode(signUpRequest.getPassword()));
 
-        Set<String> strRoles = signUpRequest.getRole();
-        Set<Role> roles = new HashSet<>();
+        // Assign the role ROLE_DEVELOPER to all registered users
+        Role developerRole = roleRepository.findByName(ERole.ROLE_DEVELOPER)
+                .orElseThrow(() -> new RuntimeException("Error: Role is not found."));
 
-        if (strRoles == null) {
-            Role userRole = roleRepository.findByName(ERole.ROLE_ADMIN)
-                    .orElseThrow(() -> new RuntimeException("Error: Role is not found."));
-            roles.add(userRole);
-        } else {
-            strRoles.forEach(role -> {
-                switch (role) {
-                    case "admin":
-                        Role adminRole = roleRepository.findByName(ERole.ROLE_ADMIN)
-                                .orElseThrow(() -> new RuntimeException("Error: Role is not found."));
-                        roles.add(adminRole);
-                        break;
-                    case "scrum_master":
-                        Role scrumMasterRole = roleRepository.findByName(ERole.ROLE_SCRUM_MASTER)
-                                .orElseThrow(() -> new RuntimeException("Error: Role is not found."));
-                        roles.add(scrumMasterRole);
-                        break;
-                    case "product_owner":
-                        Role productOwnerRole = roleRepository.findByName(ERole.ROLE_PRODUCT_OWNER)
-                                .orElseThrow(() -> new RuntimeException("Error: Role is not found."));
-                        roles.add(productOwnerRole);
-                        break;
-                    case "developer":
-                        Role developerRole = roleRepository.findByName(ERole.ROLE_DEVELOPER)
-                                .orElseThrow(() -> new RuntimeException("Error: Role is not found."));
-                        roles.add(developerRole);
-                        break;
-                    default:
-                        Role userRole = roleRepository.findByName(ERole.ROLE_ADMIN)
-                                .orElseThrow(() -> new RuntimeException("Error: Role is not found."));
-                        roles.add(userRole);
-                }
-            });
-        }
+        Set<Role> roles = new HashSet<>();
+        roles.add(developerRole);
 
         user.setRoles(roles);
         userRepository.save(user);
 
         return ResponseEntity.ok(new MessageResponse("User registered successfully!"));
     }
-  @PostMapping("/signout")
+    @PostMapping("/signout")
   public ResponseEntity<?> signoutUser() {
     try {
       // Invalidate the current authentication context

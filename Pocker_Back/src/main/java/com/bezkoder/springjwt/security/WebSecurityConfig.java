@@ -66,7 +66,7 @@
               .authorizeHttpRequests(auth ->
                       auth.requestMatchers("/api/auth/**").permitAll()
                               .requestMatchers("/api/test/**").permitAll()
-                              .requestMatchers("/api/users/forgot-password").permitAll()
+                              .requestMatchers("/api/users/admin/").permitAll()
                               .anyRequest().authenticated()
               );
 

@@ -1,10 +1,7 @@
 package com.bezkoder.springjwt.controllers;
 
 import org.springframework.security.access.prepost.PreAuthorize;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 //@CrossOrigin(origins = "*", maxAge = 3600)
 @CrossOrigin(origins = "http://localhost:8081", maxAge = 3600, allowCredentials="true")
@@ -42,7 +39,9 @@ public class TestController {
 
   @GetMapping("/admin")
   @PreAuthorize("hasRole('ROLE_ADMIN')")
-  public String adminAccess() {
+  public String adminAccess(@RequestBody String body) {
+    System.out.println("Request received in adminAccess endpoint. Body: " + body);
+
     return "Admin Board.";
   }
 }

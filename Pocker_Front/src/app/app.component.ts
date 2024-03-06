@@ -13,10 +13,11 @@ export class AppComponent {
   private roles: string[] = [];
   isLoggedIn = false;
   showAdminBoard = false;
-  showModeratorBoard = false;
+  showDevBoard = false;
   username?: string;
 
   eventBusSub?: Subscription;
+
 
   constructor(
     private storageService: StorageService,
@@ -32,7 +33,7 @@ export class AppComponent {
       this.roles = user.roles;
 
       this.showAdminBoard = this.roles.includes('ROLE_ADMIN');
-      this.showModeratorBoard = this.roles.includes('ROLE_MODERATOR');
+      this.showDevBoard = this.roles.includes('ROLE_DEVELOPER');
 
       this.username = user.username;
     }
