@@ -42,9 +42,11 @@ public class SessionService implements ISessionService {
            session.setStartDate(sessionStartDate);
 
            Session createdSession = sessionRepository.save(session);
-      //     messagingTemplate.convertAndSend("/topic/sessionCreated", createdSession);
+
+   messagingTemplate.convertAndSend("/topic/session", createdSession);
            sendSessionAddedEmail(session);
-        sendMessageToTopic("test");
+
+       messagingTemplate.convertAndSend("/topic/session", createdSession);
         return  createdSession ;
 
    }
@@ -113,17 +115,11 @@ public class SessionService implements ISessionService {
             helper.setTo(recipients);
             helper.setSubject("New Session Added");
 
-            String yesButton = "<button type='button' style='background-color: green; color: white; padding: 10px 20px;' "
-                    + "onclick=\"sendResponse('yes', '" + session.getId() + "', '" + "');\">Yes</button>";
-
-            String noButton = "<button type='button' style='background-color: red; color: white; padding: 10px 20px;' "
-                    + "onclick=\"sendResponse('no', '" + session.getId() + "', '"+ "');\">No</button>";
-
 
             String htmlContent = "<p>A new session has been added.</p>"
                     + "<p>We Have A New Session after 30 Minute:</p>"
-                    + "<p>Please confirm your presence:</p>"
-                    + yesButton + noButton ;
+                    + "<p>Please confirm your presence:</p>" ;
+
 
             helper.setText(htmlContent, true);
 

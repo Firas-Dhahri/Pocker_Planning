@@ -10,9 +10,17 @@
       "sourceRoot": "src",
       "prefix": "app",
       "architect": {
+
         "build": {
           "builder": "@angular-devkit/build-angular:browser",
           "options": {
+            "allowedCommonJsDependencies": [
+              "sockjs-client/dist/sockjs",
+              "sockjs-client",
+              "stompjs",
+              "sweetalert2"
+            ] ,
+
             "outputPath": "dist/pokerplanning",
             "index": "src/index.html",
             "main": "src/main.ts",

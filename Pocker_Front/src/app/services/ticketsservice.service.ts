@@ -12,7 +12,7 @@ export class TicketsserviceService {
   constructor(private http:HttpClient) { }
 
   GetBySession(idsession: any): Observable<any> {
-    return this.http.get<any>(`${this.BasedUrl}/Poker/ticket/getlist/${idsession}` );
+    return this.http.get<any>(`${this.BasedUrl}/Poker/ticket/getlist/1` );
   }
   GetCarte(){
     return this.http.get(`${this.BasedUrl}/Poker/cards/getall`) ;

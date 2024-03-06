@@ -17,7 +17,7 @@ import java.util.Map;
 
 @RestController
 @RequestMapping("/session")
-@CrossOrigin("*")
+@CrossOrigin(origins = "http://localhost:4200", maxAge = 3600, allowCredentials="true")
 public class SessionController {
     @Autowired
     private SessionService sessionService ;
@@ -29,6 +29,15 @@ public class SessionController {
 
 
    }
+
+    @MessageMapping("/sendSessionId")
+    @SendTo("/topic/session")
+    public String handleSessionId(@Payload Session sessionId) {
+        // Process the session ID
+        System.out.println("Received session ID: " + sessionId);
+
+        return this.sessionService.getRemainingTimeForSession((long) sessionId.getId());
+    }
     @MessageMapping("/createSession")
     public void handleCreateSession(@Payload Session session) {
         System.out.println("Received session: " + session);

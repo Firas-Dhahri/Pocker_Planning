@@ -1,0 +1,36 @@
+<div class="container">
+  <div class="row justify-content-center" *ngIf="currentUser; else loggedOut">
+    <div class="col-md-8">
+      <div class="card">
+        <header class="card-header">
+          <h3 class="card-title">
+            <strong>{{ currentUser.username }}</strong> Profile
+          </h3>
+        </header>
+        <div class="card-body">
+          <p>
+            <strong>Email:</strong>
+            {{ currentUser.email }}
+          </p>
+          <strong>Roles:</strong>
+          <ul>
+            <li *ngFor="let role of currentUser.roles">
+              {{ role }}
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<ng-template #loggedOut>
+  <div class="container">
+    <div class="row justify-content-center">
+      <div class="col-md-8">
+        Please login.
+      </div>
+    </div>
+  </div>
+</ng-template>
+
