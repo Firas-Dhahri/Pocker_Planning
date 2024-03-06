@@ -73,6 +73,12 @@ export class ReclamationComponent implements OnInit{
       
         (response: any[]) => {
           this.reclamations = response.map(reclamation => {
+            if (reclamation.pieceJointe) { // Add null check
+              // Assuming reclamation.pieceJointe contains the absolute path
+              const absolutePath = reclamation.pieceJointe;
+              const relativePath = absolutePath.replace('C:\\Users\\chedli\\Desktop\\Pocker_Planninggit\\Pocker_Front\\src\\assets\\', '');
+              reclamation.pieceJointe = relativePath;}
+
             return {
               ...reclamation,
               dateMiseAJour: reclamation.dateMiseAJour ? this.datePipe.transform(reclamation.dateMiseAJour, 'yyyy-MM-dd') : 'N/A',

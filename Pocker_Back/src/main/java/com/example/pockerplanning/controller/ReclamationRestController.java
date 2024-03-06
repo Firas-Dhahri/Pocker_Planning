@@ -4,12 +4,21 @@ import com.example.pockerplanning.entities.Priorite;
 import com.example.pockerplanning.entities.Reclamation;
 import com.example.pockerplanning.entities.Statut;
 import com.example.pockerplanning.entities.TypeReclamation;
+import com.example.pockerplanning.services.impl.ImageTextExtractionService;
 import com.example.pockerplanning.services.impl.ReclamationService;
+import net.sourceforge.tess4j.TesseractException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.io.File;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.List;
 import java.util.Optional;
 
@@ -17,10 +26,15 @@ import java.util.Optional;
 @RequestMapping("/reclamations")
 @CrossOrigin(origins = "http://localhost:4200")
 public class ReclamationRestController {
+    @Autowired
+    private final ImageTextExtractionService imageTextExtractionService;
 
     @Autowired
     private ReclamationService reclamationService;
 
+    public ReclamationRestController(ImageTextExtractionService imageTextExtractionService) {
+        this.imageTextExtractionService = imageTextExtractionService;
+    }
 
 
     @GetMapping
@@ -37,10 +51,61 @@ public class ReclamationRestController {
     }
 
     @PostMapping("/create-reclamation")
-    public ResponseEntity<Reclamation> createReclamation(@RequestBody Reclamation reclamation) {
-        Reclamation createdReclamation = reclamationService.createReclamation(reclamation);
-        return new ResponseEntity<>(createdReclamation, HttpStatus.CREATED);
+    public ResponseEntity<Reclamation> createReclamation(
+            @RequestParam("utilisateurId") Long utilisateurId,
+            @RequestParam("description") String description,
+            @RequestParam("type") TypeReclamation type,
+            @RequestParam("priorite") Priorite priorite,
+            @RequestParam("statut") Statut statut,
+            @RequestPart(value = "file", required = false) MultipartFile file
+    ) {
+        try {
+            // Save the file to the server or process it as needed
+            String filePath = saveFile(file);
+
+            // Create a Reclamation object
+            Reclamation reclamation = new Reclamation();
+            reclamation.setUtilisateurId(utilisateurId);
+            reclamation.setDescription(description);
+            reclamation.setType(type);
+            reclamation.setPriorite(priorite);
+            reclamation.setStatut(statut);
+            reclamation.setPieceJointe(filePath);
+
+            // Save the reclamation object to the database
+            Reclamation createdReclamation = reclamationService.createReclamation(reclamation);
+
+            return ResponseEntity.ok(createdReclamation);
+        } catch (IOException e) {
+            // Handle file processing exception
+            return ResponseEntity.status(500).build();
+        }
     }
+
+    private String saveFile(MultipartFile file) throws IOException {
+        // Define the directory where you want to save the file
+        String uploadDir = "C:\\Users\\chedli\\Desktop\\Pocker_Planninggit\\Pocker_Front\\src\\assets\\images\\reclamation";
+
+        // Create the directory if it doesn't exist
+        File directory = new File(uploadDir);
+        if (!directory.exists()) {
+            directory.mkdirs(); // Create directory including any necessary but nonexistent parent directories
+        }
+
+        // Generate a unique file name to prevent conflicts
+        String fileName = StringUtils.cleanPath(file.getOriginalFilename());
+        String uniqueFileName = System.currentTimeMillis() + "-" + fileName;
+
+        // Set the file path where the uploaded file will be saved
+        Path filePath = Paths.get(uploadDir, uniqueFileName);
+
+        // Copy the uploaded file to the destination directory
+        Files.copy(file.getInputStream(), filePath);
+
+        // Return the file path
+        return uploadDir + "/" + uniqueFileName;
+    }
+
 
     @PutMapping("/update-reclamation/{id}")
     public ResponseEntity<Reclamation> updateReclamation(@PathVariable Long id, @RequestBody Reclamation reclamation) {
@@ -53,15 +118,18 @@ public class ReclamationRestController {
         reclamationService.deleteReclamation(id);
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
+
     @GetMapping("/byStatut/{statut}")
     public ResponseEntity<List<Reclamation>> getReclamationsByStatut(@PathVariable Statut statut) {
         List<Reclamation> reclamations = reclamationService.getReclamationsByStatut(statut);
         return new ResponseEntity<>(reclamations, HttpStatus.OK);
     }
+
     @GetMapping("/priority/{priority}")
     public List<Reclamation> getReclamationsByPriority(@PathVariable Priorite priority) {
         return reclamationService.getReclamationsByPriority(priority);
     }
+
     @GetMapping("/Type/{type}")
     public List<Reclamation> getReclamationsByType(@PathVariable TypeReclamation type) {
         return reclamationService.getReclamationsByType(type);
@@ -72,6 +140,7 @@ public class ReclamationRestController {
         List<Reclamation> reclamations = reclamationService.getReclamationsSortedByDate();
         return new ResponseEntity<>(reclamations, HttpStatus.OK);
     }
+
     //***************************************
     @PutMapping("/{reclamationId}/assign/{userId}")
     public ResponseEntity<Reclamation> assignReclamationToUser(@PathVariable Long reclamationId, @PathVariable Long userId) {
@@ -96,11 +165,34 @@ public class ReclamationRestController {
         reclamationService.sendNotification(reclamation, "CREATE");
         return ResponseEntity.ok("Notification sent successfully!");
     }
+
     @PostMapping("/send-notifications")
     public String sendNotifications() {
         reclamationService.checkAndSendNotifications();
         return "Notifications sent successfully!";
     }
 
+    @PostMapping("/extractText")
+    public ResponseEntity<String> extractTextFromImage(@RequestParam("imageFile") MultipartFile imageFile) {
+        try {
+            String extractedText = imageTextExtractionService.extractTextFromImage(imageFile);
+            return ResponseEntity.ok(extractedText);
+        } catch (IOException | TesseractException e) {
+            e.printStackTrace();
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Error extracting text from image.");
+        }
+    }
+
+    @PostMapping("/extractBlueText")
+    public ResponseEntity<String> extractBlueTextFromImage(@RequestParam("imageFile") MultipartFile imageFile) {
+        try {
+            String extractedText = imageTextExtractionService.extractBlueTextFromImage(imageFile);
+            return ResponseEntity.ok(extractedText);
+        } catch (IOException | TesseractException e) {
+            e.printStackTrace();
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Error extracting blue text from image.");
+        }
+
+    }
 }
 

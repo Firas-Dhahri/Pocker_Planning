@@ -44,10 +44,15 @@
             <!-- Add other status options if needed -->
           </select>
         </div>
-        <div class="form-group">
+       <!--  <div class="form-group">
           <label for="pieceJointe">Pièce jointe:</label>
-          <input type="file" id="pieceJointe" name="pieceJointe" [(ngModel)]="reclamationData.pieceJointe" class="form-control">
-        </div>
+          <input type="file" (change)="onFileSelected($event)" />
+        </div> -->
+        <form (submit)="submitScanForm()">
+          <!-- Vos champs de formulaire pour le scan de photo ici -->
+          <input type="file" (change)="onFileSelected($event)">
+          <button type="submit">Scanner la photo</button>
+      </form>
         <button type="submit" class="btn btn-primary">Ajouter Réclamation</button>
       </form>
     </div>

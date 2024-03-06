@@ -74,7 +74,9 @@
                 <td>{{ reclamation.type }}</td>
                 <td>{{ reclamation.priorite }}</td>
                 <td>{{ reclamation.statut }}</td>
-                <td>{{ reclamation.pieceJointe }}</td>
+                <td>
+                  <img [src]="'assets/' + reclamation.pieceJointe" alt="Reclamation Image" style="max-width: 100px; max-height: 100px;">
+                </td>
                 <td>{{ reclamation.dateSoumission }}</td>
                 <td>{{ reclamation.dateMiseAJour }}</td>
                 <td>
