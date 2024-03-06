@@ -58,9 +58,6 @@ public class SessionController {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Failed to update session: " + e.getMessage());
         }
     }
-
-
-
     @MessageMapping("/update")
     @SendTo("/topic/session")
     public Session updateStartDate(@PathVariable Long idsession) {
