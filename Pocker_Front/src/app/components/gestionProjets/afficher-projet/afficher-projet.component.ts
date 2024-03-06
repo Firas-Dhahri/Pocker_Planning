@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute, Router } from '@angular/router';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { ToastrService } from 'ngx-toastr';
 import { ProjetService } from 'src/app/services/projet.service';
@@ -12,7 +13,7 @@ export class AfficherProjetComponent implements OnInit {
 
   projets: any[] = [];
 
-  constructor(private projetService: ProjetService ,private toastr: ToastrService ,private spinner: NgxSpinnerService) { }
+  constructor(private projetService: ProjetService ,private router: Router ,private route: ActivatedRoute ,private toastr: ToastrService ,private spinner: NgxSpinnerService) { }
 
   ngOnInit(): void {
     this.getAllProjets();
@@ -33,6 +34,10 @@ export class AfficherProjetComponent implements OnInit {
         console.error('Error fetching projets:', error);
       }
     );
+  }
+  getProjetById(projetId: number)
+  {
+    this.router.navigate(['/showprojet',projetId]);
   }
   deleteProjet(projetId: number ) {
     this.projetService.deleteProjet(projetId).subscribe(

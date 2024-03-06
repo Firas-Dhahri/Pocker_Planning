@@ -28,5 +28,8 @@ export class ProjetService {
     const url = `${this.baseUrl}/modify-carte/${projetId}`;
     return this.http.put<any>(url, projet);
   }
-
+  affecterCartesAProjet(projetId: number, carteIds: number[]): Observable<any> {
+    const url = `${this.baseUrl}/affecter-cartes-projet/${projetId}`;
+    return this.http.post<any>(url, carteIds);
+  }
 }

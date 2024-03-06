@@ -1,0 +1,5 @@
+/* Add a custom class to target the h1 element */
+.custom-h1 {
+    color: rgb(105, 60, 240); /* Light violet color */
+}
+

@@ -22,14 +22,14 @@
             </div>
             <div class="form-group">
                 <label for="date_debut">date of start</label>
-                <input type="text" class="form-control" id="date_debut" formControlName="date_debut" [ngClass]="{ 'is-invalid': projetForm.get('date_debut')?.invalid && projetForm.get('date_debut')?.touched }" />
+                <input type="date" class="form-control" id="date_debut" formControlName="date_debut" [ngClass]="{ 'is-invalid': projetForm.get('date_debut')?.invalid && projetForm.get('date_debut')?.touched }" />
                 <div *ngIf="projetForm.get('date_debut')?.invalid && projetForm.get('date_debut')?.touched" class="invalid-feedback">
                   date of start of the project is required.
                 </div>
             </div>
             <div class="form-group">
                 <label for="date_fin">date of finish</label>
-                <input type="text" class="form-control" id="date_fin" formControlName="date_fin" [ngClass]="{ 'is-invalid': projetForm.get('date_fin')?.invalid && projetForm.get('date_fin')?.touched }" />
+                <input type="date" class="form-control" id="date_fin" formControlName="date_fin" [ngClass]="{ 'is-invalid': projetForm.get('date_fin')?.invalid && projetForm.get('date_fin')?.touched }" />
                 <div *ngIf="projetForm.get('date_fin')?.invalid && projetForm.get('date_fin')?.touched" class="invalid-feedback">
                   date of finish of the project is required.
                 </div>
@@ -76,6 +76,15 @@
                   Algorithm is required.
                 </div>
             </div> 
+            
+            <!--div class="form-group">
+                <label for="cartes">Select Cards</label>
+                <select multiple class="form-control" id="cartes" [(ngModel)]="selectedCartes" name="cartes">
+                    <option *ngFor="let carte of allCartes" [value]="carte.id">{{ carte.valeur }}</option>
+                </select>
+            </div-->
+            
+            
             <br>
             <button class="btn btn-rounded btn-light m-2 col-md-2 me-2" routerLink="/afficherprojets">Return to projects list</button>
             <button type="submit" class="btn btn-rounded btn-primary m-2 col-md-3" [disabled]="projetForm.invalid">Create Project</button>

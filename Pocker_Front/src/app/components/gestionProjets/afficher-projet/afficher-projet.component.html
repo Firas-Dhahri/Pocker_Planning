@@ -15,43 +15,46 @@
           <button class="btn btn-rounded mt-4   btn-success"  routerLink="/ajouterprojet">Ajouter Projet</button> <!-- Button aligned to the right -->
         </div>
       </div>
-      <table class="table">
-        <thead class="bg-primary text-white"> <!-- Added classes bg-primary and text-white -->
-          <tr>
-            <th>title</th>
-            <th>goal</th>
-            <th>date of start</th>
-            <th>date of finish</th>
-            <th>duree</th>
-            <th>constraints</th>
-            <th>requirements</th>
-            <th>dependancies</th>
-            <th>budget</th>
-            <th>status</th>
-            <th>algorithme</th>
-          </tr>
-        </thead>
-        <tbody class="border border-primary"> <!-- Added classes border and border-primary -->
-            <tr *ngFor="let projet of projets">
-                <td>{{ projet.titre }}</td>
-                <td>{{ projet.objectif }}</td>
-                <td>{{ projet.date_debut }}</td>
-                <td>{{ projet.date_fin }}</td>
-                <td>{{ projet.duree }}</td>
-                <td>{{ projet.contraintes }}</td>
-                <td>{{ projet.exigences }}</td>
-                <td>{{ projet.dependance }}</td>
-                <td>{{ projet.budget }}</td>
-                <td>{{ projet.status }}</td>
-                <td>{{ projet.algo }}</td>
+        <div style="overflow-x: auto;">
+            <table class="table" witdh = "80px">
+                <thead class="bg-primary text-white"> <!-- Added classes bg-primary and text-white -->
+                <tr>
+                    <th>title</th>
+                    <th>goal</th>
+                    <th>date of start</th>
+                    <th>date of finish</th>
+                    <th>duree</th>
+                    <th>constraints</th>
+                    <th>requirements</th>
+                    <th>dependancies</th>
+                    <th>budget</th>
+                    <th>status</th>
+                    <th>algorithme</th>
+                </tr>
+                </thead>
+                <tbody class="border border-primary"> <!-- Added classes border and border-primary -->
+                    <tr *ngFor="let projet of projets">
+                        <td>{{ projet.titre }}</td>
+                        <td>{{ projet.objectif }}</td>
+                        <td>{{ projet.date_debut }}</td>
+                        <td>{{ projet.date_fin }}</td>
+                        <td>{{ projet.duree }}</td>
+                        <td>{{ projet.contraintes }}</td>
+                        <td>{{ projet.exigences }}</td>
+                        <td>{{ projet.dependance }}</td>
+                        <td>{{ projet.budget }}</td>
+                        <td>{{ projet.status }}</td>
+                        <td>{{ projet.algo }}</td>
 
-                <td>
-                  <!--button class="btn btn-rounded btn-primary m-2"  [routerLink]="['/updateprojet', projet.id]">Update</button-->
-                  <button class="btn btn-rounded btn-danger m-2" (click)="deleteProjet(projet.id)">Delete</button>
-              </td>
-              </tr>
-        </tbody>
-      </table>
+                        <td>
+                            <button class="btn btn-rounded btn-primary m-2"  [routerLink]="['/showprojet', projet.id]">Show</button>
+                        <button class="btn btn-rounded btn-primary m-2"  [routerLink]="['/updateprojet']">Update</button>
+                        <button class="btn btn-rounded btn-danger m-2" (click)="deleteProjet(projet.id)">Delete</button>
+                    </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
     </div>
   </div>
 </div>

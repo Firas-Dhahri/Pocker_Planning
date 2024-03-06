@@ -9,8 +9,10 @@ public interface IProjetService {
     List<Projet> retrieveallProjets();
 
     Projet retrieveProjet(Long id);
-    Projet updateProjet(Projet projet);
+    Projet updateProjet(Projet projet, Long id);
 
     void deleteProjet(Long id);
+    Projet affecterCartesAProjet(Long projetId, List<Long> carteId);
+
 
 }

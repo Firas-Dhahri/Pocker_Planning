@@ -44,13 +44,13 @@ public class ProjetController {
     }
 
 
-    @PutMapping("/modify-projet")
+    @PutMapping("/modify-projet/{projetId}")
 
     @ResponseBody
 
-    public Projet modifyProjet(@RequestBody Projet projet) {
+    public Projet modifyProjet(@RequestBody Projet projet, @PathVariable("projetId") Long id) {
 
-        return projetService.updateProjet(projet);
+        return projetService.updateProjet(projet, id);
 
     }
 
@@ -65,6 +65,12 @@ public class ProjetController {
 
         projetService.deleteProjet(id);
 
+    }
+
+    @PostMapping("/affecter-cartes-projet/{projetId}")
+    @ResponseBody
+    public Projet affecterCartesAProjet(@PathVariable long projetId, @RequestParam List<Long> carteId) {
+        return projetService.affecterCartesAProjet(projetId, carteId);
     }
 
 }

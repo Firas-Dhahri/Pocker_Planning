@@ -20,6 +20,7 @@ import { AjouterCarteComponent } from './components/gestionProjets/ajouter-carte
 import { AfficherCarteComponent } from './components/gestionProjets/afficher-carte/afficher-carte.component';
 import { UpdateProjetComponent } from './components/gestionProjets/update-projet/update-projet.component';
 import { UpdateCarteComponent } from './components/gestionProjets/update-carte/update-carte.component';
+import { ShowProjetComponent } from './components/gestionProjets/show-projet/show-projet.component';
 
 
 @NgModule({
@@ -35,6 +36,7 @@ import { UpdateCarteComponent } from './components/gestionProjets/update-carte/u
     AfficherProjetComponent,
     UpdateProjetComponent,
     UpdateCarteComponent,
+    ShowProjetComponent,
   ],
   imports: [
     BrowserModule,

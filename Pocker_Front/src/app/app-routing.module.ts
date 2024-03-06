@@ -11,6 +11,7 @@ import {UpdateCarteComponent } from './components/gestionProjets/update-carte/up
 import {AfficherProjetComponent } from './components/gestionProjets/afficher-projet/afficher-projet.component';
 import {AjouterProjetComponent } from './components/gestionProjets/ajouter-projet/ajouter-projet.component';
 import { UpdateProjetComponent } from './components/gestionProjets/update-projet/update-projet.component';
+import { ShowProjetComponent } from './components/gestionProjets/show-projet/show-projet.component';
 
 
 const routes: Routes = [
@@ -24,6 +25,8 @@ const routes: Routes = [
   { path: 'afficherprojet', component: AfficherProjetComponent },
   { path: 'ajouterprojet', component: AjouterProjetComponent },    
   { path: 'updateprojet', component: UpdateProjetComponent },    
+  { path: 'showprojet/:projetId', component: ShowProjetComponent },    
+
 
   ]},
 

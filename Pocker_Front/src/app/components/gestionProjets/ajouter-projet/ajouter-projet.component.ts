@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ProjetService } from 'src/app/services/projet.service';
 import { ToastrService } from 'ngx-toastr';
+import { CarteService } from 'src/app/services/carte.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-ajouter-projet',
@@ -11,18 +13,30 @@ import { ToastrService } from 'ngx-toastr';
 export class AjouterProjetComponent implements OnInit{
 
   projetForm: FormGroup;
+  //allCartes: any[] = [];
+  //selectedCartes: number[] = [];
+
 
   constructor(
     private formBuilder: FormBuilder,
-    private projetService: ProjetService, // Inject your projetService
+    private router: Router,
+    private projetService: ProjetService, 
+    private carteService: CarteService,// Inject your projetService
     private toastr: ToastrService
   ) {
     this.projetForm = this.formBuilder.group({
-      valeur: ['', Validators.required], // Include valeur field in the form with required validator
-      image: ['', Validators.required], // Include image field in the form with required validator
+      titre: ['', Validators.required],
+      objectif: ['', Validators.required],
+     /* date_debut: [null, Validators.required], // Use null as initial value for date fields
+      date_fin: [null, Validators.required], // Use null as initial value for date fields
+      duree: ['', Validators.required], // Assuming it's required, but you can adjust validators as needed
+      contraintes: ['', Validators.required],
+      exigences: ['', Validators.required],
+      dependance: ['', Validators.required],
+      budget: ['', Validators.required],
+      algo: ['', Validators.required]*/
     });
   }
-
   ngOnInit(): void {
   }
 
@@ -42,4 +56,5 @@ export class AjouterProjetComponent implements OnInit{
       );
     }
   }
+
 }
