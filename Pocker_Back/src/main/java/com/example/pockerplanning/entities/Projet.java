@@ -16,18 +16,19 @@ import java.util.List;
 public class Projet {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id;
+    private Long id;
     private String titre;
     private String objectif;
     private Date date_debut;
     private Date date_fin;
+    private String duree;
     private  String contraintes;
     private String exigences ;
     private String dependance ;
     private float budget;
     private int status  ;
     private ALGORITHME algo;
-@JsonIgnore
+    @JsonIgnore
     @ManyToMany(cascade = CascadeType.ALL)
     private List<Carte> cartes;
     @JsonIgnore

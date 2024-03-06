@@ -14,6 +14,13 @@ import { ToastrModule } from 'ngx-toastr';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { NgxSpinnerModule } from 'ngx-spinner';
 
+import { AjouterProjetComponent } from './components/gestionProjets/ajouter-projet/ajouter-projet.component';
+import { AfficherProjetComponent } from './components/gestionProjets/afficher-projet/afficher-projet.component';
+import { AjouterCarteComponent } from './components/gestionProjets/ajouter-carte/ajouter-carte.component';
+import { AfficherCarteComponent } from './components/gestionProjets/afficher-carte/afficher-carte.component';
+import { UpdateProjetComponent } from './components/gestionProjets/update-projet/update-projet.component';
+import { UpdateCarteComponent } from './components/gestionProjets/update-carte/update-carte.component';
+
 
 @NgModule({
   declarations: [
@@ -22,6 +29,12 @@ import { NgxSpinnerModule } from 'ngx-spinner';
     AfficherTicketrComponent,
     AjouterticketComponent,
     UpdateticketComponent,
+    AfficherCarteComponent,
+    AjouterCarteComponent,
+    AjouterProjetComponent,
+    AfficherProjetComponent,
+    UpdateProjetComponent,
+    UpdateCarteComponent,
   ],
   imports: [
     BrowserModule,

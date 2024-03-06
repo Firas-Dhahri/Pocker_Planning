@@ -15,7 +15,7 @@ import lombok.*;
 public class Carte {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int idc;
+    private Long id;
     private String valeur;
     private String img;
 
