@@ -8,6 +8,7 @@ import { ReclamationComponent} from './components/reclamation/reclamation.compon
 import { AddReclamationComponent } from './components/add-reclamation/add-reclamation.component';
 import { UpdateReclamationComponent } from './components/update-reclamation/update-reclamation.component';
 import { DeleteReclamationComponent } from './components/delete-reclamation/delete-reclamation.component';
+import { DetailsreclamationComponent } from './components/detailsreclamation/detailsreclamation.component';
 const routes: Routes = [
   {path:'' , component:NavbarComponent , children:[
   { path: 'affichertickets', component: AfficherTicketrComponent },
@@ -17,6 +18,7 @@ const routes: Routes = [
   { path: 'add-reclamation', component: AddReclamationComponent },
   { path: 'update-reclamation/:id', component: UpdateReclamationComponent },
   { path: 'delete-reclamation/:id', component: DeleteReclamationComponent },
+  { path: 'detailsreclamation/:id', component: DetailsreclamationComponent },
   
     
 

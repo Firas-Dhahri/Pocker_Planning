@@ -16,5 +16,10 @@ public interface ReclamationRepository extends JpaRepository<Reclamation, Long> 
     List<Reclamation> findByType(TypeReclamation type);
 
     List<Reclamation> findByUtilisateurTraitantId(Long utilisateurTraitantId);
+    List<Reclamation> findByStatutAndPrioriteAndType(Statut statut, Priorite priorite, TypeReclamation type);
+    List<Reclamation> findByStatutAndType(Statut statut, TypeReclamation type);
+
+
+
 
 }

@@ -1,10 +1,8 @@
 package com.example.pockerplanning.services.impl;
 
-import com.example.pockerplanning.entities.Priorite;
-import com.example.pockerplanning.entities.Reclamation;
-import com.example.pockerplanning.entities.Statut;
-import com.example.pockerplanning.entities.TypeReclamation;
+import com.example.pockerplanning.entities.*;
 import com.example.pockerplanning.repository.ReclamationRepository;
+import com.example.pockerplanning.repository.UserRepository;
 import com.example.pockerplanning.services.Interface.IReclamationService;
 import jakarta.mail.MessagingException;
 import jakarta.mail.internet.MimeMessage;
@@ -33,7 +31,8 @@ public class ReclamationService implements IReclamationService {
     private JavaMailSender javaMailSender;
     @Autowired
     private NotificationService notificationService;
-
+    @Autowired
+    private UserRepository userRepository;
 
 
     @Override
@@ -90,18 +89,22 @@ public class ReclamationService implements IReclamationService {
     public List<Reclamation> getReclamationsByStatut(Statut statut) {
         return reclamationRepository.findByStatut(statut);
     }
+
     @Override
     public List<Reclamation> getReclamationsByPriority(Priorite priorite) {
         return reclamationRepository.findByPriorite(priorite);
     }
+
     public List<Reclamation> getReclamationsByType(TypeReclamation type) {
         return reclamationRepository.findByType(type);
     }
+
     @Override
     public List<Reclamation> getReclamationsSortedByDate() {
         return reclamationRepository.findAll(Sort.by(Sort.Direction.ASC, "dateSoumission"));
 
     }
+
     @Override
     public Reclamation assignReclamationToUser(Long reclamationId, Long userId) {
         Reclamation reclamation = reclamationRepository.findById(reclamationId).orElse(null);
@@ -136,22 +139,41 @@ public class ReclamationService implements IReclamationService {
             // Handle exception
         }
     }
+
     public ReclamationService(NotificationService notificationService, ReclamationRepository reclamationRepository) {
         this.notificationService = notificationService;
         this.reclamationRepository = reclamationRepository;
     }
-    @Scheduled(cron = "0 0 0 * * *")
+
+    @Scheduled(cron = "0 0/1 * * * *")
     public void checkAndSendNotifications() {
         int notificationsSent = 0; // Initialize count of notifications sent
 
         List<Reclamation> reclamationsInProgress = reclamationRepository.findByStatut(Statut.IN_PROGRESS);
         for (Reclamation reclamation : reclamationsInProgress) {
-
             notificationsSent++; // Increment count for each notification sent
         }
 
         System.out.println("Total notifications sent for reclamations in progress: " + notificationsSent);
     }
 
+    @Override
+    public List<Reclamation> getFilteredReclamations(String statut, String priority, String type) {
+        if (statut == null || type == null) {
+            throw new IllegalArgumentException("Statut and Type must not be null.");
+        }
 
+        Statut statutEnum = Statut.valueOf(statut);
+        TypeReclamation typeEnum = TypeReclamation.valueOf(type);
+
+        if (priority == null) {
+            return reclamationRepository.findByStatutAndType(statutEnum, typeEnum);
+        } else {
+            Priorite priorityEnum = Priorite.valueOf(priority);
+            return reclamationRepository.findByStatutAndPrioriteAndType(statutEnum, priorityEnum, typeEnum);
+        }
+    }
+    public User getUserById(int id) {
+        return userRepository.findById(id).orElse(null);
+    }
 }

@@ -26,5 +26,7 @@ public interface IReclamationService {
     List<Reclamation> getReclamationsSortedByDate();
     Reclamation assignReclamationToUser(Long reclamationId, Long userId);
     List<Reclamation> getReclamationsAssignedToUser(Long userId);
+    List<Reclamation> getFilteredReclamations(String statut, String priority, String type);
+
 }
 

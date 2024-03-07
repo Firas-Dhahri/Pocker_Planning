@@ -1,6 +1,8 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
+import { timer } from 'rxjs';
+import { switchMap } from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root'
@@ -44,5 +46,22 @@ export class ReclamationService {
   assignReclamationToUser(reclamationId: number, userId: number): Observable<any> {
     return this.http.put<any>(`${this.apiUrl}/reclamations/${reclamationId}/assign/${userId}`, {});
   }
+  getReclamationsFiltered(statut: string, priority: string, type: string): Observable<any[]> {
+    // Adjust the API endpoint and request parameters based on your backend API
+    const url = `${this.apiUrl}/reclamations?statut=${statut}&priority=${priority}&type=${type}`;
+    return this.http.get<any[]>(url);
+  }
+  getUserById(userId: number): Observable<any> {
+    return this.http.get<any>(`${this.apiUrl}/users/${userId}`);
+  }
+  
+  sendNotificationsPeriodically(): Observable<any> {
+    // Utilisez timer pour émettre une valeur chaque minute
+    return timer(0, 60000).pipe(
+      // Utilisez switchMap pour envoyer une requête HTTP à chaque fois que le timer émet une valeur
+      switchMap(() => this.http.get('http://localhost:8089/reclamations/send-notifications')));
+  }
+  
+  
 
 }

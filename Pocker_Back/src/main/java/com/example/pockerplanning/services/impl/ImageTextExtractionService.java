@@ -68,8 +68,8 @@ public class ImageTextExtractionService {
         Imgproc.cvtColor(image, hsvImage, Imgproc.COLOR_BGR2HSV);
 
         // Define the range of blue color in HSV
-        Scalar lowerBlue = new Scalar(90, 100, 100);
-        Scalar upperBlue = new Scalar(130, 255, 255);
+        Scalar lowerBlue = new Scalar(135, 50, 50);
+        Scalar upperBlue = new Scalar(175, 255, 255);
 
         // Threshold the image to get only blue pixels
         Mat mask = new Mat();

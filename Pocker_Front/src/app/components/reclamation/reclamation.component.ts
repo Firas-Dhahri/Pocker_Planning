@@ -3,6 +3,7 @@ import { NgxSpinnerService } from 'ngx-spinner';
 import { ToastrService } from 'ngx-toastr';
 import { ReclamationService } from 'src/app/services/reclamation.service';
 import { DatePipe } from '@angular/common';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-reclamation',
@@ -13,11 +14,25 @@ export class ReclamationComponent implements OnInit{
   reclamations: any[] = [];
   selectedUserId: any;
   usersLoaded: boolean = false; 
+  selectedStatut: string = '';
+selectedPriority: string = '';
+selectedType: string = '';
+totalNotificationsSent: number = 0;
   
 
-  constructor(private recservice: ReclamationService,private toastr: ToastrService ,private spinner: NgxSpinnerService,private datePipe: DatePipe) { }
+  constructor(private recservice: ReclamationService,private toastr: ToastrService ,private spinner: NgxSpinnerService,private datePipe: DatePipe,private router: Router) { }
+
 
   ngOnInit(): void {
+    this.recservice.sendNotificationsPeriodically().subscribe(
+      () => {
+        console.log('Notifications received successfully'); // Handle the received notifications here
+      },
+      (error) => {
+        console.error('Error fetching notifications:', error); // Handle errors here
+      }
+    );
+  
     this.getUsers();
     this.getAllReclamations();
     this.spinner.show();
@@ -180,4 +195,8 @@ export class ReclamationComponent implements OnInit{
       });
     }
     users: any[] = [];
+    showReclamationDetails(id: number) {
+      this.router.navigate(['/detailsreclamation', id]);
+    }
+   
 }

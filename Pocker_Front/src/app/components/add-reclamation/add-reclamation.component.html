@@ -1,7 +1,7 @@
 <div class="container">
   <div class="row">
     <div class="col-md-6 offset-md-3">
-      <h2 class="mb-4">Ajouter Réclamation</h2>
+      <h2 class="mb-4" style="color: #9428C9;">Ajouter Réclamation</h2>
       <form (ngSubmit)="createReclamation()">
         <div class="form-group">
           <label for="utilisateurId">Utilisateur ID:</label>
@@ -44,15 +44,14 @@
             <!-- Add other status options if needed -->
           </select>
         </div>
-       <!--  <div class="form-group">
-          <label for="pieceJointe">Pièce jointe:</label>
-          <input type="file" (change)="onFileSelected($event)" />
-        </div> -->
-        <form (submit)="submitScanForm()">
-          <!-- Vos champs de formulaire pour le scan de photo ici -->
-          <input type="file" (change)="onFileSelected($event)">
-          <button type="submit">Scanner la photo</button>
-      </form>
+        <!-- Champ de sélection de fichier pour le scan de photo -->
+        <div class="form-group">
+          <label for="imageFile">Sélectionner une photo:</label>
+          <input type="file" (change)="onFileSelected($event)" id="imageFile" name="imageFile" class="form-control-file" accept="image/*">
+        </div>
+        <!-- Bouton pour scanner la photo -->
+        <button type="button" class="btn btn-primary" (click)="submitScanForm()">Scanner la photo</button>
+        <!-- Bouton pour ajouter la réclamation -->
         <button type="submit" class="btn btn-primary">Ajouter Réclamation</button>
       </form>
     </div>

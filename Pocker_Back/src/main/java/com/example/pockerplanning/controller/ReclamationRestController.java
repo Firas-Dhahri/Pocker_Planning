@@ -1,9 +1,6 @@
 package com.example.pockerplanning.controller;
 
-import com.example.pockerplanning.entities.Priorite;
-import com.example.pockerplanning.entities.Reclamation;
-import com.example.pockerplanning.entities.Statut;
-import com.example.pockerplanning.entities.TypeReclamation;
+import com.example.pockerplanning.entities.*;
 import com.example.pockerplanning.services.impl.ImageTextExtractionService;
 import com.example.pockerplanning.services.impl.ReclamationService;
 import net.sourceforge.tess4j.TesseractException;
@@ -19,7 +16,9 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 @RestController
@@ -166,12 +165,16 @@ public class ReclamationRestController {
         return ResponseEntity.ok("Notification sent successfully!");
     }
 
-    @PostMapping("/send-notifications")
-    public String sendNotifications() {
-        reclamationService.checkAndSendNotifications();
-        return "Notifications sent successfully!";
-    }
 
+    @GetMapping("/send-notifications")
+    public ResponseEntity<String> sendNotifications() {
+        try {
+            reclamationService.checkAndSendNotifications();
+            return ResponseEntity.ok("Notifications sent successfully");
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Error sending notifications: " + e.getMessage());
+        }
+    }
     @PostMapping("/extractText")
     public ResponseEntity<String> extractTextFromImage(@RequestParam("imageFile") MultipartFile imageFile) {
         try {
@@ -193,6 +196,17 @@ public class ReclamationRestController {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Error extracting blue text from image.");
         }
 
+    }
+    @GetMapping("/filtered")
+    public ResponseEntity<List<Reclamation>> getFilteredReclamations(@RequestParam(required = false) String statut,
+                                                                     @RequestParam(required = false) String priority,
+                                                                     @RequestParam(required = false) String type) {
+        List<Reclamation> filteredReclamations = reclamationService.getFilteredReclamations(statut, priority, type);
+        return new ResponseEntity<>(filteredReclamations, HttpStatus.OK);
+    }
+    @GetMapping("/users/{id}")
+    public User getUserById(@PathVariable int id) {
+        return reclamationService.getUserById(id);
     }
 }
 

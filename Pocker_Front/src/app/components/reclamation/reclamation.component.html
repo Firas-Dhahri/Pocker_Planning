@@ -5,7 +5,7 @@
     <div class="col-md-12">
       <div class="row mb-4 mt-4">
         <div class="col">
-          <h2 class="mb-4">Reclamations</h2>
+          <h2 class="mb-4" style="color: #9428C9;">Reclamations</h2>
           <!-- Title added -->
         </div>
       </div>
@@ -50,7 +50,7 @@
         </div>
       </div>
       <div class="row">
-        <div class="col">
+        <div class="table-container table-buttons">
           <table class="table">
             <thead class="bg-primary text-white">
               <tr>
@@ -87,6 +87,9 @@
                 </td>
                 <td><button class="btn btn-rounded btn-primary m-2" [routerLink]="['/update-reclamation', reclamation.id]">Update</button></td>
                 <td><button class="btn btn-rounded btn-primary m-1" [routerLink]="['/delete-reclamation', reclamation.id]">Delete</button></td>
+                <td>
+                  <button class="btn btn-rounded btn-primary m-1" [routerLink]="['/detailsreclamation', reclamation.id]">Details</button>
+                </td>
               </tr>
             </tbody>
           </table>
