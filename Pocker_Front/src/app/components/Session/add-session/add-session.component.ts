@@ -28,21 +28,35 @@ export class AddSessionComponent {
 
   }
 
-ngOnInit(){
+  ngOnInit(){
 
- /*   const socket = new SockJS('http://localhost:8090/pokerplaning');
-    this.stompClient = Stomp.over(socket);
-    this.stompClient.connect({}, (frame: any) => {
+    /*   const socket = new SockJS('http://localhost:8090/pokerplaning');
+       this.stompClient = Stomp.over(socket);
+       this.stompClient.connect({}, (frame: any) => {
 
-      this.stompClient.subscribe('/topic/session', (result: any) => {
-        this.webSocketService.isConnected == true;
-        console.log("hedhy reponsee m add session" , result)
+         this.stompClient.subscribe('/topic/session', (result: any) => {
+           this.webSocketService.isConnected == true;
+           console.log("hedhy reponsee m add session" , result)
+         });
+       });*/
+    if (!this.webSocketService.stompClient) {
+      const socket = new SockJS('http://localhost:8090/pokerplaning');
+      this.stompClient = Stomp.over(socket);
+      this.stompClient.connect({}, (frame: any) => {
+        this.webSocketService.isConnected = true;
+        this.stompClient.subscribe('/topic/session', (result: any) => {
+          const message = JSON.parse(result.body);
+
+          this.receivedMessage = message ;
+          console.log("hedhy resultats m add" , message) ;
+          this.pokerservice.setSessionId(message.id);
+          localStorage.setItem('receivedMessageId', this.receivedMessage.id);
+          localStorage.setItem('SessionId', this.receivedMessage.id);
+        });
       });
-    });*/
+    }
 
-  this.webSocketService.connectToWebSocket();
-
-}
+  }
 
 
 
@@ -56,11 +70,10 @@ ngOnInit(){
           icon: "success"
         });
 
-  // this.pokerservice.connect();
-        this.pokerservice.setSessionId(response.id);
-       // this.webSocketService.stompClient.send('/app/sendSessionId', {}, JSON.stringify(response))
+        // this.pokerservice.connect();
 
-       this.router.navigateByUrl('/navbar/chronometre');
+
+        this.router.navigateByUrl('/navbar/chronometre');
 
       } , (errot)=>{
         Swal.fire({
@@ -72,21 +85,21 @@ ngOnInit(){
 
       });
   }
-AddSession1() {
-  // console.log("u clicked here");
-  // const message = {
-  //   destination: "createSession",
-  //   payload: this.Session
-  // };
+  AddSession1() {
+    // console.log("u clicked here");
+    // const message = {
+    //   destination: "createSession",
+    //   payload: this.Session
+    // };
 
-  // this.pokerservice.sendMessage2(message).subscribe((res) => {
-  //   console.log("ressses", res);
+    // this.pokerservice.sendMessage2(message).subscribe((res) => {
+    //   console.log("ressses", res);
 
 
-  // } ,  (error)=>{
-  //     console.log("errrorrr")
-  // });
-  // console.log("teb3a thhhh");
+    // } ,  (error)=>{
+    //     console.log("errrorrr")
+    // });
+    // console.log("teb3a thhhh");
 
 
 
@@ -97,6 +110,5 @@ AddSession1() {
 
 
 
-}
   }
-
+}

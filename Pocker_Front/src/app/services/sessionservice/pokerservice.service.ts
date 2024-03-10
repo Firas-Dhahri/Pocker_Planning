@@ -27,7 +27,7 @@ export class PokerserviceService {
   private stompClient!: Client;
 
 
-private socket!: WebSocket;
+  private socket!: WebSocket;
 
 
   private remainingTime: any;
@@ -44,6 +44,8 @@ private socket!: WebSocket;
   setSessionId(sessionId: number) {
     this.sessionIdSubject.next(sessionId);
   }
+
+
 
   constructor(private http:HttpClient  , private stoargeservice:StorageService , private authService:AuthService ) {}
   private getHeaders(): HttpHeaders {
@@ -94,10 +96,10 @@ private socket!: WebSocket;
   }
 
   updateSession(session:any){
-    return this.http.put<string>(`${this.BasedUrl}/session/update/1` ,session);
+    return this.http.put<string>(`${this.BasedUrl}/session/update/9` ,session);
   }
   updateSessionFalse(session:any){
-    return this.http.put<string>(`${this.BasedUrl}/session/updateFalse/1` ,session);
+    return this.http.put<string>(`${this.BasedUrl}/session/updateFalse/9` ,session);
   }
 
   getSession(): Observable<any> {
@@ -109,4 +111,9 @@ private socket!: WebSocket;
   getbyid(): any{
     return this.http.get<any>("http://localhost:8090/session/getbyid");
   }
+  AddvideoConferance(roomname:any , idsession:any, host:any){
+
+    return this.http.get<any>(`${this.BasedUrl}/session/createVideoConférance/${roomname}/${idsession}/${host}` , );
+  }
+
 }

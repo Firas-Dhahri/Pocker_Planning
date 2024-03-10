@@ -17,6 +17,11 @@ import {OneAnalyseComponent} from "./components/Analyse/one-analyse/one-analyse.
 import {AfficherTicketComponent} from "./components/ticket/afficher-ticket/afficher-ticket.component";
 import {AjouterticketComponent} from "./components/ticket/ajouterticket/ajouterticket.component";
 import {UpdateticketComponent} from "./components/ticket/updateticket/updateticket.component";
+import { ReclamationComponent} from './components/reclamation/reclamation/reclamation.component';
+import { AddReclamationComponent } from './components/reclamation/add-reclamation/add-reclamation.component';
+import { UpdateReclamationComponent } from './components/reclamation/update-reclamation/update-reclamation.component';
+import { DeleteReclamationComponent } from './components/reclamation/delete-reclamation/delete-reclamation.component';
+import { DetailsreclamationComponent } from './components/reclamation/detailsreclamation/detailsreclamation.component';
 
 
 
@@ -42,6 +47,12 @@ const routes: Routes = [
       { path: 'analyse_Us',component:AnalyseUsComponent },
       { path: 'add_analyse',component:AddAnalyseComponent },
       { path: 'analyse_Projet/one_analyse/:id', component: OneAnalyseComponent},
+      { path: 'reclamations', component: ReclamationComponent },
+      { path: 'add-reclamation', component: AddReclamationComponent },
+      { path: 'update-reclamation/:id', component: UpdateReclamationComponent },
+      { path: 'delete-reclamation/:id', component: DeleteReclamationComponent },
+      { path: 'detailsreclamation/:id', component: DetailsreclamationComponent },
+
 
 
 

@@ -8,6 +8,7 @@ import {WebsocketserviceService} from "../../../services/sessionservice/websocke
 import * as SockJS from "sockjs-client";
 import * as Stomp from "stompjs";
 import {StorageService} from "../../../services/userservice/storage.service";
+import {Router} from "@angular/router";
 
 @Component({
   selector: 'app-poker-planning',
@@ -42,45 +43,82 @@ export class PokerPlanningComponent {
 
   idticket!: any;
   stompClient:any;
-
+  videoadded = false ;
 
   isLoggedIn = false;
   showAdminBoard = false;
   showDevBoard = false;
   username?: string;
-  constructor(private pokerService:PokerserviceService,private websoketService:WebsocketserviceService , private Ticketsservice : TicketsserviceService , private voteservice:VoteServiceService , private storageService: StorageService){ }
+  constructor(private pokerService:PokerserviceService,private websoketService:WebsocketserviceService , private Ticketsservice : TicketsserviceService , private voteservice:VoteServiceService , private storageService: StorageService , private router:Router){ }
 
 
   ngOnInit(){
     this.GetTicketsBySession() ;
     this.GetCards() ;
+    /*
+        const socket = new SockJS('http://localhost:8090/pokerplaning');
+        this.stompClient = Stomp.over(socket);
+        this.stompClient.connect({}, (frame:any) => {
+          console.log("hedha frame" ,frame);
+          this.stompClient.subscribe('/topic/session', (result:any) => {
+            this.receivedMessage =  JSON.parse(result.body );
 
-    const socket = new SockJS('http://localhost:8090/pokerplaning');
-    this.stompClient = Stomp.over(socket);
-    this.stompClient.connect({}, (frame:any) => {
-      console.log("hedha frame" ,frame);
-      this.stompClient.subscribe('/topic/session', (result:any) => {
-        this.receivedMessage =  JSON.parse(result.body );
+            if(this.receivedMessage.votingStarted == false){
+              this.closeFromServer();
+            } else {
 
-        if(this.receivedMessage.votingStarted == false){
-          this.closeFromServer();
-        } else {
-
-          this.VoteStartServer() ;
-        }
+              this.VoteStartServer() ;
+            }
+          });
+        });*/
+    if(!this.websoketService.isConnected){
+      const socket = new SockJS('http://localhost:8090/pokerplaning');
+      this.stompClient = Stomp.over(socket);
+      this.stompClient.connect({}, (frame: any) => {
+        this.stompClient.subscribe('/topic/session', (result: any) => {
+          this.websoketService.isConnected = true;
+          this.receivedMessage =  JSON.parse(result.body );
+          console.log("hedhy reponsee men pokerr " , result) ;
+          if(this.receivedMessage.votingStarted == false){
+            this.closeFromServer();
+          } else if(this.receivedMessage.votingStarted == true)
+          {
+            this.VoteStartServer() ;
+          }
+        });
       });
-    });
-
-
+    }
+    else {
+      this.receivedMessage =  this.websoketService.getReceivedMessage() ;
+      if(this.receivedMessage.votingStarted == false){
+        this.closeFromServer();
+      } else if(this.receivedMessage.votingStarted == true){
+        this.VoteStartServer() ;
+      }
+    }
     this.isLoggedIn = this.storageService.isLoggedIn();
-
     if (this.isLoggedIn) {
       const user = this.storageService.getUser();
-
-
       this.username = user.username;
       this.participants = user.username ;
     }
+  }
+  StartVideoConferance(){
+
+    let id =   localStorage.getItem('SessionId') ;
+    let nom = "New VideoAdded" ;
+    let host = "wiem.khedri50@gmail.com"
+    this.pokerService.AddvideoConferance(nom , id , host).subscribe((data:any)=>{
+      Swal.fire({
+        position: "top-end",
+        icon: "success",
+        title: "Mail of the New Meet Has Been Sent",
+        showConfirmButton: false,
+        timer: 1500
+      });
+
+    })
+
   }
 
   VoteStartServer(){
@@ -132,9 +170,9 @@ export class PokerPlanningComponent {
   }
 
   onVoteStarted() {
-let session={} ;
-   this.pokerService.updateSession(session).subscribe((resultat:any)=>{
-   })
+    let session={} ;
+    this.pokerService.updateSession(session).subscribe((resultat:any)=>{
+    })
 
   }
 
@@ -237,8 +275,4 @@ let session={} ;
   }
 
 }
-
-
-
-
 

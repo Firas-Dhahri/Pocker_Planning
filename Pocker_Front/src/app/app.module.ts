@@ -37,6 +37,11 @@ import { AfficherTicketComponent } from './components/ticket/afficher-ticket/aff
 import { UpdateticketComponent } from './components/ticket/updateticket/updateticket.component';
 import {NgxSpinnerModule} from "ngx-spinner";
 import { ToastrModule } from 'ngx-toastr';
+import { AddReclamationComponent } from './components/reclamation/add-reclamation/add-reclamation.component';
+import { DeleteReclamationComponent } from './components/reclamation/delete-reclamation/delete-reclamation.component';
+import { DetailsreclamationComponent } from './components/reclamation/detailsreclamation/detailsreclamation.component';
+import { ReclamationComponent } from './components/reclamation/reclamation/reclamation.component';
+import { UpdateReclamationComponent } from './components/reclamation/update-reclamation/update-reclamation.component';
 
 
 
@@ -66,7 +71,12 @@ import { ToastrModule } from 'ngx-toastr';
     OneAnalyseTicketComponent,
     AjouterticketComponent,
     AfficherTicketComponent,
-    UpdateticketComponent
+    UpdateticketComponent,
+    AddReclamationComponent,
+    DeleteReclamationComponent,
+    DetailsreclamationComponent,
+    ReclamationComponent,
+    UpdateReclamationComponent
 
 
 
