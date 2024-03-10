@@ -1,0 +1,15 @@
+.select-menu {
+  margin-right: 20px; /* Adjust the margin as needed */
+}
+
+/* No margin added to the last select menu */
+.select-menu:last-child {
+  margin-right: 20px;
+}
+.table-container {
+  margin-left: -60px; /* Adjust this value as needed */
+}
+.table-buttons td {
+  padding-right: 0px; /* Adjust the padding-right value as needed */
+  padding-left: 0px;
+}

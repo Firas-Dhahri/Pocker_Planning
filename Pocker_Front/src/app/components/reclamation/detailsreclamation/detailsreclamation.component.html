@@ -1,0 +1,33 @@
+<div *ngIf="reclamation" class="container">
+  <h2>Details de la réclamation</h2>
+  <div class="details-container">
+    <div class="detail-item">
+      <strong>Utilisateur ID:</strong> {{ reclamation.utilisateurId }}
+    </div>
+    <div class="detail-item">
+      <strong>Description:</strong> {{ reclamation.description }}
+    </div>
+    <div class="detail-item">
+      <strong>Type:</strong> {{ reclamation.type }}
+    </div>
+    <div class="detail-item">
+      <strong>Priorite:</strong> {{ reclamation.priorite }}
+    </div>
+    <div class="detail-item">
+      <strong>Statut:</strong> {{ reclamation.statut }}
+    </div>
+    <div class="detail-item">
+      <strong>Date Soumission:</strong> {{ reclamation.dateSoumission }}
+    </div>
+    <div class="detail-item">
+      <strong>Date Mise A Jour:</strong> {{ reclamation.dateMiseAJour }}
+    </div>
+    <div class="detail-item">
+      <strong>Utilisateur Traitant ID:</strong> {{ reclamation.utilisateurTraitantId }}
+    </div>
+    <div class="detail-item">
+      <strong>Utilisateur Traitant Name:</strong> {{ utilisateurTraitantName }}
+    </div>
+  </div>
+</div>
+
