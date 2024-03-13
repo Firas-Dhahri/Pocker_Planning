@@ -39,8 +39,22 @@ ngOnInit(){
         console.log("hedhy reponsee m add session" , result)
       });
     });*/
+  if (!this.webSocketService.stompClient) {
+    const socket = new SockJS('http://localhost:8090/pokerplaning');
+    this.stompClient = Stomp.over(socket);
+    this.stompClient.connect({}, (frame: any) => {
+      this.webSocketService.isConnected = true;
+      this.stompClient.subscribe('/topic/session', (result: any) => {
+        const message = JSON.parse(result.body);
 
-  this.webSocketService.connectToWebSocket();
+        this.receivedMessage = message ;
+        console.log("hedhy resultats m add" , message) ;
+        this.pokerservice.setSessionId(message.id);
+        localStorage.setItem('receivedMessageId', this.receivedMessage.id);
+        localStorage.setItem('SessionId', this.receivedMessage.id);
+      });
+    });
+  }
 
 }
 
@@ -57,8 +71,7 @@ ngOnInit(){
         });
 
   // this.pokerservice.connect();
-        this.pokerservice.setSessionId(response.id);
-       // this.webSocketService.stompClient.send('/app/sendSessionId', {}, JSON.stringify(response))
+
 
        this.router.navigateByUrl('/navbar/chronometre');
 

@@ -7,8 +7,12 @@
       <h3>ESTIMATE</h3>
       <p>Welcome to your Estimation session</p>
 
+
+       <button   (click)="StartVideoConferance()" style="    width: 176px; margin-left: 1018px;  margin-top: -63px;">Start Video Conférance</button>
     </div>
+
   </div>
+
   <div id="poker-container">
       <aside id="work-item-list">
           <h3>User Story</h3>
@@ -32,8 +36,6 @@
       <span class="divider"></span>
       <br>
 
-
-
       <div id="poker-estimation1">
         <!-- Your existing HTML code here -->
 
@@ -50,11 +52,10 @@
         <div class="players">
           <h4>Players</h4>
           <participant [participant]="participants"  [selectedCard]="selectedCard"  ></participant>
-         
-        </div>
 
-<br>
-<button id="commit-estimate" (click)="commit()" >Commit</button>
+        </div>
+   <br>
+   <button id="commit-estimate" (click)="commit()" >Commit</button>
     </aside>
 
   </div>

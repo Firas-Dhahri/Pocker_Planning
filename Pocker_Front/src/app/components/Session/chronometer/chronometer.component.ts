@@ -34,7 +34,6 @@ export class ChronometerComponent implements OnInit, OnDestroy {
 
         this.stompClient.subscribe('/topic/session', (result: any) => {
           this.webSocketService.isConnected = true;
-          console.log("hedhy reponsee" , result)
           this.receivedMessage =  JSON.parse(result.body );
           console.log("hedhy reponsee men chronometre " , this.receivedMessage) ;
           localStorage.setItem('receivedMessageId', this.receivedMessage.id);
@@ -84,5 +83,7 @@ GetRemainingTime(response:any){
 
   ngOnDestroy(): void {
     clearInterval(this.timerInterval);
+    localStorage.removeItem('receivedMessageId');
+
   }
 }

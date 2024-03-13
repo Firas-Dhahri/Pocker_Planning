@@ -8,6 +8,7 @@ import { VoteChartComponent } from './components/Session/vote-chart/vote-chart.c
 import {MessageComponent} from "./components/Forum/message/message.component";
 import {LoginComponent} from "./components/user/login/login.component";
 import {RegisterComponent} from "./components/user/register/register.component";
+import {VideoconferanceComponent} from "./components/session/videoconferance/videoconferance.component";
 
 
 
@@ -18,6 +19,7 @@ const routes: Routes = [
   { path: 'profile', component: RegisterComponent },
   {path:'navbar' , component:NavbarComponent , children:[
     {path:'addsession' , component:AddSessionComponent} ,
+      {path:'video' , component:VideoconferanceComponent} ,
     {path:'poker' , component:PokerPlanningComponent} ,
     {path:'chronometre' , component:ChronometerComponent} ,
     {path:'votechart' , component:VoteChartComponent} ,

@@ -45,6 +45,8 @@ private socket!: WebSocket;
     this.sessionIdSubject.next(sessionId);
   }
 
+
+
   constructor(private http:HttpClient  , private stoargeservice:StorageService , private authService:AuthService ) {}
   private getHeaders(): HttpHeaders {
     const token = this.authService.getToken() || this.getTokenFromStorage();
@@ -109,4 +111,14 @@ private socket!: WebSocket;
   getbyid(): any{
     return this.http.get<any>("http://localhost:8090/session/getbyid");
   }
+  
+  AddvideoConferance(roomname:any , idsession:any, host:any){
+
+    return this.http.get<any>(`${this.BasedUrl}/session/createVideoConférance/${roomname}/${idsession}/${host}` , );
+  }
+
+
+
+
+
 }

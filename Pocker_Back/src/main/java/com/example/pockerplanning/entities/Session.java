@@ -23,6 +23,8 @@ public class Session {
     private String estimation;
     private Boolean votingStarted ;
 
+private String videoConférance ;
+
 
 
     @OneToMany( mappedBy="session")

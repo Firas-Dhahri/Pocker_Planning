@@ -1,6 +1,7 @@
 package com.example.pockerplanning.controller;
 
 import com.example.pockerplanning.entities.Session;
+import com.example.pockerplanning.repository.SessionRepositery;
 import com.example.pockerplanning.services.impl.SessionService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -9,6 +10,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.messaging.handler.annotation.MessageMapping;
 import org.springframework.messaging.handler.annotation.Payload;
 import org.springframework.messaging.handler.annotation.SendTo;
+import org.springframework.messaging.simp.SimpMessagingTemplate;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.HashMap;
@@ -21,7 +23,10 @@ import java.util.Map;
 public class SessionController {
     @Autowired
     private SessionService sessionService ;
-
+    @Autowired
+    private SessionRepositery sessionRepositery ;
+    @Autowired
+    private SimpMessagingTemplate messagingTemplate;
    @PostMapping("/AddSession")
     public Session addSession(@RequestBody Session session) {
 
@@ -104,7 +109,11 @@ public class SessionController {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Error occurred: " + e.getMessage());
         }
     }
+    //private static final String PREDEFINED_EMAIL = "pokerplanning0@gmail.com";
 
-
+    @GetMapping("/createVideoConférance/{roomName}/{idsession}/{nomHost}")
+    public void createConferenceRoom(@PathVariable String roomName, @PathVariable Long idsession, @PathVariable String nomHost) {
+   this.sessionService.addvideoconferance(roomName,idsession,nomHost);
+    }
 
 }

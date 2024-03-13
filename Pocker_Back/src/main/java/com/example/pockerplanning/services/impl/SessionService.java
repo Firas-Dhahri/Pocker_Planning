@@ -14,6 +14,7 @@ import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.messaging.simp.SimpMessagingTemplate;
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.PathVariable;
 
 import java.time.Duration;
 import java.time.LocalDateTime;
@@ -38,7 +39,7 @@ public class SessionService implements ISessionService {
 
    public Session addSession2(Session session) {
            LocalDateTime now = LocalDateTime.now();
-           LocalDateTime sessionStartDate = now.plus(30, ChronoUnit.MINUTES);
+           LocalDateTime sessionStartDate = now.plus(1, ChronoUnit.MINUTES);
            session.setStartDate(sessionStartDate);
 
            Session createdSession = sessionRepository.save(session);
@@ -50,6 +51,18 @@ public class SessionService implements ISessionService {
         return  createdSession ;
 
    }
+   public void addvideoconferance(String roomName,  Long idsession,String nomHost){
+       Session s = sessionRepository.findById(idsession).orElse(null);
+       if (s != null) {
+           String video = "https://meet.jit.si/" + roomName + "?host=" + nomHost;
+           s.setVideoConférance(video);
+           sessionRepository.save(s);
+
+
+           sendVideoAddedEmail(s);
+       }
+   }
+
 
     private void sendMessageToTopic(String message) {
 
@@ -103,7 +116,27 @@ public class SessionService implements ISessionService {
 
     }
 
+    public void sendVideoAddedEmail(Session session) {
+        MimeMessage message = javaMailSender.createMimeMessage();
+        MimeMessageHelper helper;
+        try {
+            helper = new MimeMessageHelper(message, true);
+            helper.setFrom(new InternetAddress("pokerplaning0@gmail.com"));
+            String[] recipients = { "wiem.khedri50@gmail.com"};
+            helper.setTo(recipients);
+            helper.setSubject("New video Conférance");
+            String htmlContent = "<p>A new meet Has Been Added</p>"
+                    + "<p>Open the Link bellow To Join the Meet:</p>"
+                    + session.getVideoConférance();
 
+
+            helper.setText(htmlContent, true);
+
+            javaMailSender.send(message);
+        } catch (MessagingException e) {
+            e.printStackTrace();
+        }
+    }
 
     public void sendSessionAddedEmail(Session session) {
         MimeMessage message = javaMailSender.createMimeMessage();
