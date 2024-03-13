@@ -13,7 +13,7 @@ export class MessageserviceService {
   public text = '';
   tempWords: string = '';
 
-  currentLanguages: string[] = ['en-US', /*'fr-FR'*/];
+  currentLanguages: string[] = ['en-US', 'fr-FR'];
 
   constructor() {}
 
