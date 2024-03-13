@@ -10,3 +10,8 @@
   text-transform: uppercase;
   color: white;
 }
+
+.disabled {
+  opacity: 0.5;
+  pointer-events: none;
+}

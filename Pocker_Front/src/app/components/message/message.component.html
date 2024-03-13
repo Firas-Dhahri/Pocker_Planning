@@ -89,11 +89,21 @@
               <div class="row">
                 <div class="col-9">
                   <div class="input-field mt-0 mb-0">
-                    <input placeholder="Type and press enter" type="text" id="content" pInputText [(ngModel)]="content" class="form-control border-0" (keydown.enter)="sendMessage()">
+                    <input placeholder="Type and press enter" type="text" id="content" pInputText [(ngModel)]="content" class="form-control border-0" (keydown.enter)="sendMessage()" [value]="MsgService.text">
                   </div>
                 </div>
-                <div class="col-3">
-                  <a class="btn-circle bg-cyan float-end text-white d-flex align-items-center justify-content-center" (click)="sendMessage()"><i class="fas fa-paper-plane"></i></a>
+                <div class="col-auto mt-2">
+                  <div class="d-flex align-items-center">
+                    <div class="me-3">
+                      <i class="fas fa-microphone fa-lg" (click)="startRecording()" [ngClass]="{ 'disabled': recording }"></i>
+                    </div>
+                    <div>
+                      <i class="fas fa-stop-circle fa-lg" (click)="stopRecording()" [ngClass]="{ 'disabled': !recording }"></i>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-auto">
+                  <a class="btn btn-circle bg-cyan text-white d-flex align-items-center justify-content-center" (click)="sendMessage()"><i class="fas fa-paper-plane"></i></a>
                 </div>
               </div>
             </div>

@@ -3,11 +3,13 @@ import * as Stomp from 'stompjs';
 // @ts-ignore
 import SockJS from 'sockjs-client/dist/sockjs';
 import {MessageService} from 'primeng/api';
+import {MessageserviceService} from "../../services/messageservice.service";
 
 @Component({
   selector: 'app-message',
   templateUrl: './message.component.html',
-  styleUrls: ['./message.component.css']
+  styleUrls: ['./message.component.css'],
+  providers: [MessageserviceService]
 })
 export class MessageComponent {
 
@@ -54,7 +56,12 @@ export class MessageComponent {
 
   replyContent: string = '';
 
-  constructor(private messageService: MessageService) {}
+  text!: string;
+  recording: boolean = false;
+
+  constructor(private messageService: MessageService, public MsgService: MessageserviceService) {
+    this.MsgService.init();
+  }
 
   ngOnInit(): void {
     this.connect();
@@ -186,6 +193,16 @@ export class MessageComponent {
       });
       this.replyContent = '';
     }
+  }
+
+  startRecording() {
+    this.recording = true;
+    this.MsgService.startService();
+  }
+
+  stopRecording() {
+    this.recording = false;
+    this.MsgService.stopService();
   }
 
 }
