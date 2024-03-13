@@ -4,6 +4,8 @@ import * as Stomp from 'stompjs';
 import SockJS from 'sockjs-client/dist/sockjs';
 import {MessageService} from 'primeng/api';
 import {MessageserviceService} from "../../services/messageservice.service";
+import {Message} from "../../Models/Message";
+import {Metric} from "../../Models/Metric";
 
 @Component({
   selector: 'app-message',
@@ -59,6 +61,11 @@ export class MessageComponent {
   text!: string;
   recording: boolean = false;
 
+  technology: number = 0;
+  effort: number = 0;
+  codeComplexity: number = 0;
+  dependencies: number = 0;
+
   constructor(private messageService: MessageService, public MsgService: MessageserviceService) {
     this.MsgService.init();
   }
@@ -112,7 +119,11 @@ export class MessageComponent {
       const message = {
         sender: this.username,
         content: this.content,
-        dateTime: new Date()
+        dateTime: new Date(),
+        technology : this.technology,
+        effort : this.effort,
+        codeComplexity : this.codeComplexity,
+        dependencies : this.dependencies
       };
       this.messageSent = true;
       const that = this;
@@ -121,6 +132,10 @@ export class MessageComponent {
         console.log("Response received from server:", parsedResponse);
       });
       this.content = '';
+      this.technology = 0;
+      this.effort = 0;
+      this.codeComplexity = 0;
+      this.dependencies = 0;
     }
   }
 

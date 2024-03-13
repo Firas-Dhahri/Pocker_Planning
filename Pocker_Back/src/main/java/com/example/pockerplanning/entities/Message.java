@@ -34,6 +34,11 @@ public class Message {
     @Column(name = "isActive")
     private Boolean isActive;
 
+    private Long technology;
+    private Long effort;
+    private Long codeComplexity;
+    private Long dependencies;
+
     @JsonIgnore
     @ManyToOne
     private Session sessionC;

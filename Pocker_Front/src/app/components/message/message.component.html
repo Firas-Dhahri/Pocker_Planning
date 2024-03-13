@@ -94,6 +94,30 @@
             <!-- Message Input -->
             <div class="card-body border-top">
               <div class="row">
+                <div class="col-md-8">
+                  <div class="form-group">
+                    <label for="technology">Technologie:</label>
+                    <input type="number" class="form-control custom-width" id="technology" [(ngModel)]="technology">
+                  </div>
+                </div>
+                <div class="col-md-8">
+                  <div class="form-group">
+                    <label for="effort">Effort:</label>
+                    <input type="number" class="form-control custom-width" id="effort" [(ngModel)]="effort">
+                  </div>
+                </div>
+                <div class="col-md-8">
+                  <div class="form-group">
+                    <label for="codeComplexity">Complexité du code:</label>
+                    <input type="number" class="form-control custom-width" id="codeComplexity" [(ngModel)]="codeComplexity">
+                  </div>
+                </div>
+                <div class="col-md-8">
+                  <div class="form-group">
+                    <label for="dependencies">Dépendances:</label>
+                    <input type="number" class="form-control custom-width" id="dependencies" [(ngModel)]="dependencies">
+                  </div>
+                </div>
                 <div class="col-9">
                   <div class="input-field mt-0 mb-0">
                     <input placeholder="Type and press enter" type="text" id="content" pInputText [(ngModel)]="content" class="form-control border-0" (keydown.enter)="sendMessage()" [value]="MsgService.text">

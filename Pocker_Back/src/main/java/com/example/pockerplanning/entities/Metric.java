@@ -23,9 +23,13 @@ public class Metric implements Serializable {
     private String name;
 
     @Column(name = "value")
-    private Double value;
+    private Long value;
 
     @ManyToOne
     private Message message;
 
+    public Metric(String name, Long value) {
+        this.name = name;
+        this.value = value;
+    }
 }
