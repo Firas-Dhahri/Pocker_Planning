@@ -4,8 +4,6 @@ import * as Stomp from 'stompjs';
 import SockJS from 'sockjs-client/dist/sockjs';
 import {MessageService} from 'primeng/api';
 import {MessageserviceService} from "../../services/messageservice.service";
-import {Message} from "../../Models/Message";
-import {Metric} from "../../Models/Metric";
 
 @Component({
   selector: 'app-message',
