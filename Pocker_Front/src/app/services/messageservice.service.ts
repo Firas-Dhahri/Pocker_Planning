@@ -43,7 +43,7 @@ export class MessageserviceService {
   stopService() {
     this.isStoppedSpeechRecog = true;
     this.wordConcat();
-    this.recognition.removeEventListener('end', this.handleRecognitionEnd); // Remove the 'end' event listener
+    this.recognition.removeEventListener('end', this.handleRecognitionEnd);
     this.recognition.stop();
     console.log("End speech recognition")
   }
@@ -65,6 +65,15 @@ export class MessageserviceService {
       this.text = this.tempWords.charAt(0).toUpperCase() + this.tempWords.slice(1);
     }
     this.tempWords = '';
+  }
+
+  speak(text: string): void {
+    this.currentLanguages.forEach(lang => {
+      const utterance = new SpeechSynthesisUtterance(text);
+      utterance.lang = lang;
+      utterance.volume = 1;
+      window.speechSynthesis.speak(utterance);
+    });
   }
 
 }

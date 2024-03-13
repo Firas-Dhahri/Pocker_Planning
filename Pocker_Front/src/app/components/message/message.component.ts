@@ -140,7 +140,7 @@ export class MessageComponent {
       };
       const index = this.sent.findIndex((m: any) => m.id === updatedMessage.id);
       if (index !== -1) {
-        this.sent[index] = updatedMessage; // Remplacer le message dans la liste sent par le message mis à jour
+        this.sent[index] = updatedMessage;
       }
       this.wsClient.send(this.updateMessage, {}, JSON.stringify(updatedMessage));
       this.messageService.add({severity: 'info', summary: 'Message updated', detail: 'Message updated successfully.'});
@@ -203,6 +203,10 @@ export class MessageComponent {
   stopRecording() {
     this.recording = false;
     this.MsgService.stopService();
+  }
+
+  speakMessage(messageContent: string): void {
+    this.MsgService.speak(messageContent);
   }
 
 }
