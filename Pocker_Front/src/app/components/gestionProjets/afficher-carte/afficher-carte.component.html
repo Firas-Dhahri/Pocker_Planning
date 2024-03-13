@@ -30,7 +30,7 @@
                 <td>{{ carte.image }}</td>
 
                 <td>
-                  <!--button class="btn btn-rounded btn-primary m-2"  [routerLink]="['/updatecarte', carte.key]">Update</button-->
+                  <button class="btn btn-rounded btn-primary m-2"  [routerLink]="['/updatecarte', carte.id]">Update</button>
                   <button class="btn btn-rounded btn-danger m-2" (click)="deleteCarte(carte.key)">Delete</button>
                 </td>
              </tr>

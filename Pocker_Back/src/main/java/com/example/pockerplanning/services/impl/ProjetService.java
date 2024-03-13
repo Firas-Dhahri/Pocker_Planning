@@ -1,8 +1,10 @@
 package com.example.pockerplanning.services.impl;
 
 import com.example.pockerplanning.entities.Carte;
+import com.example.pockerplanning.entities.Equipe;
 import com.example.pockerplanning.entities.Projet;
 import com.example.pockerplanning.repository.CarteRepository;
+import com.example.pockerplanning.repository.EquipeRepository;
 import com.example.pockerplanning.services.Interface.IProjetService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -18,6 +20,8 @@ public class ProjetService implements IProjetService {
     ProjetRepository projetr;
     @Autowired
     CarteRepository carter;
+    @Autowired
+    EquipeRepository equiper;
     @Override
     public Projet addProjet(Projet projet) {
         return projetr.save(projet);
@@ -88,4 +92,15 @@ public class ProjetService implements IProjetService {
             return null; // You can adjust the behavior accordingly
         }
     }
+
+    @Override
+    public void affecterEquipeAProjet(int equipeId, List<Long> projetIds) {
+        Equipe equipe = equiper.findById(equipeId).orElse(null);
+        for (Long projetId : projetIds) {
+            Projet projet = projetr.findById(projetId).orElse(null);
+            projet.setEquipe(equipe);
+            projetr.save(projet);
+        }
+    }
+
 }

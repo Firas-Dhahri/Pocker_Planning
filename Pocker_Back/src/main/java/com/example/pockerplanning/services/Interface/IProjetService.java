@@ -13,6 +13,6 @@ public interface IProjetService {
 
     void deleteProjet(Long id);
     Projet affecterCartesAProjet(Long projetId, List<Long> carteId);
-
+    void affecterEquipeAProjet(int equipeId, List<Long> projetIds);
 
 }

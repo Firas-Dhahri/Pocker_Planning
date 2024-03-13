@@ -1,1 +1,96 @@
-<p>update-projet works!</p>
+
+
+<div class="container">
+
+    <h2 class="mb-4">Update Project</h2> <!-- Title added -->
+    <div class="card mb-4">
+      <div class="card-body">
+        <form [formGroup]="projetForm" (ngSubmit)="onSubmit()">
+            <div class="form-group">
+              <label for="titre">Title</label>
+              <input type="text" class="form-control" id="titre" formControlName="titre" [ngClass]="{ 'is-invalid': projetForm.get('titre')?.invalid && projetForm.get('titre')?.touched }" />
+              <div *ngIf="projetForm.get('titre')?.invalid && projetForm.get('titre')?.touched" class="invalid-feedback">
+                title is required.
+              </div>
+            </div>
+            <div class="form-group">
+                <label for="objectif">goal</label>
+                <input type="text" class="form-control" id="objectif" formControlName="objectif" [ngClass]="{ 'is-invalid': projetForm.get('objectif')?.invalid && projetForm.get('objectif')?.touched }" />
+                <div *ngIf="projetForm.get('objectif')?.invalid && projetForm.get('objectif')?.touched" class="invalid-feedback">
+                  goal is required.
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="date_debut">date of start</label>
+                <input type="date" class="form-control" id="date_debut" formControlName="date_debut" [ngClass]="{ 'is-invalid': projetForm.get('date_debut')?.invalid && projetForm.get('date_debut')?.touched }" />
+                <div *ngIf="projetForm.get('date_debut')?.invalid && projetForm.get('date_debut')?.touched" class="invalid-feedback">
+                  date of start of the project is required.
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="date_fin">date of finish</label>
+                <input type="date" class="form-control" id="date_fin" formControlName="date_fin" [ngClass]="{ 'is-invalid': projetForm.get('date_fin')?.invalid && projetForm.get('date_fin')?.touched }" />
+                <div *ngIf="projetForm.get('date_fin')?.invalid && projetForm.get('date_fin')?.touched" class="invalid-feedback">
+                  date of finish of the project is required.
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="duree">duree</label>
+                <input type="text" class="form-control" id="date_fin" formControlName="date_fin" [ngClass]="{ 'is-invalid': projetForm.get('duree')?.invalid && projetForm.get('duree')?.touched }" />
+                <div *ngIf="projetForm.get('duree')?.invalid && projetForm.get('duree')?.touched" class="invalid-feedback">
+                  duree is required.
+                </div>
+            </div>            
+            <div class="form-group">
+                <label for="contraintes">Constraints</label>
+                <input type="text" class="form-control" id="contraintes" formControlName="contraintes" [ngClass]="{ 'is-invalid': projetForm.get('contraintes')?.invalid && projetForm.get('contraintes')?.touched }" />
+                <div *ngIf="projetForm.get('contraintes')?.invalid && projetForm.get('contraintes')?.touched" class="invalid-feedback">
+                  Constraints is required.
+                </div>
+            </div>            
+            <div class="form-group">
+                <label for="exigences">Requirements</label>
+                <input type="text" class="form-control" id="exigences" formControlName="exigences" [ngClass]="{ 'is-invalid': projetForm.get('exigences')?.invalid && projetForm.get('exigences')?.touched }" />
+                <div *ngIf="projetForm.get('exigences')?.invalid && projetForm.get('exigences')?.touched" class="invalid-feedback">
+                    this field "Requirements" are required.
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="dependance">dependancies</label>
+                <input type="text" class="form-control" id="dependance" formControlName="dependance" [ngClass]="{ 'is-invalid': projetForm.get('dependance')?.invalid && projetForm.get('dependance')?.touched }" />
+                <div *ngIf="projetForm.get('dependance')?.invalid && projetForm.get('dependance')?.touched" class="invalid-feedback">
+                    dependancies are required.
+                </div>
+            </div> 
+            <div class="form-group">
+                <label for="budget">Budget</label>
+                <input type="text" class="form-control" id="budget" formControlName="budget" [ngClass]="{ 'is-invalid': projetForm.get('budget')?.invalid && projetForm.get('budget')?.touched }" />
+                <div *ngIf="projetForm.get('budget')?.invalid && projetForm.get('budget')?.touched" class="invalid-feedback">
+                  Budget is required.
+                </div>
+            </div> 
+            <div class="form-group">
+                <label for="algo">Algorithm</label>
+                <input type="text" class="form-control" id="algo" formControlName="algo" [ngClass]="{ 'is-invalid': projetForm.get('algo')?.invalid && projetForm.get('algo')?.touched }" />
+                <div *ngIf="projetForm.get('algo')?.invalid && projetForm.get('algo')?.touched" class="invalid-feedback">
+                  Algorithm is required.
+                </div>
+            </div> 
+            
+            <!--div class="form-group">
+                <label for="cartes">Select Cards</label>
+                <select multiple class="form-control" id="cartes" [(ngModel)]="selectedCartes" name="cartes">
+                    <option *ngFor="let carte of allCartes" [value]="carte.id">{{ carte.valeur }}</option>
+                </select>
+            </div-->
+            
+            
+            <br>
+            <button class="btn btn-rounded btn-light m-2 col-md-2 me-2" routerLink="/afficherprojet">Return to projects list</button>
+            <button type="submit" class="btn btn-rounded btn-primary m-2 col-md-3" [disabled]="projetForm.invalid">Update Project</button>
+          </form>
+          
+      </div>
+    </div>
+  </div>
+  

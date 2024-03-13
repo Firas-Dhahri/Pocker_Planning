@@ -6,12 +6,13 @@ import java.util.List;
 
 public interface ICarteService {
 
-    Carte addCarte(Carte carte);
-    List<Carte> retrieveallCartes();
 
-    Carte retrieveCarte(Long id);
-    Carte updateCarte(Carte carte);
+        Carte addCarte(Carte carte);
+        List<Carte> retrieveallCartes();
 
-    void deleteCarte(Long id);
+        Carte retrieveCarte(Long id);
+
+        Carte updateCarte(Carte carte, Long id);
+        void deleteCarte(Long id);
 
 }

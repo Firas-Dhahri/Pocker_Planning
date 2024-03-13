@@ -21,10 +21,10 @@ const routes: Routes = [
   { path: 'updateticket/:issueKey', component: UpdateticketComponent },
   { path: 'affichercarte', component: AfficherCarteComponent },
   { path: 'ajoutercarte', component: AjouterCarteComponent },
-  { path: 'updatecarte', component: UpdateCarteComponent },    
+  { path: 'updatecarte/:carteId', component: UpdateCarteComponent },    
   { path: 'afficherprojet', component: AfficherProjetComponent },
   { path: 'ajouterprojet', component: AjouterProjetComponent },    
-  { path: 'updateprojet', component: UpdateProjetComponent },    
+  { path: 'updateprojet/:carteId', component: UpdateProjetComponent },    
   { path: 'showprojet/:projetId', component: ShowProjetComponent },    
 
 

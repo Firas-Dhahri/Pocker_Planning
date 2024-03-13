@@ -29,9 +29,18 @@ public class CarteService implements ICarteService {
     }
 
     @Override
-    public Carte updateCarte(Carte carte) {
-        return carter.save(carte);
-    }
+    public Carte updateCarte(Carte carte, Long id) {
+        if (!carter.existsById(id)) {
+
+            return null;
+        }
+
+        // Set the ID of the carte to ensure it's updated properly
+        carte.setId(id);
+
+        // Save the updated project
+        return carter.save(carte);    }
+
 
     @Override
     public void deleteCarte(Long id) {

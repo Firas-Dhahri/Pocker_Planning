@@ -1,40 +1,40 @@
 <div class="container" >
-<div class="bg-violet p-4 rounded">
-    <h1 class="custom-h1">Show Project</h1>
-    <div class="lead">
-        <!-- Any additional information can be added here -->
-    </div>
-
-    <div class="container mt-4">
-        <div class="card" style="width: 35rem;">
-            <div class="card-body">
-              <h5 class="card-title">Title: {{ projet.titre }}</h5>
-              <p class="card-text">Goal: {{ projet.objectif }}</p>
+  <div class="bg-violet p-4 rounded">
+      <h1 class="custom-h1">Show Project</h1>
+      <div class="lead">
+          <!-- Any additional information can be added here -->
+      </div>
+  
+      <div class="container mt-4">
+          <div class="card" style="width: 35rem;">
+              <div class="card-body">
+                <h5 class="card-title">Title: {{ projet.titre }}</h5>
+                <p class="card-text">Goal: {{ projet.objectif }}</p>
+              </div>
+              <ul class="list-group list-group-flush">
+                <li class="list-group-item">Date of start: {{ projet.date_debut }}</li>
+                <li class="list-group-item">Date of finish: {{ projet.date_fin }}</li>
+                <li class="list-group-item"> duree: {{projet.duree}}</li>
+                <li class="list-group-item">Constraints: {{ projet.contraintes }}</li>
+                <li class="list-group-item">Requirements: {{ projet.exigences }}</li>
+                <li class="list-group-item">Dependencies: {{ projet.dependance }}</li>
+                <li class="list-group-item">Budget: {{ projet.budget }}</li>
+                <li class="list-group-item">Status: {{ projet.status }}</li>
+                <li class="list-group-item">Algorithms: {{ projet.algo }}</li>
+              </ul>
+              <div class="card-body d-flex justify-content-between p-4 bd-highlight" >
+  
+                  <a href="#" class="Card-link" [routerLink]="['/afficherprojet']">Back</a>
+                  <a href="#" class="Card-link">Update</a>
+              </div>
             </div>
-            <ul class="list-group list-group-flush">
-              <li class="list-group-item">Date of start: {{ projet.date_debut }}</li>
-              <li class="list-group-item">Date of finish: {{ projet.date_fin }}</li>
-              <li class="list-group-item"> duree: {{projet.duree}}</li>
-              <li class="list-group-item">Constraints: {{ projet.contraintes }}</li>
-              <li class="list-group-item">Requirements: {{ projet.exigences }}</li>
-              <li class="list-group-item">Dependencies: {{ projet.dependance }}</li>
-              <li class="list-group-item">Budget: {{ projet.budget }}</li>
-              <li class="list-group-item">Status: {{ projet.status }}</li>
-              <li class="list-group-item">Algorithms: {{ projet.algo }}</li>
-            </ul>
-            <div class="card-body d-flex justify-content-between p-4 bd-highlight" >
-
-                <a href="#" class="Card-link" [routerLink]="['/afficherprojet']">Back</a>
-                <a href="#" class="Card-link">lahdha</a>
-            </div>
-          </div>
-
-       
-    </div>
-</div>
-<div class="mt-4">
-
-    <a href="#" class="btn btn-default" [routerLink]="['/afficherprojet']">Back</a>
-    <a href="#" class="btn btn-default">lahdha</a>
-</div>
-</div>
+  
+         
+      </div>
+  </div>
+  <div class="mt-4">
+  
+      <a href="#" class="btn btn-default" [routerLink]="['/afficherprojet']">Back</a>
+      <a href="#" class="btn btn-default">lahdha</a>
+  </div>
+  </div>

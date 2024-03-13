@@ -1,1 +1,30 @@
 <p>ajouter-carte works!</p>
+<div class="container">
+
+    <h2 class="mb-4">Update Card</h2> <!-- Title added -->
+    <div class="card mb-4">
+      <div class="card-body">
+        <form [formGroup]="carteForm" (ngSubmit)="onSubmit()">
+            <div class="form-group">
+              <label for="valeur">Value</label>
+              <input type="text" class="form-control" id="valeur" formControlName="valeur" [ngClass]="{ 'is-invalid': carteForm.get('valeur')?.invalid && carteForm.get('valeur')?.touched }" />
+              <div *ngIf="carteForm.get('valeur')?.invalid && carteForm.get('valeur')?.touched" class="invalid-feedback">
+                Value of the card is required.
+              </div>
+            </div>
+            <div class="form-group">
+              <label for="image">Image URL</label>
+              <input type="text" class="form-control" id="image" formControlName="image" [ngClass]="{ 'is-invalid': carteForm.get('image')?.invalid && carteForm.get('image')?.touched }" />
+              <div *ngIf="carteForm.get('image')?.invalid && carteForm.get('image')?.touched" class="invalid-feedback">
+                Image URL of the card is required.
+              </div>
+            </div>
+            <br>
+            <button class="btn btn-rounded btn-light m-2 col-md-2 me-2" routerLink="/affichercarte">Return to cards list</button>
+            <button type="submit" class="btn btn-rounded btn-primary m-2 col-md-3" [disabled]="carteForm.invalid">Update Card</button>
+          </form>
+          
+      </div>
+    </div>
+  </div>
+  

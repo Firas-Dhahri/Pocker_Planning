@@ -45,13 +45,13 @@ public class CarteController {
     }
 
 
-    @PutMapping("/modify-carte")
+    @PutMapping("/modify-carte/{carteId}")
 
     @ResponseBody
 
-    public Carte modifyCarte(@RequestBody Carte carte) {
+    public Carte modifyCarte(@RequestBody Carte carte, @PathVariable("carteId") Long id) {
 
-        return carteService.updateCarte(carte);
+        return carteService.updateCarte(carte, id);
 
     }
 

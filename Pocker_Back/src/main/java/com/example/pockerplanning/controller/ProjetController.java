@@ -73,4 +73,9 @@ public class ProjetController {
         return projetService.affecterCartesAProjet(projetId, carteId);
     }
 
+    @PostMapping("/affecter-equipe/{equipeId}")
+    public void affecterEquipeAProjet(@PathVariable int equipeId, @RequestBody List<Long> projetIds) {
+        projetService.affecterEquipeAProjet(equipeId, projetIds);
+    }
+
 }
