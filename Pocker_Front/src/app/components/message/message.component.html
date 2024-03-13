@@ -113,25 +113,29 @@
                 <div class="col-md-8">
                   <div class="form-group d-flex align-items-center">
                     <label for="technology" class="me-2">Technology:</label>
-                    <input type="number" class="form-control custom-width" id="technology" [(ngModel)]="technology">
+                    <input type="range" class="form-control-range" id="technology" [(ngModel)]="technology" min="0" max="100">
+                    <span class="ms-2">{{ technology }}%</span>
                   </div>
                 </div>
                 <div class="col-md-8">
                   <div class="form-group d-flex align-items-center">
                     <label for="effort" class="me-2">Effort:</label>
-                    <input type="number" class="form-control custom-width" id="effort" [(ngModel)]="effort">
+                    <input type="range" class="form-control-range" id="effort" [(ngModel)]="effort" min="0" max="100">
+                    <span class="ms-2">{{ effort }}%</span>
                   </div>
                 </div>
                 <div class="col-md-8">
                   <div class="form-group d-flex align-items-center">
                     <label for="codeComplexity" class="me-2">Code complexity:</label>
-                    <input type="number" class="form-control custom-width" id="codeComplexity" [(ngModel)]="codeComplexity">
+                    <input type="range" class="form-control-range" id="codeComplexity" [(ngModel)]="codeComplexity" min="0" max="100">
+                    <span class="ms-2">{{ codeComplexity }}%</span>
                   </div>
                 </div>
                 <div class="col-md-8">
                   <div class="form-group d-flex align-items-center">
                     <label for="dependencies" class="me-2">Dependencies:</label>
-                    <input type="number" class="form-control custom-width" id="dependencies" [(ngModel)]="dependencies">
+                    <input type="range" class="form-control-range" id="dependencies" [(ngModel)]="dependencies" min="0" max="100"s>
+                    <span class="ms-2">{{ dependencies }}%</span>
                   </div>
                 </div>
                 <br>
