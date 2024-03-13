@@ -41,6 +41,14 @@
                   <li *ngIf="message.sender === username; else receivedMessage" class="chat-item odd list-style-none mt-3">
                     <div class="chat-content text-end d-inline-block ps-3">
                       <div class="box msg p-2 d-inline-block mb-1">
+                        <span *ngIf="message.technology !== undefined && message.technology !== null">Technology : {{ message.technology }} %</span>
+                        <br>
+                        <span *ngIf="message.effort !== undefined && message.effort !== null">Effort : {{ message.effort }} %</span>
+                        <br>
+                        <span *ngIf="message.codeComplexity !== undefined && message.codeComplexity !== null">Code complexity : {{ message.codeComplexity }} %</span>
+                        <br>
+                        <span *ngIf="message.dependencies !== undefined && message.dependencies !== null">Dependencies : {{ message.dependencies }} %</span>
+                        <br>
                         <i class="fas fa-volume-up" (click)="speakMessage(message.content)"></i>
                         <button class="btn btn-sm btn-link" (click)="editMessage(message)">
                           <i class="fas fa-pencil-alt"></i>
@@ -60,6 +68,14 @@
                       <div class="chat-content d-inline-block ps-3">
                         <h6 class="font-weight-medium">{{message.sender}}</h6>
                         <div class="msg p-2 d-inline-block mb-1">
+                          <span *ngIf="message.technology !== undefined && message.technology !== null">Technology : {{ message.technology }} %</span>
+                          <br>
+                          <span *ngIf="message.effort !== undefined && message.effort !== null">Effort : {{ message.effort }} %</span>
+                          <br>
+                          <span *ngIf="message.codeComplexity !== undefined && message.codeComplexity !== null">Code complexity : {{ message.codeComplexity }} %</span>
+                          <br>
+                          <span *ngIf="message.dependencies !== undefined && message.dependencies !== null">Dependencies : {{ message.dependencies }} %</span>
+                          <br>
                           {{message.content}}
                           <i class="fas fa-volume-up" (click)="speakMessage(message.content)"></i>
                         </div>
@@ -95,29 +111,31 @@
             <div class="card-body border-top">
               <div class="row">
                 <div class="col-md-8">
-                  <div class="form-group">
-                    <label for="technology">Technologie:</label>
+                  <div class="form-group d-flex align-items-center">
+                    <label for="technology" class="me-2">Technology:</label>
                     <input type="number" class="form-control custom-width" id="technology" [(ngModel)]="technology">
                   </div>
                 </div>
                 <div class="col-md-8">
-                  <div class="form-group">
-                    <label for="effort">Effort:</label>
+                  <div class="form-group d-flex align-items-center">
+                    <label for="effort" class="me-2">Effort:</label>
                     <input type="number" class="form-control custom-width" id="effort" [(ngModel)]="effort">
                   </div>
                 </div>
                 <div class="col-md-8">
-                  <div class="form-group">
-                    <label for="codeComplexity">Complexité du code:</label>
+                  <div class="form-group d-flex align-items-center">
+                    <label for="codeComplexity" class="me-2">Code complexity:</label>
                     <input type="number" class="form-control custom-width" id="codeComplexity" [(ngModel)]="codeComplexity">
                   </div>
                 </div>
                 <div class="col-md-8">
-                  <div class="form-group">
-                    <label for="dependencies">Dépendances:</label>
+                  <div class="form-group d-flex align-items-center">
+                    <label for="dependencies" class="me-2">Dependencies:</label>
                     <input type="number" class="form-control custom-width" id="dependencies" [(ngModel)]="dependencies">
                   </div>
                 </div>
+                <br>
+                <br>
                 <div class="col-9">
                   <div class="input-field mt-0 mb-0">
                     <input placeholder="Type and press enter" type="text" id="content" pInputText [(ngModel)]="content" class="form-control border-0" (keydown.enter)="sendMessage()" [value]="MsgService.text">
