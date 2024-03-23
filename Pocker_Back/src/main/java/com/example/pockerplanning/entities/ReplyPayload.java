@@ -19,4 +19,5 @@ public class ReplyPayload {
     public void setReply(Reply reply) {
         this.reply = reply;
     }
+
 }

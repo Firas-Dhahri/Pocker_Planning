@@ -3,6 +3,8 @@ package com.example.pockerplanning.entities;
 import jakarta.persistence.*;
 import lombok.*;
 
+import java.util.Date;
+
 @Entity
 @Getter
 @Setter
@@ -23,5 +25,11 @@ public class Reply {
 
     @Column(name = "content")
     private String content;
+
+    @Column(name = "sender")
+    private String sender;
+
+    @Column(name = "dateTime")
+    private Date dateTime;
 
 }

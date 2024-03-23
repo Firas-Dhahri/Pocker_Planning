@@ -27,11 +27,22 @@ public class ReplyController {
     }
 
     @MessageMapping("/chat.sendReply")
-    public void saveReply(@Payload ReplyPayload reply ) {
-        Message m = messageRepository.findById(reply.getId()).orElse(null) ;
-        reply.getReply().setMessage(m);
-        Reply savedReply = replyRepository.save(reply.getReply());
-        messagingTemplate.convertAndSend("/topic/public", savedReply);
+    public void saveReply(@Payload ReplyPayload reply, @Payload Reply r) {
+        Message message = messageRepository.findById(reply.getId()).orElse(null);
+
+        if (message != null) {
+            String sender = r.getSender();
+
+            Reply replyObj = reply.getReply();
+
+            replyObj.setMessage(message);
+
+            replyObj.setSender(sender);
+
+            Reply savedReply = replyRepository.save(replyObj);
+
+            messagingTemplate.convertAndSend("/topic/public", savedReply);
+        }
     }
 
 }

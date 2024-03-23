@@ -14,7 +14,7 @@
         </div>
         <br>
         <div *ngIf="filteredMessages.length > 0">
-          <div class="card" *ngFor="let message of filteredMessages">
+          <div class="card" style="margin-right: 50px;" *ngFor="let message of filteredMessages">
             <div class="card-body">
               <h5 class="card-title">{{ message.sender }}</h5>
               <p class="card-text">{{ message.content }}</p>
@@ -28,7 +28,7 @@
 </div>
 
 <!-- Chat Interface -->
-<div class="container-fluid">
+<div class="container-fluid custom-container-fluid">
   <div class="row">
     <div class="col-md-12">
       <div class="card">
@@ -77,27 +77,32 @@
                           <i class="fas fa-volume-up" (click)="speakMessage(message.content)"></i>
                         </div>
                         <div class="chat-time d-block font-10 mt-1 mr-0 mb-3">{{message.dateTime | date: 'dd/MM/yyyy hh:mm:ss'}}</div>
-                        <!-- Message Input for Reply -->
-                        <div class="row">
-                          <div class="col-5">
-                            <div class="input-field mt-0 mb-0">
-                              <input placeholder="Type and press enter" type="text" id="replyContent" pInputText [(ngModel)]="replyContent" class="form-control border-0" (keydown.enter)="sendReply(message.id)">
-                            </div>
-                          </div>
-                          <div class="col-1">
-                            <a class="btn-circle bg-cyan float-end text-white d-flex align-items-center justify-content-center" (click)="sendReply(message.id)">
-                              <i class="fas fa-reply"></i>
-                            </a>
-                          </div>
-                        </div>
+
                         <!-- Display Replies -->
-                        <div *ngFor="let reply of message.replies">
-                          <div class="msg p-2 d-inline-block mb-1">
-                            {{ reply.content }}
-                            <i class="fas fa-volume-up" (click)="speakMessage(message.content)"></i>
+                        <div *ngFor="let reply of message.replies" class="reply-container">
+                          <div class="reply-header">
+                            <div class="avatar" [style.background-color]="getAvatarColor(reply.sender)">
+                              {{ reply.sender ? reply.sender.charAt(0).toUpperCase() : '' }}
+                            </div>
+                            <h6 class="sender">{{ reply.sender }}</h6>
+                            <small class="time">{{ reply.dateTime | date: 'dd/MM/yyyy hh:mm:ss' }}</small>
                           </div>
-                          <div class="time d-block font-10 mt-1 mr-0 mb-3">{{ reply.dateTime | date: 'dd/MM/yyyy hh:mm:ss' }}</div>
+                          <div class="reply-content">
+                            <p>{{ reply.content }}</p>
+                            <i class="fas fa-volume-up" (click)="speakMessage(reply.content)"></i>
+                          </div>
                         </div>
+
+                        <!-- Message Input for Reply -->
+                        <div class="reply-input">
+                          <div class="input-group">
+                            <input type="text" class="form-control" placeholder="Type your reply here..." [(ngModel)]="replyContent">
+                            <button class="btn btn-cyan" (click)="sendReply(message.id)">
+                              <i class="fas fa-reply"></i>
+                            </button>
+                          </div>
+                        </div>
+
                       </div>
                     </li>
                   </ng-template>

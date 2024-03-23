@@ -174,6 +174,7 @@ export class MessageComponent {
     if (this.replyContent.trim() !== '') {
       const payload = {
         id: id,
+        sender: this.username,
         reply: {
           content: this.replyContent,
           dateTime: new Date()
