@@ -46,18 +46,4 @@ public class MessageController {
         }
     }
 
-    @MessageMapping("/chat.updateMessage")
-    @SendTo("/topic/public")
-    public Message updateMessage(Message updatedMessage) {
-        Message existingMessage = messageRepository.findById(updatedMessage.getId()).orElse(null);
-        if (existingMessage != null) {
-            existingMessage.setContent(updatedMessage.getContent());
-            existingMessage.setDateTime(new Date());
-            messageRepository.save(existingMessage);
-            return new Message(updatedMessage.getId(), updatedMessage.getContent(), updatedMessage.getSender(), existingMessage.getDateTime());
-        } else {
-            return null;
-        }
-    }
-
 }

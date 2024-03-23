@@ -66,6 +66,10 @@ export class MessageComponent {
 
   constructor(private messageService: MessageService, public MsgService: MessageserviceService) {
     this.MsgService.init();
+
+    this.MsgService.recordingFinished.subscribe((recordedContent: string) => {
+      this.content = recordedContent;
+    });
   }
 
   ngOnInit(): void {
@@ -140,24 +144,6 @@ export class MessageComponent {
   allMessagesSortedByTime(): any[] {
     const allMessages = [...this.sent, ...this.received];
     return allMessages.sort((a, b) => new Date(a.dateTime).getTime() - new Date(b.dateTime).getTime());
-  }
-
-  editMessage(message: any) {
-    const newContent = prompt('Type the new message :', message.content);
-    if (newContent !== null && newContent.trim() !== '') {
-      const updatedMessage = {
-        id: message.id,
-        content: newContent,
-        sender: message.sender,
-        dateTime: new Date()
-      };
-      const index = this.sent.findIndex((m: any) => m.id === updatedMessage.id);
-      if (index !== -1) {
-        this.sent[index] = updatedMessage;
-      }
-      this.wsClient.send(this.updateMessage, {}, JSON.stringify(updatedMessage));
-      this.messageService.add({severity: 'info', summary: 'Message updated', detail: 'Message updated successfully.'});
-    }
   }
 
   getAvatarColor(sender: string): string {

@@ -50,9 +50,6 @@
                         <span *ngIf="message.dependencies !== undefined && message.dependencies !== null">Dependencies : {{ message.dependencies }} %</span>
                         <br>
                         <i class="fas fa-volume-up" (click)="speakMessage(message.content)"></i>
-                        <button class="btn btn-sm btn-link" (click)="editMessage(message)">
-                          <i class="fas fa-pencil-alt"></i>
-                        </button>
                         {{message.content}}
                       </div>
                     </div>

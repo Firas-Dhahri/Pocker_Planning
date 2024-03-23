@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import {EventEmitter, Injectable} from '@angular/core';
 
 declare var webkitSpeechRecognition: any;
 
@@ -13,13 +13,13 @@ export class MessageserviceService {
   public text = '';
   tempWords: string = '';
 
-  currentLanguages: string[] = ['en-US', 'fr-FR'];
+  recordingFinished: EventEmitter<string> = new EventEmitter<string>();
 
   constructor() {}
 
   init() {
     this.recognition.interimResults = true;
-    this.recognition.lang = this.currentLanguages;
+    this.recognition.lang = 'en-US';
 
     this.recognition.addEventListener('result', (e:any) => {
       const transcript = Array.from(e.results)
@@ -48,14 +48,16 @@ export class MessageserviceService {
     console.log("End speech recognition")
   }
 
-  private handleRecognitionEnd = (condition: any) => {
+  private handleRecognitionEnd = () => {
     if (this.isStoppedSpeechRecog) {
       this.recognition.stop();
-      console.log("End speech recognition")
+      console.log("End speech recognition");
     } else {
-      this.wordConcat()
+      this.wordConcat();
       this.recognition.start();
     }
+
+    this.recordingFinished.emit(this.text);
   };
 
   wordConcat(){
@@ -68,12 +70,10 @@ export class MessageserviceService {
   }
 
   speak(text: string): void {
-    this.currentLanguages.forEach(lang => {
-      const utterance = new SpeechSynthesisUtterance(text);
-      utterance.lang = lang;
-      utterance.volume = 1;
-      window.speechSynthesis.speak(utterance);
-    });
+    const utterance = new SpeechSynthesisUtterance(text);
+    utterance.lang = 'en-US';
+    utterance.volume = 1;
+    window.speechSynthesis.speak(utterance);
   }
 
 }
