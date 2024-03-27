@@ -21,7 +21,6 @@ import {ToastModule} from "primeng/toast";
 import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
 import {ButtonModule} from "primeng/button";
 
-
 @NgModule({
   declarations: [
     AppComponent,
@@ -46,8 +45,6 @@ import {ButtonModule} from "primeng/button";
     AppRoutingModule,
     HttpClientModule, ReactiveFormsModule, FormsModule, ToastModule,
     BrowserAnimationsModule, ButtonModule,
-
-
   ],
   providers: [MessageService],
   bootstrap: [AppComponent]

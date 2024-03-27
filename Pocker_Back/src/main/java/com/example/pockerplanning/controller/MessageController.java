@@ -33,11 +33,17 @@ public class MessageController {
     @MessageMapping("/chat.sendMessage")
     public void sendMessage(@Payload Message message) {
         if (message.getContent() != null && !message.getContent().isEmpty()) {
-            message.setDateTime(new Date());
-            addMetricsToMessage(message);
-            messageRepository.save(message);
-            messagingTemplate.convertAndSend("/topic/public", message);
+            if (!checkIfUserAlreadySentMessage(message.getSender())) {
+                message.setDateTime(new Date());
+                addMetricsToMessage(message);
+                messageRepository.save(message);
+                messagingTemplate.convertAndSend("/topic/public", message);
+            }
         }
+    }
+
+    private boolean checkIfUserAlreadySentMessage(String sender) {
+        return messageRepository.existsBySender(sender);
     }
 
     private void addMetricsToMessage(Message message) {

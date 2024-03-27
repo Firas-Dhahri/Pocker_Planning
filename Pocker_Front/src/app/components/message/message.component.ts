@@ -1,9 +1,11 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import * as Stomp from 'stompjs';
 // @ts-ignore
 import SockJS from 'sockjs-client/dist/sockjs';
-import {MessageService} from 'primeng/api';
-import {MessageserviceService} from "../../services/messageservice.service";
+import { MessageService } from 'primeng/api';
+import { MessageserviceService } from "../../services/messageservice.service";
+// @ts-ignore
+import * as Filter from 'bad-words';
 
 @Component({
   selector: 'app-message',
@@ -11,58 +13,41 @@ import {MessageserviceService} from "../../services/messageservice.service";
   styleUrls: ['./message.component.css'],
   providers: [MessageserviceService]
 })
-export class MessageComponent {
+export class MessageComponent implements OnInit {
 
   public readonly url = 'http://localhost:8090/Poker/pokerplaning';
-
   public readonly topicMessage = '/topic/public';
-
   public readonly topicChat = '/app/chat.sendMessage';
 
-  public readonly updateMessage = '/app/chat.updateMessage';
+  username!: string;
+  content!: string;
 
-  username!: any;
-  content!: any;
-  messageSent: any;
-
+  messageSent = false;
   received: any[] = [];
+
   sent: any[] = [];
-
   wsClient: any;
-  connected!: boolean;
 
-  colors: string[] = [
-    'aliceblue', 'antiquewhite', 'aqua', 'aquamarine', 'azure', 'beige', 'bisque', 'black', 'blanchedalmond',
-    'blue', 'blueviolet', 'brown', 'burlywood', 'cadetblue', 'chartreuse', 'chocolate', 'coral', 'cornflowerblue',
-    'cornsilk', 'crimson', 'cyan', 'darkblue', 'darkcyan', 'darkgoldenrod', 'darkgray', 'darkgreen', 'darkgrey',
-    'darkkhaki', 'darkmagenta', 'darkolivegreen', 'darkorange', 'darkorchid', 'darkred', 'darksalmon', 'darkseagreen',
-    'darkslateblue', 'darkslategray', 'darkslategrey', 'darkturquoise', 'darkviolet', 'deeppink', 'deepskyblue',
-    'dimgray', 'dimgrey', 'dodgerblue', 'firebrick', 'floralwhite', 'forestgreen', 'fuchsia', 'gainsboro', 'ghostwhite',
-    'gold', 'goldenrod', 'gray', 'green', 'greenyellow', 'grey', 'honeydew', 'hotpink', 'indianred', 'indigo', 'ivory',
-    'khaki', 'lavender', 'lavenderblush', 'lawngreen', 'lemonchiffon', 'lightblue', 'lightcoral', 'lightcyan', 'lightgoldenrodyellow',
-    'lightgray', 'lightgreen', 'lightgrey', 'lightpink', 'lightsalmon', 'lightseagreen', 'lightskyblue', 'lightslategray', 'lightslategrey',
-    'lightsteelblue', 'lightyellow', 'lime', 'limegreen', 'linen', 'magenta', 'maroon', 'mediumaquamarine', 'mediumblue', 'mediumorchid',
-    'mediumpurple', 'mediumseagreen', 'mediumslateblue', 'mediumspringgreen', 'mediumturquoise', 'mediumvioletred', 'midnightblue',
-    'mintcream', 'mistyrose', 'moccasin', 'navajowhite', 'navy', 'oldlace', 'olive', 'olivedrab', 'orange', 'orangered',
-    'orchid', 'palegoldenrod', 'palegreen', 'paleturquoise', 'palevioletred', 'papayawhip', 'peachpuff', 'peru', 'pink',
-    'plum', 'powderblue', 'purple', 'rebeccapurple', 'red', 'rosybrown', 'royalblue', 'saddlebrown', 'salmon', 'sandybrown',
-    'seagreen', 'seashell', 'sienna', 'silver', 'skyblue', 'slateblue', 'slategray', 'slategrey', 'snow', 'springgreen',
-    'steelblue', 'tan', 'teal', 'thistle', 'tomato', 'turquoise', 'violet', 'wheat', 'white', 'whitesmoke', 'yellow',
-    'yellowgreen'
-  ];
+  connected = false;
 
-  searchTerm: string = '';
+  colors: string[] = ['aliceblue', 'antiquewhite', 'aqua', 'aquamarine', 'azure', 'beige', 'bisque', 'black', 'blanchedalmond', 'blue', 'blueviolet', 'brown', 'burlywood', 'cadetblue', 'chartreuse', 'chocolate', 'coral', 'cornflowerblue', 'cornsilk', 'crimson', 'cyan', 'darkblue', 'darkcyan', 'darkgoldenrod', 'darkgray', 'darkgreen', 'darkgrey', 'darkkhaki', 'darkmagenta', 'darkolivegreen', 'darkorange', 'darkorchid', 'darkred', 'darksalmon', 'darkseagreen', 'darkslateblue', 'darkslategray', 'darkslategrey', 'darkturquoise', 'darkviolet', 'deeppink', 'deepskyblue', 'dimgray', 'dimgrey', 'dodgerblue', 'firebrick', 'floralwhite', 'forestgreen', 'fuchsia', 'gainsboro', 'ghostwhite', 'gold', 'goldenrod', 'gray', 'green', 'greenyellow', 'grey', 'honeydew', 'hotpink', 'indianred', 'indigo', 'ivory', 'khaki', 'lavender', 'lavenderblush', 'lawngreen', 'lemonchiffon', 'lightblue', 'lightcoral', 'lightcyan', 'lightgoldenrodyellow', 'lightgray', 'lightgreen', 'lightgrey', 'lightpink', 'lightsalmon', 'lightseagreen', 'lightskyblue', 'lightslategray', 'lightslategrey', 'lightsteelblue', 'lightyellow', 'lime', 'limegreen', 'linen', 'magenta', 'maroon', 'mediumaquamarine', 'mediumblue', 'mediumorchid', 'mediumpurple', 'mediumseagreen', 'mediumslateblue', 'mediumspringgreen', 'mediumturquoise', 'mediumvioletred', 'midnightblue', 'mintcream', 'mistyrose', 'moccasin', 'navajowhite', 'navy', 'oldlace', 'olive', 'olivedrab', 'orange', 'orangered', 'orchid', 'palegoldenrod', 'palegreen', 'paleturquoise', 'palevioletred', 'papayawhip', 'peachpuff', 'peru', 'pink', 'plum', 'powderblue', 'purple', 'rebeccapurple', 'red', 'rosybrown', 'royalblue', 'saddlebrown', 'salmon', 'sandybrown', 'seagreen', 'seashell', 'sienna', 'silver', 'skyblue', 'slateblue', 'slategray', 'slategrey', 'snow', 'springgreen', 'steelblue', 'tan', 'teal', 'thistle', 'tomato', 'turquoise', 'violet', 'wheat', 'white', 'whitesmoke', 'yellow', 'yellowgreen'];
+
+  searchTerm = '';
   filteredMessages: any[] = [];
 
   replyContent: string = '';
 
   text!: string;
-  recording: boolean = false;
+  recording = false;
 
-  technology: number = 0;
-  effort: number = 0;
-  codeComplexity: number = 0;
-  dependencies: number = 0;
+  technology = 0;
+  effort = 0;
+  codeComplexity = 0;
+  dependencies = 0;
+
+  showInputFields = true;
+
+  wordFilter: any;
 
   constructor(private messageService: MessageService, public MsgService: MessageserviceService) {
     this.MsgService.init();
@@ -70,6 +55,8 @@ export class MessageComponent {
     this.MsgService.recordingFinished.subscribe((recordedContent: string) => {
       this.content = recordedContent;
     });
+
+    this.wordFilter = new Filter();
   }
 
   ngOnInit(): void {
@@ -113,11 +100,20 @@ export class MessageComponent {
           }
         }
       });
+    }, (error: any) => {
+      console.error('Error during connection:', error);
     });
   }
 
   sendMessage() {
-    if (this.content.trim() !== '') {
+    if (!this.messageSent && this.content.trim() !== '') {
+      const isContentProfane = this.wordFilter.isProfane(this.content);
+      if (isContentProfane) {
+        this.messageService.add({severity: 'error', summary: 'Error', detail: 'Message contains inappropriate words !!!!'});
+        return;
+      } else {
+          this.messageService.add({severity: 'success', summary: 'Success', detail: 'Message sent successfully '});
+      }
       const message = {
         sender: this.username,
         content: this.content,
@@ -138,6 +134,7 @@ export class MessageComponent {
       this.effort = 0;
       this.codeComplexity = 0;
       this.dependencies = 0;
+      this.showInputFields = false;
     }
   }
 
@@ -190,6 +187,8 @@ export class MessageComponent {
           }
           messageToUpdate.replies.push(parsedResponse.reply);
         }
+      }, (error: any) => {
+        console.error('Error while sending reply:', error);
       });
       this.replyContent = '';
     }
