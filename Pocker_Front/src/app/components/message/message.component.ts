@@ -120,7 +120,6 @@ export class MessageComponent implements OnInit {
       } else {
         this.messageService.add({severity: 'success', summary: 'Success', detail: 'Message sent successfully '});
       }
-
       const message = {
         sender: this.username,
         content: this.content,
@@ -179,24 +178,14 @@ export class MessageComponent implements OnInit {
 
   sendReply(id: any) {
     const replyContent = this.replyContent.trim() !== '' ? this.replyContent : this.MsgService.replyText;
-
     if (replyContent.trim() !== '') {
       const isContentProfane = this.wordFilter.isProfane(replyContent);
       if (isContentProfane) {
-        this.messageService.add({
-          severity: 'error',
-          summary: 'Error',
-          detail: 'Reply contains inappropriate words!'
-        });
+        this.messageService.add({ severity: 'error', summary: 'Error', detail: 'Reply contains inappropriate words!' });
         return;
       } else {
-        this.messageService.add({
-          severity: 'success',
-          summary: 'Success',
-          detail: 'Reply sent successfully'
-        });
+        this.messageService.add({ severity: 'success', summary: 'Success', detail: 'Reply sent successfully' });
       }
-
       const payload = {
         id: id,
         sender: this.username,
@@ -205,18 +194,15 @@ export class MessageComponent implements OnInit {
           dateTime: new Date()
         }
       };
-
       this.wsClient.send('/app/chat.sendReply', {}, JSON.stringify(payload), (response: any) => {
         const parsedResponse = JSON.parse(response.body);
         console.log("Response received from server:", parsedResponse);
       }, (error: any) => {
         console.error('Error while sending reply:', error);
       });
-
       if (this.recordingReply) {
         this.stopRecordingReply();
       }
-
       this.replyContent = '';
       this.MsgService.replyText = '';
     }
