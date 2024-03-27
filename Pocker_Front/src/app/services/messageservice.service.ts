@@ -79,7 +79,7 @@ export class MessageserviceService {
 
   stopReplyService() {
     this.isStoppedSpeechRecog = true;
-    this.wordConcat();
+    this.wordConcatForReply();
     this.recognition.removeEventListener('end', this.handleReplyRecognitionEnd);
     this.recognition.stop();
     console.log("End speech recognition for reply")
