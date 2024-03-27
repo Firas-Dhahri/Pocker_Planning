@@ -1,11 +1,12 @@
 package com.example.pockerplanning.entities;
-
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.*;
 
 import java.util.List;
 import java.util.Set;
 
+@ToString
 @Entity
 @Getter
 @Setter
@@ -22,10 +23,10 @@ public class Equipe {
     private int satisfactionPO;
     private String chat;
     private DISPONIBILITE disponibilites;
+    @JsonIgnore
     @OneToMany(cascade = CascadeType.ALL, mappedBy="equipe")
     private List<Projet> Projets;
-    @ManyToMany(mappedBy = "equipes", cascade = {CascadeType.ALL})
-    private Set<User> users;
 
-
+    @ManyToMany(mappedBy="equipes", cascade = CascadeType.ALL)
+    private List<User> users;
 }

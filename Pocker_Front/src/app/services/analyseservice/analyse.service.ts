@@ -63,6 +63,25 @@ export class AnalyseService {
     return this.http.get(`${this.url}/Liste_Sprint_par_projet/${id}`)
 
   }
+  getSprint_par_Projet_ideal(id:number){
+    return this.http.get(`${this.url}/affichersprint_par_projet_ideal/${id}`)
+  }
+  getticket_par_mois(id:number){
+    return this.http.get(`${this.url}/get_ticket_par_mois/${id}`)
+
+  }
+
+  Proposition_affectation(id:number){
+    return this.http.get(`${this.url}/Affection_ticket_dev/${id}`)
+  }
+
+  evolutionComplexiteUtilisateur(id:number){
+    return this.http.get(`${this.url}/evolutionComplexiteUtilisateur/${id}`)
+  }
+  get_sprint_priorite(id:number){
+    return this.http.get(`${this.url}/get_ticket_par_mois/${id}`)
+  }
+
   getSprint_en_cours(id:number){
     return this.http.get(`${this.url}/get_sprint_en_cours/${id}`)
 

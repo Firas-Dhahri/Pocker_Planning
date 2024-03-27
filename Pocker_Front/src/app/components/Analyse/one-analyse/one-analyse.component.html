@@ -24,6 +24,14 @@
         </li>
       </ul>
     </div>
+    <div class="details-section">
+      <strong>Equipe :</strong>
+
+      <li *ngFor="let eq of analyse.projet.equipe.users">
+        {{ eq.username }}
+      </li>
+    </div>
+
 
     <div class="details-section">
       <strong>Date de début du projet :</strong> {{ analyse.projet.date_debut | date }}
@@ -35,6 +43,7 @@
     <div class="details-section">
       <strong>Sprint EN retard :</strong>
       <button class="btn btn-info" (click)="sprints_retard()">Sprints en retard</button>
+
       <button class="btn btn-info" (click)="sprints_en_cours()">Sprints en cours</button>
       <!-- Bouton qui déclenche l'affichage du graphique -->
       <div class="card-body">
@@ -127,14 +136,43 @@
 
 
 
-  <div class="details-section">
-    <strong>Graphique :</strong>
-    <button class="btn btn-info" (click)="add2Clicked()">Charts</button>
-    <!-- Bouton qui déclenche l'affichage du graphique -->
-    <div *ngIf="showChart">
-      <canvasjs-chart [options]="chartOptions" [styles]="{width: '400px', height:'350px'}"></canvasjs-chart>
+  <div class="container">
+    <!-- Vos autres éléments de contenu -->
+
+    <div class="details-section">
+      <div class="charts-container">
+        <div class="chart-container">
+          <strong>Graphique :</strong>
+          <button class="btn btn-info" (click)="add2Clicked()">Charts</button>
+          <!-- Bouton qui déclenche l'affichage du graphique -->
+          <div *ngIf="showChart" class="chart-wrapper">
+            <canvasjs-chart [options]="chartOptions" [styles]="{width: '400px', height:'350px'}"></canvasjs-chart>
+          </div>
+        </div>
+
+        <div class="chart-container">
+          <strong>Graphique :</strong>
+          <button class="btn btn-info" (click)="idealClicked()">Charts Ideal</button>
+          <!-- Bouton qui déclenche l'affichage du graphique -->
+          <div *ngIf="showChart1" class="chart-wrapper">
+            <canvasjs-chart [options]="chartOptions1" [styles]="{width: '400px', height:'350px'}"></canvasjs-chart>
+          </div>
+        </div>
+      </div>
+
     </div>
+    <br>
+    <br>
+    <br>
+    <br>
+    ♥♥♥
+    <div>
+      <canvasjs-chart [options]="chartOptions2" [styles]="{width: '70%', height:'360px'}"></canvasjs-chart>
+    </div>
+    <!-- Autres sections de détails si nécessaire -->
   </div>
+
+
   <!-- Ajoutez d'autres détails en fonction de vos besoins -->
 </div>
 

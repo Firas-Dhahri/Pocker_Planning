@@ -1,5 +1,8 @@
 package com.example.pockerplanning.services.impl;
 
+import org.springframework.stereotype.Service;
+
+/*
 import net.sourceforge.tess4j.ITesseract;
 import net.sourceforge.tess4j.Tesseract;
 import net.sourceforge.tess4j.TesseractException;
@@ -17,9 +20,10 @@ import org.opencv.core.Scalar;
 import org.opencv.imgproc.Imgproc;
 
 import javax.imageio.ImageIO;
+*/
 @Service
 public class ImageTextExtractionService {
-
+/*
     static {
         System.loadLibrary(Core.NATIVE_LIBRARY_NAME);
     }
@@ -102,5 +106,5 @@ public class ImageTextExtractionService {
         ImageIO.write(bufferedImage, "png", outputStream);
         return outputStream.toByteArray();
     }
-
+*/
 }

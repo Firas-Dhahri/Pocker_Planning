@@ -1,14 +1,21 @@
 package com.example.pockerplanning.entities;
 import java.time.LocalDateTime;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
+import lombok.*;
 
 @Entity
+@Getter
+@Setter
+@EqualsAndHashCode
+@AllArgsConstructor
 @Table(name = "users",
         uniqueConstraints = {
                 @UniqueConstraint(columnNames = "username"),
@@ -41,7 +48,13 @@ public class User {
             joinColumns = @JoinColumn(name = "user_id"),
             inverseJoinColumns = @JoinColumn(name = "role_id"))
     private Set<Role> roles = new HashSet<>();
-
+    @JsonIgnore
+    @ManyToMany(cascade = CascadeType.ALL)
+    private Set<Equipe> equipes;
+//khalil affectation mou7awla
+    @JsonIgnore
+    @OneToMany(cascade = CascadeType.ALL)
+    private List<Ticket> Tickets;
 
 
     public User() {
@@ -97,8 +110,7 @@ public class User {
 
 
 
-    @ManyToMany(cascade = {CascadeType.ALL})
-    private Set<Equipe> equipes;
+
 
 
 

@@ -2,14 +2,16 @@ package com.example.pockerplanning.controller;
 
 import com.example.pockerplanning.entities.*;
 import com.example.pockerplanning.repository.AnalyseRepository;
-import com.example.pockerplanning.repository.ProjetReposiroty;
+import com.example.pockerplanning.repository.ProjetRepository;
 import com.example.pockerplanning.services.Interface.IAnalyseService;
-import com.example.pockerplanning.services.Interface.IHistoriqueService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Date;
 import java.util.List;
+import java.util.Map;
+
 @RestController
 @CrossOrigin(origins = "http://localhost:4200")
 public class AnalyseController {
@@ -19,7 +21,7 @@ public class AnalyseController {
     @Autowired
     AnalyseRepository analyseRepository ;
     @Autowired
-    ProjetReposiroty projetReposiroty ;
+    ProjetRepository projetRepository;
 
     //http://localhost:8088/Spring/etudiant/retrieve-all-etudiants
     @GetMapping("/retrieve-all-Analyses")
@@ -30,8 +32,8 @@ public class AnalyseController {
     }
     @GetMapping("/getAnalyses_par_projets/{id}")
     @ResponseBody
-    public Analyse getAnalyses_par_projets(@PathVariable int id) {
-        Projet p = projetReposiroty.findById(id).orElse(null);
+    public Analyse getAnalyses_par_projets(@PathVariable Long id) {
+        Projet p = projetRepository.findById(id).orElse(null);
         return analyseRepository.findByProjet(p);
     }
 
@@ -43,12 +45,12 @@ public class AnalyseController {
     }
     @GetMapping("/get_analyse_retard/{projet-id}")
     @ResponseBody
-    public List<Sprint> get_analyse_retard(@PathVariable("projet-id") int id) {
+    public List<Sprint> get_analyse_retard(@PathVariable("projet-id") Long id) {
         return analyseService.sprint_en_retard(id);
     }
     @GetMapping("/get_sprint_en_cours/{projet-id}")
     @ResponseBody
-    public List<Sprint> get_analyse_en_cours(@PathVariable("projet-id") int id) {
+    public List<Sprint> get_analyse_en_cours(@PathVariable("projet-id") Long id) {
         return analyseService.sprint_en_cours(id);
     }
 
@@ -61,16 +63,27 @@ public class AnalyseController {
 
     @GetMapping("/Liste_Sprint_par_projet/{projet-id}")
     @ResponseBody
-    public ResponseEntity<?> affichersprint_par_projet(@PathVariable("projet-id") int id) {
+    public ResponseEntity<?> affichersprint_par_projet(@PathVariable("projet-id") Long id) {
         return analyseService.GetProjetParSprint(id);
+    }
+    @GetMapping("/affichersprint_par_projet_ideal/{projet-id}")
+    @ResponseBody
+    public ResponseEntity<?> affichersprint_par_projet_ideal(@PathVariable("projet-id") Long id) {
+        return analyseService.GetProjetParSprintIdeal(id);
+    }
+
+    @GetMapping("/get_ticket_par_mois/{projet-id}")
+    @ResponseBody
+    public ResponseEntity<?> get_ticket_par_mois(@PathVariable("projet-id") Long id) {
+        return analyseService.get_ticket_par_mois(id);
     }
 
     @GetMapping("/getprojet_par_time/{projet-id}")
-    public ResponseEntity<?> getprojetpartime(@PathVariable("projet-id") int id) {
+    public ResponseEntity<?> getprojetpartime(@PathVariable("projet-id") Long id) {
         return analyseService.getprojetpartime(id);
     }
     @GetMapping("/get_pourcentage_avancement/{projet-id}")
-    public Float get_pourcentage_avancement(@PathVariable("projet-id") int id) {
+    public Float get_pourcentage_avancement(@PathVariable("projet-id") Long id) {
         return analyseService.Pourcentage_avancemenet_pojet(id);
     }
 
@@ -81,6 +94,10 @@ public class AnalyseController {
     public Analyse retrieveHistorique(@PathVariable("Analyse-id") int id) {
         return analyseService.afficher_one_Analyse(id);
     }
+
+
+
+
     @GetMapping("/retrieve-Analyse_par_sprint_par_ordre/{Analyse-id}")
     public List<Analyse> retrieve_Analyse_par_sprint() {
 
@@ -90,7 +107,7 @@ public class AnalyseController {
     // http://localhost:8088/Spring/etudiant/add-etudiant
     @PostMapping("/add-Analyse/{id_projet}")
     @ResponseBody
-    public Analyse addAnalyse(@RequestBody Analyse ae,@PathVariable("id_projet") int id_projet)
+    public Analyse addAnalyse(@RequestBody Analyse ae,@PathVariable("id_projet") Long id_projet)
     {
         Analyse analyse = analyseService.ajouterAnalyse(ae,id_projet);
 
@@ -133,7 +150,16 @@ public class AnalyseController {
 
         return analyseService.sprint_priorite(id);
     }
-
+    @GetMapping("/Affection_ticket_dev/{ticket_id}")
+    @ResponseBody
+    public List<User> user_dev(@PathVariable("ticket_id") Long ticket_id) {
+       return analyseService.Affection_ticket_dev(ticket_id);
+    }
+    @GetMapping("evolutionComplexiteUtilisateur/{id}")
+    public ResponseEntity<Map<Date, Float>> getUserEvolution(@PathVariable("id") Long userId) {
+        Map<Date, Float> evolution = analyseService.evolutionComplexiteUtilisateur(userId);
+        return ResponseEntity.ok(evolution);
+    }
 
 }
 

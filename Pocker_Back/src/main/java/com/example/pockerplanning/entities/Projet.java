@@ -1,5 +1,4 @@
 package com.example.pockerplanning.entities;
-
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.*;
@@ -16,11 +15,12 @@ import java.util.List;
 public class Projet {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id;
+    private Long id;
     private String titre;
     private String objectif;
     private Date date_debut;
     private Date date_fin;
+    private String duree;
     private  String contraintes;
     private String exigences ;
     private String dependance ;
@@ -30,7 +30,6 @@ public class Projet {
     @JsonIgnore
     @ManyToMany(cascade = CascadeType.ALL)
     private List<Carte> cartes;
-
     @OneToMany(cascade = CascadeType.ALL, mappedBy="projet")
     private List<Sprint> Sprints;
 

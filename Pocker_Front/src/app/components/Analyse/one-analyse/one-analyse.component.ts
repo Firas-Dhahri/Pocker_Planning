@@ -23,6 +23,14 @@ export class OneAnalyseComponent implements OnInit {
     this.id = this.route.snapshot.params['id'];
   }
   showChart = false;
+  showChart1 = false;
+
+
+  //Boutton
+  //sprints en retard
+  showretard = false;
+  listAnalyse1!:any;
+  showcours = false;
 
   ///CHART2
 
@@ -43,8 +51,79 @@ export class OneAnalyseComponent implements OnInit {
       dataPoints: [] as { name: string, y: number }[] // Déclarer le type ici
     }]
   };
+  chartOptions1 = {
+    animationEnabled: true,
+    theme: "dark2",
+    exportEnabled: true,
+    title: {
+      text: "SPRINTS PARS PROJET Ideal"
+    },
+    subtitles: [{
+      text: "duree par jours "
+    }],
+    data: [{
+      type: "pie",
+      indexLabel: "Sprint num:{name}  duree: {y}J",
+      dataPoints: [] as { name: string, y: number }[] // Déclarer le type ici
+    }]
+  };
+  chartOptions2 = {
+    title: {
+      text: 'Monthly Tickets WORKED',
+    },
+    theme: 'light2',
+    animationEnabled: true,
+    exportEnabled: true,
+    /*  axisY: {
+        includeZero: true,
+        valueFormatString: '$#,##0k',
+      },*/
+    data: [
+      {
+        type: 'column',
+        color: '#5f76e8',
+        indexLabel: "{y} us pendant le mois {name}",
+        dataPoints: [] as { name: string, y: number }[]
+      },
+    ],
+  };
   pourcentage:any;
-  ngOnInit() { this.AS.getOneAnalyse(this.id).subscribe(
+  ngOnInit() {
+    this.AS.getOneAnalyse(this.id).subscribe(
+      (data) => {
+        this.analyse = data;
+        console.log('Analyse récupérée :', this.analyse);
+
+        this.AS.getticket_par_mois(1).subscribe(
+          (data) => {
+            this.labels1 = Object.keys(data);
+            const values1 = Object.values(data);
+
+            if (this.chartOptions2.data[0]) {
+              this.chartOptions2.data[0].dataPoints = this.labels1.map((label, index) => ({
+                name: label,
+                y: values1[index],
+              }));
+            } else {
+              console.error('La propriété "data[0]" de chartOptions est undefined.');
+            }
+
+            console.log('Tickets par mois :', this.labels1, this.values1);
+          },
+          (error) => {
+            console.error('Erreur lors de la récupération des données :', error);
+          }
+        );
+      },
+      (error) => {
+        console.error('Erreur lors de la récupération des détails de l\'analyse :', error);
+      }
+    );
+
+
+
+
+    this.AS.getOneAnalyse(this.id).subscribe(
     (data) => {
       // Logique à exécuter une fois que les données sont disponibles
       this.analyse = data;
@@ -73,7 +152,6 @@ export class OneAnalyseComponent implements OnInit {
         console.error('Erreur lors de la récupération de l\'analyse :', error);
       }
     );
-
     this.AS.getOneAnalyse(this.id).subscribe(
       (data) => {
         // Logique à exécuter une fois que les données sont disponibles
@@ -85,18 +163,15 @@ export class OneAnalyseComponent implements OnInit {
             console.log('lana:'+this.labels1);
             const values1 = Object.values(data);
 ///
-
             // Vérifier si this.chartOptions.data[0] existe
             if (this.chartOptions.data[0]) {
               this.chartOptions.data[0].dataPoints = this.labels1.map((label, index) => ({
                 name: label,
                 y: values1[index],
               }));
-
             } else {
               console.error('La propriété "data[0]" de chartOptions est undefined.');
             }
-
             // La sortie suivante sera exécutée avant que les données ne soient reçues
             console.log('Appel du service en cours...');
           },
@@ -105,8 +180,34 @@ export class OneAnalyseComponent implements OnInit {
           }
         );});
 
+    this.AS.getOneAnalyse(this.id).subscribe(
+      (data) => {
+        // Logique à exécuter une fois que les données sont disponibles
+        this.analyse = data;
+        console.log('Analyse récupérée99 :', this.analyse);
+        this.AS.getSprint_par_Projet_ideal(this.analyse.projet.id).subscribe(
+          (data) => {
+            this.labels1 = Object.keys(data);
+            console.log('lana:'+this.labels1);
+            const values1 = Object.values(data);
+///
+            // Vérifier si this.chartOptions.data[0] existe
+            if (this.chartOptions1.data[0]) {
+              this.chartOptions1.data[0].dataPoints = this.labels1.map((label, index) => ({
+                name: label,
+                y: values1[index],
+              }));
+            } else {
+              console.error('La propriété "data[0]" de chartOptions est undefined.');
+            }
+            // La sortie suivante sera exécutée avant que les données ne soient reçues
+            console.log('Appel du service en cours...');
+          },
+          (error) => {
+            console.error('Erreur lors de la récupération des données :', error);
+          }
+        );});
   }
-
 
 
   add2Clicked(){
@@ -115,11 +216,14 @@ export class OneAnalyseComponent implements OnInit {
     this.chartOptions;
     console.log('wiwi :', this.labels1);
   }
+  idealClicked(){
+    this.showChart1= !this.showChart1;
+
+    this.chartOptions1;
+    console.log('abdou :', this.labels1);
+  }
 
 
-  //sprints en retard
-  showretard = false;
-  listAnalyse1!:any;
   sprints_retard() {
     this.showretard = !this.showretard;
 
@@ -135,7 +239,9 @@ export class OneAnalyseComponent implements OnInit {
       );
     }
   }
-  showcours = false;
+
+
+
   sprints_en_cours() {
     this.showcours = !this.showcours;
     if (this.showcours) {
@@ -174,5 +280,6 @@ export class OneAnalyseComponent implements OnInit {
     // Sauvegardez le fichier Excel
     XLSX.writeFile(wb, 'exported_data.xlsx');
   }
+
 
 }

@@ -175,7 +175,7 @@ public class ReclamationRestController {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Error sending notifications: " + e.getMessage());
         }
     }
-    @PostMapping("/extractText")
+  /*  @PostMapping("/extractText")
     public ResponseEntity<String> extractTextFromImage(@RequestParam("imageFile") MultipartFile imageFile) {
         try {
             String extractedText = imageTextExtractionService.extractTextFromImage(imageFile);
@@ -196,7 +196,7 @@ public class ReclamationRestController {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Error extracting blue text from image.");
         }
 
-    }
+    }*/
     @GetMapping("/filtered")
     public ResponseEntity<List<Reclamation>> getFilteredReclamations(@RequestParam(required = false) String statut,
                                                                      @RequestParam(required = false) String priority,

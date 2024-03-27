@@ -2,4 +2,28 @@
 
 <div class="details-section">
   <strong>Description :</strong> {{ ticket.key }}
+
 </div>
+<div class="details-section">
+  <strong>id :</strong> {{ ticket.id }}
+
+</div>
+<div class="details-section">
+
+  <div class="details-section">
+    <strong>Sprint EN retard :</strong>
+    <button class="btn btn-info" (click)="Affection_ticket_dev()">Affection ticket dev</button>
+    <tr class="col-lg-6" *ngFor="let user of listUsers; let i=index">
+      <td>{{ user.username }}</td>
+    </tr>
+</div>
+  <button class="btn btn-info" (click)="evolution_equipe()">evolution_equipe</button>
+
+  <div>
+  <canvasjs-chart [options]="chartOptions" [styles]="{width: '70%', height:'360px'}"></canvasjs-chart>
+</div>
+  <div>
+    <canvasjs-chart [options]="chartOptions2" [styles]="{width: '70%', height:'360px'}"></canvasjs-chart>
+  </div>
+
+
