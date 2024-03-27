@@ -10,8 +10,9 @@ export class MessageserviceService {
   recognition = new webkitSpeechRecognition();
 
   isStoppedSpeechRecog = false;
-  public text = '';
+  text = '';
   tempWords: string = '';
+  replyText = '';
 
   recordingFinished: EventEmitter<string> = new EventEmitter<string>();
 
@@ -33,7 +34,6 @@ export class MessageserviceService {
 
   startService(){
     this.text = '';
-
     this.isStoppedSpeechRecog = false;
     this.recognition.start();
     console.log("Speech recognition started")
@@ -65,6 +65,41 @@ export class MessageserviceService {
       this.text = this.text + ', ' + this.tempWords;
     } else {
       this.text = this.tempWords.charAt(0).toUpperCase() + this.tempWords.slice(1);
+    }
+    this.tempWords = '';
+  }
+
+  startReplyService(){
+    this.replyText = '';
+    this.isStoppedSpeechRecog = false;
+    this.recognition.start();
+    console.log("Speech recognition started for reply")
+    this.recognition.addEventListener('end', this.handleReplyRecognitionEnd);
+  }
+
+  stopReplyService() {
+    this.isStoppedSpeechRecog = true;
+    this.wordConcat();
+    this.recognition.removeEventListener('end', this.handleReplyRecognitionEnd);
+    this.recognition.stop();
+    console.log("End speech recognition for reply")
+  }
+
+  handleReplyRecognitionEnd = () => {
+    if (this.isStoppedSpeechRecog) {
+      this.recognition.stop();
+      console.log("End speech recognition for reply");
+    } else {
+      this.wordConcatForReply();
+      this.recognition.start();
+    }
+  };
+
+  wordConcatForReply() {
+    if (this.replyText.trim() !== '') {
+      this.replyText = this.replyText + ', ' + this.tempWords;
+    } else {
+      this.replyText = this.tempWords.charAt(0).toUpperCase() + this.tempWords.slice(1);
     }
     this.tempWords = '';
   }

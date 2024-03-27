@@ -49,6 +49,8 @@ export class MessageComponent implements OnInit {
 
   wordFilter: any;
 
+  recordingReply = false;
+
   constructor(private messageService: MessageService, public MsgService: MessageserviceService) {
     this.MsgService.init();
 
@@ -106,22 +108,27 @@ export class MessageComponent implements OnInit {
   }
 
   sendMessage() {
-    if (!this.messageSent && this.content.trim() !== '') {
+    if (!this.messageSent || !this.content || !this.content.trim()) {
       const isContentProfane = this.wordFilter.isProfane(this.content);
       if (isContentProfane) {
-        this.messageService.add({severity: 'error', summary: 'Error', detail: 'Message contains inappropriate words !!!!'});
+        this.messageService.add({
+          severity: 'error',
+          summary: 'Error',
+          detail: 'Message contains inappropriate words !!!!'
+        });
         return;
       } else {
-          this.messageService.add({severity: 'success', summary: 'Success', detail: 'Message sent successfully '});
+        this.messageService.add({severity: 'success', summary: 'Success', detail: 'Message sent successfully '});
       }
+
       const message = {
         sender: this.username,
         content: this.content,
         dateTime: new Date(),
-        technology : this.technology,
-        effort : this.effort,
-        codeComplexity : this.codeComplexity,
-        dependencies : this.dependencies
+        technology: this.technology,
+        effort: this.effort,
+        codeComplexity: this.codeComplexity,
+        dependencies: this.dependencies
       };
       this.messageSent = true;
       const that = this;
@@ -129,6 +136,9 @@ export class MessageComponent implements OnInit {
         const parsedResponse = JSON.parse(response.body);
         console.log("Response received from server:", parsedResponse);
       });
+      if (this.recording) {
+        this.stopRecording();
+      }
       this.content = '';
       this.technology = 0;
       this.effort = 0;
@@ -168,29 +178,47 @@ export class MessageComponent implements OnInit {
   }
 
   sendReply(id: any) {
-    if (this.replyContent.trim() !== '') {
+    const replyContent = this.replyContent.trim() !== '' ? this.replyContent : this.MsgService.replyText;
+
+    if (replyContent.trim() !== '') {
+      const isContentProfane = this.wordFilter.isProfane(replyContent);
+      if (isContentProfane) {
+        this.messageService.add({
+          severity: 'error',
+          summary: 'Error',
+          detail: 'Reply contains inappropriate words!'
+        });
+        return;
+      } else {
+        this.messageService.add({
+          severity: 'success',
+          summary: 'Success',
+          detail: 'Reply sent successfully'
+        });
+      }
+
       const payload = {
         id: id,
         sender: this.username,
         reply: {
-          content: this.replyContent,
+          content: replyContent,
           dateTime: new Date()
         }
       };
+
       this.wsClient.send('/app/chat.sendReply', {}, JSON.stringify(payload), (response: any) => {
         const parsedResponse = JSON.parse(response.body);
         console.log("Response received from server:", parsedResponse);
-        const messageToUpdate = this.received.find(message => message.id === id);
-        if (messageToUpdate) {
-          if (!messageToUpdate.replies) {
-            messageToUpdate.replies = [];
-          }
-          messageToUpdate.replies.push(parsedResponse.reply);
-        }
       }, (error: any) => {
         console.error('Error while sending reply:', error);
       });
+
+      if (this.recordingReply) {
+        this.stopRecordingReply();
+      }
+
       this.replyContent = '';
+      this.MsgService.replyText = '';
     }
   }
 
@@ -202,6 +230,16 @@ export class MessageComponent implements OnInit {
   stopRecording() {
     this.recording = false;
     this.MsgService.stopService();
+  }
+
+  startRecordingReply() {
+    this.recordingReply = true;
+    this.MsgService.startReplyService();
+  }
+
+  stopRecordingReply() {
+    this.recordingReply = false;
+    this.MsgService.stopReplyService();
   }
 
   speakMessage(messageContent: string): void {
