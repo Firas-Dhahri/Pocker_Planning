@@ -16,6 +16,8 @@ export class MessageserviceService {
 
   recordingFinished: EventEmitter<string> = new EventEmitter<string>();
 
+  recordingReplyFinished: EventEmitter<string> = new EventEmitter<string>();
+
   constructor() {}
 
   init() {
@@ -48,16 +50,15 @@ export class MessageserviceService {
     console.log("End speech recognition")
   }
 
-  private handleRecognitionEnd = () => {
+  handleRecognitionEnd = () => {
     if (this.isStoppedSpeechRecog) {
       this.recognition.stop();
       console.log("End speech recognition");
+      this.recordingFinished.emit(this.text);
     } else {
       this.wordConcat();
       this.recognition.start();
     }
-
-    this.recordingFinished.emit(this.text);
   };
 
   wordConcat(){
@@ -89,6 +90,7 @@ export class MessageserviceService {
     if (this.isStoppedSpeechRecog) {
       this.recognition.stop();
       console.log("End speech recognition for reply");
+      this.recordingReplyFinished.emit(this.replyText);
     } else {
       this.wordConcatForReply();
       this.recognition.start();

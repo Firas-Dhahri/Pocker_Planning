@@ -53,12 +53,13 @@ export class MessageComponent implements OnInit {
 
   constructor(private messageService: MessageService, public MsgService: MessageserviceService) {
     this.MsgService.init();
-
+    this.wordFilter = new Filter();
     this.MsgService.recordingFinished.subscribe((recordedContent: string) => {
       this.content += recordedContent;
     });
-
-    this.wordFilter = new Filter();
+    this.MsgService.recordingReplyFinished.subscribe((recordedReplyContent: string) => {
+      this.replyContent += recordedReplyContent;
+    });
   }
 
   ngOnInit(): void {
@@ -216,9 +217,8 @@ export class MessageComponent implements OnInit {
 
   stopRecording() {
     this.recording = false;
-    const recordedText = this.MsgService.text;
+    this.content += this.MsgService.text;
     this.MsgService.text = '';
-    this.content += recordedText;
     this.MsgService.stopService();
   }
 
