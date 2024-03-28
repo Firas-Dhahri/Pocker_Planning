@@ -215,8 +215,12 @@ export class MessageComponent implements OnInit {
 
   stopRecording() {
     this.recording = false;
+    const recordedText = this.MsgService.text;
+    this.MsgService.text = '';
+    this.content += recordedText;
     this.MsgService.stopService();
   }
+
 
   startRecordingReply() {
     this.recordingReply = true;
@@ -225,6 +229,8 @@ export class MessageComponent implements OnInit {
 
   stopRecordingReply() {
     this.recordingReply = false;
+    this.replyContent += this.MsgService.replyText;
+    this.MsgService.replyText = '';
     this.MsgService.stopReplyService();
   }
 
