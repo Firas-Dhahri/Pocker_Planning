@@ -94,7 +94,7 @@
                         <!-- Message Input for Reply -->
                         <div class="reply-input">
                           <div class="input-group">
-                            <input type="text" class="form-control" placeholder="Type your reply here ..." pInputText [(ngModel)]="replyContent" (keydown.enter)="sendReply(message.id)" [value]="MsgService.replyText">
+                            <input type="text" class="form-control" placeholder="Type your reply here ..." pInputText [(ngModel)]="replyContent" (keydown.enter)="sendReply(message.id, message.sender)" [value]="MsgService.replyText">
                             <div class="input-group-append">
                               <div class="blue-frame">
                                 <div class="d-flex align-items-center">
@@ -107,7 +107,7 @@
                                 </div>
                               </div>
                             </div>
-                            <button class="btn btn-cyan" (click)="sendReply(message.id)">
+                            <button class="btn btn-cyan" (click)="sendReply(message.id, message.sender)">
                               <i class="fas fa-reply"></i>
                             </button>
                           </div>

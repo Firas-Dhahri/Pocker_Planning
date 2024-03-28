@@ -29,13 +29,13 @@ public class ReplyController {
         Message message = messageRepository.findById(replyPayload.getId()).orElse(null);
 
         if (message != null) {
-            String from = reply.getFrom();
-            String to = reply.getTo();
+            String fromSender = reply.getFromSender();
+            String toReciever = reply.getToReciever();
 
             Reply replyObj = replyPayload.getReply();
             replyObj.setMessage(message);
-            replyObj.setFrom(from);
-            replyObj.setTo(to);
+            replyObj.setFromSender(fromSender);
+            replyObj.setToReciever(toReciever);
 
             Reply savedReply = replyRepository.save(replyObj);
 

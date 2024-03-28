@@ -176,7 +176,7 @@ export class MessageComponent implements OnInit {
     }
   }
 
-  sendReply(id: any) {
+  sendReply(id: any, toReciever:string) {
     const replyContent = this.replyContent.trim() !== '' ? this.replyContent : this.MsgService.replyText;
     if (replyContent.trim() !== '') {
       const isContentProfane = this.wordFilter.isProfane(replyContent);
@@ -188,7 +188,8 @@ export class MessageComponent implements OnInit {
       }
       const payload = {
         id: id,
-        sender: this.username,
+        fromSender: this.username,
+        toReciever: toReciever,
         reply: {
           content: replyContent,
           dateTime: new Date()
@@ -220,7 +221,7 @@ export class MessageComponent implements OnInit {
     this.content += recordedText;
     this.MsgService.stopService();
   }
-  
+
   startRecordingReply() {
     this.recordingReply = true;
     this.MsgService.startReplyService();
