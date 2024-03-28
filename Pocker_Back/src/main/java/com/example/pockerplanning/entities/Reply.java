@@ -26,8 +26,11 @@ public class Reply {
     @Column(name = "content")
     private String content;
 
-    @Column(name = "sender")
-    private String sender;
+    @Column(name = "from")
+    private String from;
+
+    @Column(name = "to")
+    private String to;
 
     @Column(name = "dateTime")
     private Date dateTime;

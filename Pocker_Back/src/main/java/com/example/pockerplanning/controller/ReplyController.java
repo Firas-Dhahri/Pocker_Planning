@@ -15,34 +15,31 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 public class ReplyController {
 
-    private final ReplyRepository replyRepository;
-    private final SimpMessagingTemplate messagingTemplate;
     @Autowired
-    MessageRepository messageRepository ;
+    private ReplyRepository replyRepository;
 
     @Autowired
-    public ReplyController(ReplyRepository replyRepository, SimpMessagingTemplate messagingTemplate) {
-        this.replyRepository = replyRepository;
-        this.messagingTemplate = messagingTemplate;
-    }
+    private SimpMessagingTemplate messagingTemplate;
+
+    @Autowired
+    private MessageRepository messageRepository;
 
     @MessageMapping("/chat.sendReply")
-    public void saveReply(@Payload ReplyPayload reply, @Payload Reply r) {
-        Message message = messageRepository.findById(reply.getId()).orElse(null);
+    public void saveReply(@Payload ReplyPayload replyPayload, @Payload Reply reply) {
+        Message message = messageRepository.findById(replyPayload.getId()).orElse(null);
 
         if (message != null) {
-            String sender = r.getSender();
+            String from = reply.getFrom();
+            String to = reply.getTo();
 
-            Reply replyObj = reply.getReply();
-
+            Reply replyObj = replyPayload.getReply();
             replyObj.setMessage(message);
-
-            replyObj.setSender(sender);
+            replyObj.setFrom(from);
+            replyObj.setTo(to);
 
             Reply savedReply = replyRepository.save(replyObj);
 
             messagingTemplate.convertAndSend("/topic/public", savedReply);
         }
     }
-
 }

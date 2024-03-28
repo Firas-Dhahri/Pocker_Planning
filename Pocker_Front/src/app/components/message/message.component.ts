@@ -220,8 +220,7 @@ export class MessageComponent implements OnInit {
     this.content += recordedText;
     this.MsgService.stopService();
   }
-
-
+  
   startRecordingReply() {
     this.recordingReply = true;
     this.MsgService.startReplyService();
