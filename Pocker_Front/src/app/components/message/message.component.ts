@@ -55,7 +55,7 @@ export class MessageComponent implements OnInit {
     this.MsgService.init();
 
     this.MsgService.recordingFinished.subscribe((recordedContent: string) => {
-      this.content = recordedContent;
+      this.content += recordedContent;
     });
 
     this.wordFilter = new Filter();
